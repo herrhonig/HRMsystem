@@ -1,9 +1,10 @@
 import React from 'react';
 import Chip from '@mui/material/Chip';
 
-const Tag = ({tag}) => {
+const Tag = ({tag, color}) => {
+  
   return (
-    <Chip label={tag} color="primary" />
+    <Chip label={tag} color={color} />
   )
 }
 
