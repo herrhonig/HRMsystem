@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from 'axios'
+import axios from 'axios';
 
 export const getInfo = createAsyncThunk('info/getUser', async () => {
   return 'Hi'
