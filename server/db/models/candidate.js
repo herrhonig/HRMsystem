@@ -21,6 +21,9 @@ module.exports = (sequelize, DataTypes) => {
         through: 'VacancyJoinTables',
         foreignKey: 'candidate_id',
       });
+      this.hasMany(models.AboutCandidate, { foreignKey: 'candidate_id' });
+      this.hasMany(models.Education, { foreignKey: 'candidate_id' });
+      this.hasMany(models.Experience, { foreignKey: 'candidate_id' });
     }
   }
   Candidate.init(
