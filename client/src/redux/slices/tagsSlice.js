@@ -3,7 +3,8 @@ import axios from 'axios';
 
 export const getTags = createAsyncThunk('tags/getTags', async (id) => {
   const res = await axios(`/candidate/tags/${id}`);
-  return res.data.tags;
+  console.log('-----------------',res.data);
+  return res.data;
 });
 
 const tagsSlice = createSlice({
