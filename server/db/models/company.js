@@ -12,10 +12,12 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(models.Company, {
         through: 'AgentJoinTables',
         foreignKey: 'company_id',
+        as: 'comp',
       });
       this.belongsToMany(models.Company, {
         through: 'AgentJoinTables',
         foreignKey: 'agent_id',
+        as: 'agent',
       });
       this.hasMany(models.Vacancy, { foreignKey: 'company_id' });
     }
