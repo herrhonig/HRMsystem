@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getCandidate } from '../../redux/slices/candidateSlice';
+import { getTags } from '../../redux/slices/tagsSlice';
 import { Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
@@ -14,7 +15,8 @@ function Candidates() {
 
   // useEffect
   useEffect(()=>{
-    dispatch(getCandidate(id))
+    dispatch(getCandidate(id));
+    // dispatch(getTags(id));
   }, []);
 
   // Дополнительные переменные

@@ -3,8 +3,8 @@ import axios from 'axios';
 
 export const getCandidate = createAsyncThunk('candidate/getCandidates', async (id) => {
   const res = await axios(`/candidate/info/${id}`);
- return res.data.candidateInfo
-})
+  return res.data.candidateInfo
+});
 
 const candidateSlice = createSlice({
   name: 'candidate',

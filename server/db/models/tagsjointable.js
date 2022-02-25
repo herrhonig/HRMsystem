@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class TagsJoinTable extends Model {
     /**
@@ -13,11 +11,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  TagsJoinTable.init({
-    candidate_id: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'TagsJoinTable',
-  });
+  TagsJoinTable.init(
+    {
+      candidate_id: DataTypes.INTEGER,
+      tag_id: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: 'TagsJoinTable',
+    }
+  );
   return TagsJoinTable;
 };
