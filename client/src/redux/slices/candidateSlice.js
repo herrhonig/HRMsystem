@@ -1,11 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const getCandidate = createAsyncThunk('candidates/getCandidates', async (id) => {
- const res = await axios(`/candidate/info/${id}`);
- console.log('getCandidate res = ',res.data.candidateInfo);
- return res.data.candidateInfo
-})
+export const getCandidate = createAsyncThunk('candidate/getCandidates', async (id) => {
+  const res = await axios(`/candidate/info/${id}`);
+  return res.data.candidateInfo
+});
 
 const candidateSlice = createSlice({
   name: 'candidate',
