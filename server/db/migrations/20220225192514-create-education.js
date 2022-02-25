@@ -1,26 +1,34 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('AgentJoinTables', {
+    await queryInterface.createTable('Education', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      company_id: {
+      candidate_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Companies',
+          model: 'Candidates',
           key: 'id',
         },
       },
-      agent_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Companies',
-          key: 'id',
-        },
+      place: {
+        type: Sequelize.STRING,
+      },
+      start_date: {
+        type: Sequelize.STRING,
+      },
+      end_date: {
+        type: Sequelize.STRING,
+      },
+      direction: {
+        type: Sequelize.STRING,
+      },
+      level: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +41,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('AgentJoinTables');
+    await queryInterface.dropTable('Education');
   },
 };
