@@ -14,11 +14,6 @@ import {
 } from "react-router-dom";
 
 function Index() {
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getInfo())
-  }, [])
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
