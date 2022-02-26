@@ -21,6 +21,7 @@ module.exports = {
           end_date: '2007',
           descr:
             'В мои обязанности входило поливать цветы и гладить котиков. Лучшая работа в моей жизни',
+          position: 'Старший помошник',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -31,6 +32,7 @@ module.exports = {
           end_date: '2020',
           descr:
             'Hf,jnfk rehmthjv, tk xe;e. tle, rhfk e lheub[ rehmthjd ltymub, rhsitdfk ,bpytc',
+          position: 'middle',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -41,6 +43,7 @@ module.exports = {
           end_date: '2022',
           descr:
             'Носил Леше чай, задавал тупые вопросы, просил его что-нибудь объяснить. Он терпел и объяснял. Леша-хороший',
+          position: 'Top',
           createdAt: new Date(),
           updatedAt: new Date(),
         },

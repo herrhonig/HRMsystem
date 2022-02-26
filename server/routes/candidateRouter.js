@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { Candidate, Tag } = require('../db/models');
+const {
+  Candidate,
+  Tag,
+  Education,
+  Experience,
+  AboutCandidate,
+} = require('../db/models');
 
 // /candidate
 
@@ -9,14 +15,44 @@ router.get('/info/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const candidateInfo = await Candidate.findOne({ where: { id } });
+    const candidateAbout = await AboutCandidate.findAll({
+      where: { candidate_id: id },
+    });
+    const candidateExperience = await Experience.findAll({
+      where: { candidate_id: id },
+    });
+    const candidateEducation = await Education.findAll({
+      where: { candidate_id: id },
+    });
     if (candidateInfo) {
-      res.json({ candidateInfo });
+      res.json({
+        candidateInfo,
+      });
     } else {
       res.sendStatus(500);
     }
   } catch (err) {
     console.log(err);
     res.sendStatus(503);
+  }
+});
+
+router.get('/about/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const candidateAbout = await AboutCandidate.findAll({
+      where: { candidate_id: id },
+    });
+    const candidateExperience = await Experience.findAll({
+      where: { candidate_id: id },
+    });
+    const candidateEducation = await Education.findAll({
+      where: { candidate_id: id },
+    });
+    res.json({ candidateAbout, candidateExperience, candidateEducation });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
   }
 });
 
@@ -39,5 +75,7 @@ router.get('/tags/:id', async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+router.get('/education/:id', (req, res) => {});
 
 module.exports = router;
