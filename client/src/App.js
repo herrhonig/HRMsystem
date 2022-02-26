@@ -14,43 +14,48 @@ import Addvacancy from "./components/Addvacancy/Addvacancy";
 import Addcandidates from "./components/Addcandidates/Addcandidates";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import SideMenu from "./components/NavBar/SideMenu";
+import Box from '@mui/material/Box';
+import TryMenu from "./components/NavBar/FooterMenu";
 
 function App() {
   return (
-    <div>
-      <Index />
+    <>
+      {/* <Index /> */}
+      {/* <TryMenu /> */}
 
-      <Routes>
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/signin' element={<Signin />} />
-        <Route path='/crm/vacancies' element={<Vacancy />} />
-        <Route path='/crm/chat' element={<Chat />} />
-        <Route path='/crm/candidates' element={<Candidates />} />
-        <Route path='/crm/candidates/:id' element={<Candidates />} />
-        <Route path='/crm/clients' element={<Clients />} />
-        <Route path='/crm/clients/:id/vacancies/:id/candidates' element={<Candidates />} />
-        <Route path='/crm/clients/:id/vacancies/:id/candidates/:id' element={<Candidates />} />
-        <Route path='/crm/vacancies/:id/candidates' element={<Candidates />} />
-        <Route path='/crm/vacancies/:id/candidates/:id' element={<Candidates />} />
-        <Route path='/crm/{current.location}/addvacancy' element={<Addvacancy />} />
-        <Route path='/crm/{current.location}/addcandidates' element={<Addcandidates />} />
-        <Route path='/candidates/:id' element={<Candidates />} />
-      </Routes>
+      <Box sx={{ display: 'flex' }}>
+        <SideMenu />
 
-      {/* /sign
-/signup
-/ - рендеририть заглушку и проверять на залогиненость
-/crm/clients 
-/crm/vacancies
-/crm/candidates
-/crm/chat
-/crm/clients/{id}/vacancies/{id}/candidates
-/crm/clients/{id}/vacancies/{id}/candidates/{id}
-/{current.location}/addvacancy
-/{current.location}/addcandidate */}
+        {/* <TryMenu /> */}
+
+        <Box component="main" >
+          {/* СЮДА ДОБАВЛЯЕМ ВСЕ ССЫЛКИ НА КОМПОНЕНТЫ */}
+          {/* <Index /> */}
+
+          <Routes>
+            {/* <Route path='/' element={<TryMenu />} /> */}
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/signin' element={<Signin />} />
+            <Route path='/crm/vacancies' element={<Vacancy />} />
+            <Route path='/crm/chat' element={<Chat />} />
+            <Route path='/crm/candidates' element={<Candidates />} />
+            <Route path='/crm/candidates/:id' element={<Candidates />} />
+            <Route path='/crm/clients' element={<Clients />} />
+            <Route path='/crm/clients/:id/vacancies/:id/candidates' element={<Candidates />} />
+            <Route path='/crm/clients/:id/vacancies/:id/candidates/:id' element={<Candidates />} />
+            <Route path='/crm/vacancies/:id/candidates' element={<Candidates />} />
+            <Route path='/crm/vacancies/:id/candidates/:id' element={<Candidates />} />
+            <Route path='/crm/{current.location}/addvacancy' element={<Addvacancy />} />
+            <Route path='/crm/{current.location}/addcandidates' element={<Addcandidates />} />
+          </Routes>
+
+        </Box>
+
+      </Box>
 
 
-    </div>
+    </>
   );
 }
 
