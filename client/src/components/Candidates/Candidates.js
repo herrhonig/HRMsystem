@@ -11,6 +11,7 @@ import Tag from '../Tag/Tag';
 import Exp from '../Exp/Exp';
 import Stack from '@mui/material/Stack';
 import Education from '../Education/Education';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Candidates() {
   // useEffect
@@ -36,13 +37,13 @@ function Candidates() {
 
   // Тэги
   const tags = useSelector((state) => state.tags.tags);
-  console.log('statuuuus', candidateInfo);
 
   // Дополнительные переменные
   const years = new Date().getFullYear() - candidate.birthday_year;
 
   return (
     <>
+    <Box sx={{marginTop: '60px'}}>
       {/* <Див с аватаркой> */}
       <Box
         sx={{
@@ -236,6 +237,7 @@ function Candidates() {
         {/* Бокс образование */}
       </Box>
       {/* </Див c инфой> */}
+     </Box> 
     </>
   );
 }

@@ -10,6 +10,7 @@ import { ReactComponent as BoltIcon } from './icons/bolt.svg';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import { Link } from 'react-router-dom';
 
 function TryMenu() {
   return (
@@ -172,12 +173,14 @@ function DropdownAdd() {
         unmountOnExit
         onEnter={calcHeight}>
         <div className="menu">
+          <Link to='/crm/addcandidates' >
           <DropdownItem
             leftIcon={<CogIcon />}
             rightIcon={<ChevronIcon />}
           >
             Добавить кандидата
           </DropdownItem>
+          </Link>
           <DropdownItem
             leftIcon="🦧"
             rightIcon={<ChevronIcon />}
