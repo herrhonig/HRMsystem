@@ -48,6 +48,7 @@ function App() {
             <Route path='/crm/vacancies/:id/candidates/:id' element={<Candidates />} />
             <Route path='/crm/{current.location}/addvacancy' element={<Addvacancy />} />
             <Route path='/crm/{current.location}/addcandidates' element={<Addcandidates />} />
+            <Route path='/crm/addcandidates' element={<Addcandidates />} />
           </Routes>
 
         </Box>
