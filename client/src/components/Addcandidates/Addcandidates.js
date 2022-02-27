@@ -3,13 +3,55 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setFirstName,
+  setLastName,
+  setMiddleName,
+  setPhone,
+  setEmail,
+  setPosition,
+  setCompany,
+  setMoney,
+  setBirthDay,
+  setBirthMonth,
+  setBirthYear,
+  setBirthday,
+  setPhoto,
+  setCompanyName,
+  setCompanyPosition,
+  setStartDateWork,
+  setEndDateWork,
+  setDescription,
+  setPlace,
+  setStartDateUn,
+  setEndDateUn,
+  setDirection,
+  setLevel,
+} from '../../redux/slices/newCandidateSlice.js';
 
 function Addcandidates() {
-  const hasId = useSelector((state) => state.newCandidate.id);
-  console.log(hasId);
+  // Объявления
+  const dispatch = useDispatch();
 
-  if (hasId) {
+  // Селекторы
+  const hasId = useSelector((state) => state.newCandidate.id);
+  const newCandidate = useSelector((state) => state.newCandidate);
+  const experiences = useSelector((state) => state.newCandidate.experiences);
+  const education = useSelector((state) => state.newCandidate.education);
+
+  // Handlers
+  const firstNameHandler = (e) => {
+    dispatch(setFirstName(e.target.value));
+  };
+  const lastNameHandler = (e) => {
+    dispatch(setLastName(e.target.value));
+  };
+  const middleNameHandler = (e) => {
+    dispatch(setMiddleName(e.target.value));
+  };
+
+  if (!hasId) {
     return (
       <Stack
         direction='column'
@@ -38,9 +80,24 @@ function Addcandidates() {
             alignItems='center'
             spacing={1}
           >
-            <TextField label='Фамилия' color='secondary' focused />
-            <TextField label='Имя' color='secondary' focused />
-            <TextField label='Отчество' color='secondary' focused />
+            <TextField
+              onChange={lastNameHandler}
+              label='Фамилия'
+              color='secondary'
+              focused
+            />
+            <TextField
+              onChange={firstNameHandler}
+              label='Имя'
+              color='secondary'
+              focused
+            />
+            <TextField
+              onChange={middleNameHandler}
+              label='Отчество'
+              color='secondary'
+              focused
+            />
           </Stack>
         </Stack>
         {/* ФИО */}
@@ -116,7 +173,9 @@ function Addcandidates() {
           <TextField label='Link' color='secondary' focused />
         </Stack>
         {/* Ссылка на фото */}
-        <Button variant="contained" color='secondary' >Создать</Button>
+        <Button variant='contained' color='secondary'>
+          Создать
+        </Button>
       </Stack>
     );
   } else {
@@ -162,27 +221,37 @@ function Addcandidates() {
             alignItems='center'
             spacing={1}
           >
-            <TextField multiline='true' sx={{width:'945px'}} label='Обязанности' color='secondary' focused />
+            <TextField
+              multiline='true'
+              sx={{ width: '945px' }}
+              label='Обязанности'
+              color='secondary'
+              focused
+            />
           </Stack>
-            <Button variant="contained" color='secondary' >Создать</Button>
+          <Button variant='contained' color='secondary'>
+            Создать
+          </Button>
         </Stack>
         {/* Данные о компании */}
         <Typography variant='h6' gutterBottom component='div'>
           Данные об обучении
         </Typography>
         <Stack
-            direction='row'
-            justifyContent='flex-start'
-            alignItems='center'
-            spacing={1}
-          >
-            <TextField label='ВУЗ' color='secondary' focused />
-            <TextField label='Факультет' color='secondary' focused />
-            <TextField label='Степень' color='secondary' focused />
-            <TextField label='Год начала обучения' color='secondary' focused />
-            <TextField label='Год окончания обучения' color='secondary' focused />
-          </Stack>
-          <Button variant="contained" color='secondary' >Создать</Button>
+          direction='row'
+          justifyContent='flex-start'
+          alignItems='center'
+          spacing={1}
+        >
+          <TextField label='ВУЗ' color='secondary' focused />
+          <TextField label='Факультет' color='secondary' focused />
+          <TextField label='Степень' color='secondary' focused />
+          <TextField label='Год начала обучения' color='secondary' focused />
+          <TextField label='Год окончания обучения' color='secondary' focused />
+        </Stack>
+        <Button variant='contained' color='secondary'>
+          Создать
+        </Button>
       </Stack>
     );
   }

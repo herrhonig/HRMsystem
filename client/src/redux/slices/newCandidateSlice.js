@@ -4,76 +4,131 @@ import axios from 'axios';
 const newCandidateSlice = createSlice({
   name: 'newCandidate',
   initialState: {
-      id: false,
-      last_name: '',
-      first_name: '',
-      middle_name: '',
-      phone: '',
-      email: '',
+    id: false,
+    last_name: '',
+    first_name: '',
+    middle_name: '',
+    phone: '',
+    email: '',
+    position: '',
+    company: '',
+    money: '',
+    birthday_day: '',
+    birthday_month: '',
+    birthday_year: '',
+    birthday: '',
+    photo: '',
+    experiences: {
+      company_name: '',
       position: '',
-      company: '',
-      money: '',
-      birthday_day: '',
-      birthday_month: '',
-      birthday_year: '',
-      birthday: '',
-      photo: '',
-      experiences: {
-        company_name: '',
-        position: '',
-        start_date: '',
-        end_date: '',
-        descr: '',
-      },
-      education: {
-        place: '',
-        start_date: '',
-        end_date: '',
-        direction: '',
-        level: '',
-      }
+      start_date: '',
+      end_date: '',
+      descr: '',
     },
-  reducers:{
-    setFirstName (state, action) {
-      
+    education: {
+      place: '',
+      start_date: '',
+      end_date: '',
+      direction: '',
+      level: '',
     },
-    setLastName (state, action) {
-
+  },
+  reducers: {
+    setFirstName(state, { payload }) {
+      state.first_name = payload;
     },
-    setMiddleName (state, action) {
-
+    setLastName(state, { payload }) {
+      state.last_name = payload;
     },
-    setPhone (state, action) {
-
+    setMiddleName(state, { payload }) {
+      state.middle_name = payload;
     },
-    setEmail (state, action) {
-
+    setPhone(state, { payload }) {
+      state.phone = payload;
     },
-    setPosition (state, action) {
-
+    setEmail(state, { payload }) {
+      state.email = payload;
     },
-    setCompany (state, action) {
-
+    setPosition(state, { payload }) {
+      state.position = payload;
     },
-    setMoney (state, action) {
-
+    setCompany(state, { payload }) {
+      state.company = payload;
     },
-    setBirthDay (state, action) {
-
+    setMoney(state, { payload }) {
+      state.money = payload;
     },
-    setBirthMonth (state, action) {
-
+    setBirthDay(state, { payload }) {
+      state.birthday_day = payload;
     },
-    setBirthYear (state, action) {
-
+    setBirthMonth(state, { payload }) {
+      state.birthday_month = payload;
     },
-    setBirthday (state, action) {
-
+    setBirthYear(state, { payload }) {
+      state.birthday_year = payload;
     },
-    setPhone (state, action) {
-
+    setBirthday(state, { payload }) {
+      state.birthday = payload;
     },
-  }
+    setPhoto(state, { payload }) {
+      state.photo = payload;
+    },
+    setCompanyName(state, { payload }) {
+      state.experiences.company_name = payload;
+    },
+    setCompanyPosition(state, { payload }) {
+      state.experiences.position = payload;
+    },
+    setStartDateWork(state, { payload }) {
+      state.experiences.start_date = payload;
+    },
+    setEndDateWork(state, { payload }) {
+      state.experiences.end_date = payload;
+    },
+    setDescription(state, { payload }) {
+      state.experiences.descr = payload;
+    },
+    setPlace(state, { payload }) {
+      state.education.place = payload;
+    },
+    setStartDateUn(state, { payload }) {
+      state.education.start_date = payload;
+    },
+    setEndDateUn(state, { payload }) {
+      state.education.end_date = payload;
+    },
+    setDirection(state, { payload }) {
+      state.education.direction = payload;
+    },
+    setLevel(state, { payload }) {
+      state.education.level = payload;
+    },
+  },
 });
 
 export default newCandidateSlice.reducer;
+export const {
+  setFirstName,
+  setLastName,
+  setMiddleName,
+  setPhone,
+  setEmail,
+  setPosition,
+  setCompany,
+  setMoney,
+  setBirthDay,
+  setBirthMonth,
+  setBirthYear,
+  setBirthday,
+  setPhoto,
+  setCompanyName,
+  setCompanyPosition,
+  setStartDateWork,
+  setEndDateWork,
+  setDescription,
+  setPlace,
+  setStartDateUn,
+  setEndDateUn,
+  setDirection,
+  setLevel,
+} = newCandidateSlice.actions;
