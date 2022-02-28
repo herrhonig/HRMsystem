@@ -4,13 +4,15 @@ import candidateReducer from './slices/candidateSlice';
 import tagsReducer from './slices/tagsSlice';
 import candidateInfoReducer from './slices/candidateInfoSlice';
 import newCandidateReducer from './slices/newCandidateSlice';
+import menuReducer from './slices/NavBarSlice';
 
 export default configureStore({
   reducer: {
     info: userReducer,
     candidate: candidateReducer,
-    candidateInfo: candidateInfoReducer, 
+    candidateInfo: candidateInfoReducer,
     tags: tagsReducer,
-    newCandidate: newCandidateReducer
+    newCandidate: newCandidateReducer,
+    menu: menuReducer,
   },
 })

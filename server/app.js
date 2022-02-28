@@ -9,6 +9,8 @@ const PORT = 3000;
 const app = express();
 
 const candidateRouter = require('./routes/candidateRouter');
+const clientsRouter = require('./routes/clientsRouter');
+const vacanciesRouter = require('./routes/vacanciesRouter')
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -20,7 +22,9 @@ app.use(
 app.use(express.json());
 app.use(morgan('dev'));
 
-app.use('/candidate', candidateRouter);
+app.use('/candidates', candidateRouter);
+app.use('/vacancies', vacanciesRouter);
+app.use('/clients', clientsRouter);
 
 app.get('/', (req, res) => {
   res.send('hi');

@@ -76,6 +76,16 @@ router.get('/tags/:id', async (req, res) => {
   }
 });
 
-router.get('/education/:id', (req, res) => {});
+
+router.get('/list', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const list = await Candidate.findAll();
+    res.json(list);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
 
 module.exports = router;
