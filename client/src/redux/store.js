@@ -8,7 +8,7 @@ import menuReducer from './slices/NavBarSlice';
 
 export default configureStore({
   reducer: {
-    info: userReducer,
+    auth: userReducer,
     candidate: candidateReducer,
     candidateInfo: candidateInfoReducer,
     tags: tagsReducer,

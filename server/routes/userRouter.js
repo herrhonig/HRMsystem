@@ -4,7 +4,7 @@ const { body } = require('express-validator');
 const UserController = require('../controllers/UserController');
 const authMiddleware = require('../middleware/auth-middleware');
 
-// валидация взодящих данных под регистрацию:
+// валидация входящих данных под регистрацию:
 router.post(
   '/signup',
   body('email').isEmail(),
