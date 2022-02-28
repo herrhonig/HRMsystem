@@ -126,8 +126,6 @@ router.post('/info', async (req, res) => {
 });
 
 router.post('/exp', async (req, res) => {
-  console.log(req.body);
-  console.log(req.body.id);
   const { id } = req.body;
   const { company_name, position, start_date, end_date, descr } =
     req.body.experiences;
@@ -143,6 +141,31 @@ router.post('/exp', async (req, res) => {
     });
     console.log(newExp);
     if (newExp) {
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(500);
+    }
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
+router.post('/ed', async (req, res) => {
+  const { id } = req.body;
+  const { place, start_date, end_date, direction, level } = req.body.education;
+  console.log(req.body.id);
+  console.log(req.body.education);
+  try {
+    const newEd = await Education.create({
+      candidate_id: id,
+      place,
+      start_date,
+      end_date,
+      direction,
+      level,
+    });
+    if (newEd) {
       res.sendStatus(200);
     } else {
       res.sendStatus(500);

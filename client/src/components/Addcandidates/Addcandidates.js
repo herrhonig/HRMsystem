@@ -31,6 +31,7 @@ import {
   setLevel,
   addNewCandidate,
   addNewExp,
+  addNewEd
 } from '../../redux/slices/newCandidateSlice.js';
 
 function Addcandidates() {
@@ -121,9 +122,11 @@ function Addcandidates() {
     dispatch(addNewCandidate(newCandidate))
   };
   const addNewExpHandler = () => {
-    console.log('--------------',experiences);
     dispatch(addNewExp({hasId, experiences}))
   };
+  const addNewEdHandler = () => {
+    dispatch(addNewEd({hasId, education}))
+  }
 
   if (hasId === '') {
     return (
@@ -422,7 +425,7 @@ function Addcandidates() {
             focused
           />
         </Stack>
-        <Button variant='contained' color='secondary'>
+        <Button onClick={addNewEdHandler} variant='contained' color='secondary'>
           Создать
         </Button>
       </Stack>

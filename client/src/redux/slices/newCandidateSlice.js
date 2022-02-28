@@ -22,7 +22,16 @@ export const addNewExp = createAsyncThunk('addNewExp/newCandidate', async (value
   }
 });
 
-// export const addNewEd = createAsyncThunk
+export const addNewEd = createAsyncThunk('addNewEd/newCandidate', async (value) => {
+  const id = value.hasId;
+  const education = value.education;
+  const res = await axios.post('/candidate/ed', {id, education});
+  if (res.status === 200) {
+    return education
+  } else {
+    return false
+  }
+})
 
 // reducer
 const newCandidateSlice = createSlice({
@@ -53,6 +62,7 @@ const newCandidateSlice = createSlice({
       descr: '',
     },
     education: {
+      status: '',
       place: '',
       start_date: '',
       end_date: '',
@@ -157,6 +167,21 @@ const newCandidateSlice = createSlice({
       state.experiences.status = 'success';
     },
     [addNewExp.rejected]: (state, action) => {
+      state.experiences.status = 'failed';
+    },
+    [addNewEd.pending]: (state, action) => {
+      state.experiences.status = 'loading';
+    },
+    [addNewEd.fulfilled]: (state, { payload }) => {
+      state.education.place = payload.place;
+      state.education.start_date = payload.start_date;
+      state.education.end_date = payload.end_date;
+      state.education.direction = payload.direction;
+      state.education.level = payload.level;
+      state.education.status = 'success';
+
+    },
+    [addNewEd.rejected]: (state, action) => {
       state.experiences.status = 'failed';
     },
   },
