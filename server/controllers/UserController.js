@@ -48,22 +48,6 @@ class UserController {
   }
 
   async signIn(req, res, next) {
-    // const { email, password } = req.body;
-
-    // const currentUser = await Users.findOne({ where: { email } });
-    // // сравниваем пароль введенный для логина с тем, что в базе:
-    // const comparePassword = await bcrypt.compare(password, currentUser.password);
-    // if (!comparePassword || !currentUser) {
-    //   return next(ApiError.internalError('Wrong password or email!'));
-    // }
-    // // генерируем токен:
-    // const token = generateJwt(currentUser.id, currentUser.email, currentUser.role);
-    // // заносим юзера в сессию:
-    // req.session.user = { id: currentUser.id, email: currentUser.email, role: currentUser.role };
-    // return res.json({
-    //   user: { id: currentUser.id, email: currentUser.email, role: currentUser.role },
-    //   token,
-    // });
     try {
       const { email, password } = req.body;
 
@@ -72,6 +56,51 @@ class UserController {
       // кладем рефреш токен в куки:
       res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
       return res.json(userData);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async logOut(req, res, next) {
+    try {
+      // console.log(req.cookies);
+      const { refreshToken } = req.cookies;
+      const token = await userService.logout(refreshToken);
+      console.log('==== logged out token===', token);
+      res.clearCookie('refreshToken');
+      return res.json(token);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async activate(req, res, next) {
+    try {
+      const activationLink = req.params.link;
+      await userService.activate(activationLink);
+      return res.redirect(process.env.CLIENT_URL);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async refresh(req, res, next) {
+    try {
+      const { refreshToken } = res.cookies;
+      const userData = await userService.refresh(refreshToken);
+
+      // кладем рефреш токен в куки:
+      res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+      return res.json(userData);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async getUsers(req, res, next) {
+    try {
+      const users = await userService.getAllUsers();
+      return res.json(users);
     } catch (err) {
       next(err);
     }
