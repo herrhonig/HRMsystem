@@ -18,6 +18,7 @@ import {
   setBirthYear,
   setBirthday,
   setPhoto,
+  setDesc,
   setCompanyName,
   setCompanyPosition,
   setStartDateWork,
@@ -28,6 +29,8 @@ import {
   setEndDateUn,
   setDirection,
   setLevel,
+  addNewCandidate,
+  addNewExp,
 } from '../../redux/slices/newCandidateSlice.js';
 
 function Addcandidates() {
@@ -50,8 +53,79 @@ function Addcandidates() {
   const middleNameHandler = (e) => {
     dispatch(setMiddleName(e.target.value));
   };
+  const phoneHandler = (e) => {
+    dispatch(setPhone(e.target.value));
+  };
+  const emailHandler = (e) => {
+    dispatch(setEmail(e.target.value));
+  };
+  const positionHandler = (e) => {
+    dispatch(setPosition(e.target.value));
+  };
+  const companyHandler = (e) => {
+    dispatch(setCompany(e.target.value));
+  };
+  const moneyHandler = (e) => {
+    dispatch(setMoney(e.target.value));
+  };
+  const birthDayHandler = (e) => {
+    dispatch(setBirthDay(e.target.value));
+  };
+  const birthMonthHandler = (e) => {
+    dispatch(setBirthMonth(e.target.value));
+  };
+  const birthYearHandler = (e) => {
+    dispatch(setBirthYear(e.target.value));
+  };
+  const birthdayHandler = (e) => {
+    dispatch(setBirthday(e.target.value));
+  };
+  const photoHandler = (e) => {
+    dispatch(setPhoto(e.target.value));
+  };
+  const descHandler = (e) => {
+    dispatch(setDesc(e.target.value));
+  }
+  const companyNameHandler = (e) => {
+    dispatch(setCompanyName(e.target.value));
+  };
+  const companyPositionsHandler = (e) => {
+    dispatch(setCompanyPosition(e.target.value));
+  };
+  const startDateWorkHandler = (e) => {
+    dispatch(setStartDateWork(e.target.value));
+  };
+  const endDateWorkHandler = (e) => {
+    dispatch(setEndDateWork(e.target.value));
+  };
+  const descriptionHandler = (e) => {
+    dispatch(setDescription(e.target.value));
+  };
+  const placeHandler = (e) => {
+    dispatch(setPlace(e.target.value));
+  };
+  const startDateUnHandler = (e) => {
+    dispatch(setStartDateUn(e.target.value));
+  };
+  const endDateUnHandler = (e) => {
+    dispatch(setEndDateUn(e.target.value));
+  };
+  const directionHandler = (e) => {
+    dispatch(setDirection(e.target.value));
+  };
+  const levelHandler = (e) => {
+    dispatch(setLevel(e.target.value));
+  };
+  
+  const addNewCandidateHandler = () => {
+    dispatch(addNewCandidate(newCandidate))
+  };
+  const addNewExpHandler = () => {
+    console.log('--------------',experiences);
+    dispatch(addNewExp({hasId, experiences}))
+  };
 
-  if (!hasId) {
+  if (hasId === '') {
     return (
       <Stack
         direction='column'
@@ -111,8 +185,18 @@ function Addcandidates() {
           alignItems='center'
           spacing={1}
         >
-          <TextField label='Телефон' color='secondary' focused />
-          <TextField label='Email' color='secondary' focused />
+          <TextField
+            onChange={phoneHandler}
+            label='Телефон'
+            color='secondary'
+            focused
+          />
+          <TextField
+            onChange={emailHandler}
+            label='Email'
+            color='secondary'
+            focused
+          />
         </Stack>
         {/* Tel/email */}
         {/* Проф данные */}
@@ -125,9 +209,24 @@ function Addcandidates() {
           alignItems='center'
           spacing={1}
         >
-          <TextField label='Позиция' color='secondary' focused />
-          <TextField label='Компания' color='secondary' focused />
-          <TextField label='Ставка' color='secondary' focused />
+          <TextField
+            onChange={positionHandler}
+            label='Позиция'
+            color='secondary'
+            focused
+          />
+          <TextField
+            onChange={companyHandler}
+            label='Компания'
+            color='secondary'
+            focused
+          />
+          <TextField
+            onChange={moneyHandler}
+            label='Ожидаемый доход'
+            color='secondary'
+            focused
+          />
         </Stack>
         {/* Проф данные */}
         {/* День рождения */}
@@ -141,18 +240,21 @@ function Addcandidates() {
           spacing={1}
         >
           <TextField
+            onChange={birthDayHandler}
             defaultValue='дд'
             label='День рождения'
             color='secondary'
             focused
           />
           <TextField
+            onChange={birthMonthHandler}
             defaultValue='мм'
             label='Месяц рождения'
             color='secondary'
             focused
           />
           <TextField
+            onChange={birthYearHandler}
             defaultValue='гггг'
             label='Год рождения'
             color='secondary'
@@ -170,10 +272,35 @@ function Addcandidates() {
           alignItems='center'
           spacing={1}
         >
-          <TextField label='Link' color='secondary' focused />
+          <TextField
+            onChange={photoHandler}
+            label='Link'
+            color='secondary'
+            focused
+          />
         </Stack>
         {/* Ссылка на фото */}
-        <Button variant='contained' color='secondary'>
+        {/* О себе */}
+        <Typography variant='h6' gutterBottom component='div'>
+            О себе
+          </Typography>
+          <Stack
+            direction='row'
+            justifyContent='flex-start'
+            alignItems='center'
+            spacing={1}
+          >
+            <TextField
+              onChange={descHandler}
+              multiline='true'
+              sx={{ width: '945px' }}
+              label='О себе'
+              color='secondary'
+              focused
+            />
+          </Stack>
+        {/* О себе */}
+        <Button onClick={addNewCandidateHandler} variant='contained' color='secondary'>
           Создать
         </Button>
       </Stack>
@@ -207,10 +334,30 @@ function Addcandidates() {
             alignItems='center'
             spacing={1}
           >
-            <TextField label='Название компании' color='secondary' focused />
-            <TextField label='Позиция' color='secondary' focused />
-            <TextField label='Год начала работы' color='secondary' focused />
-            <TextField label='Год окончания работы' color='secondary' focused />
+            <TextField
+              onChange={companyNameHandler}
+              label='Название компании'
+              color='secondary'
+              focused
+            />
+            <TextField
+              onChange={companyPositionsHandler}
+              label='Позиция'
+              color='secondary'
+              focused
+            />
+            <TextField
+              onChange={startDateWorkHandler}
+              label='Год начала работы'
+              color='secondary'
+              focused
+            />
+            <TextField
+              onChange={endDateWorkHandler}
+              label='Год окончания работы'
+              color='secondary'
+              focused
+            />
           </Stack>
           <Typography variant='h6' gutterBottom component='div'>
             Обязанности
@@ -222,6 +369,7 @@ function Addcandidates() {
             spacing={1}
           >
             <TextField
+              onChange={descriptionHandler}
               multiline='true'
               sx={{ width: '945px' }}
               label='Обязанности'
@@ -229,7 +377,7 @@ function Addcandidates() {
               focused
             />
           </Stack>
-          <Button variant='contained' color='secondary'>
+          <Button onClick={addNewExpHandler} variant='contained' color='secondary'>
             Создать
           </Button>
         </Stack>
@@ -243,11 +391,36 @@ function Addcandidates() {
           alignItems='center'
           spacing={1}
         >
-          <TextField label='ВУЗ' color='secondary' focused />
-          <TextField label='Факультет' color='secondary' focused />
-          <TextField label='Степень' color='secondary' focused />
-          <TextField label='Год начала обучения' color='secondary' focused />
-          <TextField label='Год окончания обучения' color='secondary' focused />
+          <TextField
+            onChange={placeHandler}
+            label='ВУЗ'
+            color='secondary'
+            focused
+          />
+          <TextField
+            onChange={directionHandler}
+            label='Факультет'
+            color='secondary'
+            focused
+          />
+          <TextField
+            onChange={levelHandler}
+            label='Степень'
+            color='secondary'
+            focused
+          />
+          <TextField
+            onChange={startDateUnHandler}
+            label='Год начала обучения'
+            color='secondary'
+            focused
+          />
+          <TextField
+            onChange={endDateUnHandler}
+            label='Год окончания обучения'
+            color='secondary'
+            focused
+          />
         </Stack>
         <Button variant='contained' color='secondary'>
           Создать
