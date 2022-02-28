@@ -8,6 +8,7 @@ const cors = require('cors');
 const PORT = 3000;
 const app = express();
 
+const router = require('./routes/indexRouter');
 const candidateRouter = require('./routes/candidateRouter');
 
 app.use(cors());
@@ -20,6 +21,7 @@ app.use(
 app.use(express.json());
 app.use(morgan('dev'));
 
+app.use('/api', router);
 app.use('/candidate', candidateRouter);
 
 app.get('/', (req, res) => {

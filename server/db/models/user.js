@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING,
     position: DataTypes.STRING,
     company: DataTypes.STRING,
-    access: DataTypes.BOOLEAN
+    access: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'User',
