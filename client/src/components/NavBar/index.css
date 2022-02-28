@@ -124,9 +124,13 @@ a {
   filter: none;
 }
 
-.menu-item:hover {
+/* .menu-item:hover {
   background-color: #525357;
-}
+} */
+/* 
+.menu-item-active {
+  background-color: #525357;
+} */
 
 .icon-right {
   margin-left: auto;

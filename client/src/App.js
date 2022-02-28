@@ -29,7 +29,7 @@ function App() {
 
         {/* <TryMenu /> */}
 
-        <Box component="main" >
+        <Box component="main" sx={{ mt: 12, ml: 5 }} >
           {/* СЮДА ДОБАВЛЯЕМ ВСЕ ССЫЛКИ НА КОМПОНЕНТЫ */}
           {/* <Index /> */}
 
@@ -38,16 +38,15 @@ function App() {
             <Route path='/signup' element={<Signup />} />
             <Route path='/signin' element={<Signin />} />
             <Route path='/crm/vacancies' element={<Vacancy />} />
+            <Route path='/crm/vacancies/:id' element={<Candidates />} />
+            <Route path='/crm/vacancies/:id/candidates/:id' element={<Candidates />} />
             <Route path='/crm/chat' element={<Chat />} />
             <Route path='/crm/candidates' element={<Candidates />} />
             <Route path='/crm/candidates/:id' element={<Candidates />} />
             <Route path='/crm/clients' element={<Clients />} />
+            <Route path='/crm/clients/:id/vacancies' element={<Candidates />} />
             <Route path='/crm/clients/:id/vacancies/:id/candidates' element={<Candidates />} />
             <Route path='/crm/clients/:id/vacancies/:id/candidates/:id' element={<Candidates />} />
-            <Route path='/crm/vacancies/:id/candidates' element={<Candidates />} />
-            <Route path='/crm/vacancies/:id/candidates/:id' element={<Candidates />} />
-            <Route path='/crm/{current.location}/addvacancy' element={<Addvacancy />} />
-            <Route path='/crm/{current.location}/addcandidates' element={<Addcandidates />} />
             <Route path='/crm/addcandidates' element={<Addcandidates />} />
           </Routes>
 

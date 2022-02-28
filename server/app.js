@@ -11,6 +11,8 @@ const app = express();
 
 const router = require('./routes/indexRouter');
 const candidateRouter = require('./routes/candidateRouter');
+const clientsRouter = require('./routes/clientsRouter');
+const vacanciesRouter = require('./routes/vacanciesRouter')
 const errorMiddleware = require('./middleware/error-middleware');
 
 app.use(cors());
@@ -24,6 +26,10 @@ app.use(
 app.use(express.json());
 app.use(morgan('dev'));
 
+app.use('/candidates', candidateRouter);
+app.use('/vacancies', vacanciesRouter);
+app.use('/clients', clientsRouter);
+
 app.use(cors({
   credentials: true,
   origin: 'http://localhost:3000',
@@ -31,6 +37,7 @@ app.use(cors({
 
 app.use('/api', router);
 app.use('/candidate', candidateRouter);
+
 
 app.get('/', (req, res) => {
   res.send('hi');
