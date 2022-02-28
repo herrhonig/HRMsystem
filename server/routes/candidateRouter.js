@@ -76,6 +76,81 @@ router.get('/tags/:id', async (req, res) => {
   }
 });
 
-router.get('/education/:id', (req, res) => {});
+router.post('/info', async (req, res) => {
+  const {
+    last_name,
+    first_name,
+    middle_name,
+    phone,
+    email,
+    position,
+    company,
+    money,
+    birthday_day,
+    birthday_month,
+    birthday_year,
+    photo,
+    desc,
+  } = req.body.value;
+  const birthday = `${birthday_day}.${birthday_month}.${birthday_year}`;
+
+  try {
+    const newId = await Candidate.create({
+      last_name,
+      first_name,
+      middle_name,
+      phone,
+      email,
+      position,
+      company,
+      money,
+      birthday_day,
+      birthday_month,
+      birthday_year,
+      photo,
+      birthday,
+    });
+    const newDesc = await AboutCandidate.create({
+      candidate_id: newId.id,
+      descr: desc,
+    });
+    if (newId && newDesc) {
+      res.json({ newId });
+    } else {
+      res.sendStatus(500);
+    }
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
+router.post('/exp', async (req, res) => {
+  console.log(req.body);
+  console.log(req.body.id);
+  const { id } = req.body;
+  const { company_name, position, start_date, end_date, descr } =
+    req.body.experiences;
+
+  try {
+    const newExp = await Experience.create({
+      candidate_id: id,
+      company_name,
+      position,
+      descr,
+      start_date,
+      end_date,
+    });
+    console.log(newExp);
+    if (newExp) {
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(500);
+    }
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
 
 module.exports = router;
