@@ -22,10 +22,10 @@ export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {
 });
   
 // init State:
-const initState = {
+const initialState = {
   list: [],
   status: '',
-  isError: '',
+  isError: null,
   isAuth: false,
   firstName: '',
   lastName: '',
@@ -38,7 +38,7 @@ const initState = {
 
 const userSlice = createSlice({
   name: 'auth',
-  initState,
+  initialState,
   extraReducers: {
     ////////////////////////// SIGN UP //////////////////////////
     [registerUser.pending]: (state) => {
@@ -49,8 +49,16 @@ const userSlice = createSlice({
       state.status = 'success';
       if (payload.status === 200) {
         console.log('registrateUser fullfiled++++++++++++++++++++++++++++', payload);
+        localStorage.setItem('token', payload.data.accessToken);
+        state.isAuth = true;
+        state.userId = payload.data.user.id;
+        state.firstName = payload.data.user.first_name;
+        state.middleName = payload.data.user.middle_name;
+        state.lastName = payload.data.user.last_name;
+        state.email = payload.data.user.email;
+        state.position = payload.data.user.position;
+        state.company = payload.data.user.company;
         state.isError = '';
-        // localStorage.setItem('token', payload.data.accessToken);
       }
     },
     [registerUser.rejected]: (state, payload) => {
@@ -151,7 +159,6 @@ const userSlice = createSlice({
         state.userName = '';
         state.userId = null;
         state.isError = 'Ошибка что то пошло не так';
-        state.imgPath = '';
       },
   }
 })

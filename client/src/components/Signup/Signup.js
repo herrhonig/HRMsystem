@@ -12,9 +12,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Stack } from '@mui/material';
 import { registerUser } from '../../redux/slices/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -33,6 +34,13 @@ const theme = createTheme();
 
 export default function SignUp() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+  const authError = useSelector(state => state.auth.isError);
+  // if (authError) {
+  //     alert(authError);
+  //   }
+
   const [input, setInput] = useState({
     first_name: '', 
     last_name: '', 
@@ -43,7 +51,7 @@ export default function SignUp() {
     company: '', 
     position: ''});
 
-    console.log('courier input=====>', input);
+    console.log('REG input=====>', input);
 
   const inputHandler = (e) => {
     setInput(prev => ({...prev, [e.target.name]: e.target.value}));
@@ -51,6 +59,8 @@ export default function SignUp() {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(registerUser(input));
+    
+    console.log('===== after reg ===');
     setInput({
       first_name: '', 
       last_name: '', 
@@ -60,10 +70,9 @@ export default function SignUp() {
       phone: '',
       company: '', 
       position: ''});
-    // afterSubmitHandler();
+    
   }
-
-    // const afterSubmitHandler = () => navigate('/');
+    // const afterSubmitHandler = () => navigate('/crm');
  
   return (
     <ThemeProvider theme={theme}>
@@ -182,6 +191,7 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
+            {authError && <h3 style={{color: 'red'}}> Ошибка регистрации!</h3>}
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/signin" variant="body6">

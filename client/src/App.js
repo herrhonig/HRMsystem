@@ -20,6 +20,9 @@ import Button from '@mui/material/Button';
 import TryMenu from "./components/NavBar/FooterMenu";
 
 function App() {
+
+
+
   return (
     <>
       {/* <Index /> */}
@@ -33,20 +36,11 @@ function App() {
         <Box component="main" sx={{ mt: 12, ml: 5 }} >
           {/* СЮДА ДОБАВЛЯЕМ ВСЕ ССЫЛКИ НА КОМПОНЕНТЫ */}
           {/* <Index /> */}
-          {/* <Link to={'/signup'}>
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Sign Up
-              </Button>
-          </Link> */}
+          
           <Routes>
             {/* <Route path='/' element={<TryMenu />} /> */}
-            <Route path='/signup' element={<Signup />} />
-            <Route path='/signin' element={<Signin />} />
+            <Route path='/crm/signup' element={<Signup />} />
+            <Route path='/crm/signin' element={<Signin />} />
             <Route path='/crm/vacancies' element={<Vacancy />} />
             <Route path='/crm/vacancies/:id' element={<Candidates />} />
             <Route path='/crm/vacancies/:id/candidates/:id' element={<Candidates />} />
