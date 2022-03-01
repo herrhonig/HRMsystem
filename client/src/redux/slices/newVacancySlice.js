@@ -7,7 +7,13 @@ export const addData = createAsyncThunk('newVacancy/addData', async () => {
 });
 
 export const addNewVacancy = createAsyncThunk('newVacancy/addNewVacancy', async (value) => {
- const res = await axios('/vacancies/vacancy', {value})
+ const res = await axios.post('/vacancies/vacancy', {value});
+ if (res.status === 200) {
+   return true;
+ } else {
+   return false
+ }
+
 });
 
 // Slice
@@ -15,6 +21,7 @@ const newVacancySlice = createSlice({
   name: 'newVacancy',
   initialState: {
     status: '',
+    ok: false,
     data: {
       status: '',
       companies: [],
@@ -77,6 +84,16 @@ const newVacancySlice = createSlice({
     },
     [addData.rejected]: (state, { payload }) => {
       state.data.status = 'failed';
+    },
+    [addNewVacancy.pending]: (state, { payload }) => {
+      state.status = 'loading';
+    },
+    [addNewVacancy.fulfilled]: (state, { payload }) => {
+      state.ok = payload;
+      state.status = 'success';
+    },
+    [addNewVacancy.rejected]: (state, { payload }) => {
+      state.status = 'failed';
     },
   },
 });
