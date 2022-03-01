@@ -12,7 +12,7 @@ const app = express();
 const router = require('./routes/indexRouter');
 const candidateRouter = require('./routes/candidateRouter');
 const clientsRouter = require('./routes/clientsRouter');
-const vacanciesRouter = require('./routes/vacanciesRouter')
+const vacanciesRouter = require('./routes/vacanciesRouter');
 const errorMiddleware = require('./middleware/error-middleware');
 
 app.use(cors());

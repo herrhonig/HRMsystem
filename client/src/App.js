@@ -17,6 +17,7 @@ import Footer from "./components/Footer/Footer";
 import SideMenu from "./components/NavBar/SideMenu";
 import Box from '@mui/material/Box';
 import TryMenu from "./components/NavBar/FooterMenu";
+import AddVacancy from './components/Addvacancy/Addvacancy';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
             <Route path='/crm/clients/:id/vacancies/:id/candidates' element={<Candidates />} />
             <Route path='/crm/clients/:id/vacancies/:id/candidates/:id' element={<Candidates />} />
             <Route path='/crm/addcandidates' element={<Addcandidates />} />
+            <Route path='/crm/addvacancies' element={<AddVacancy />} />
           </Routes>
 
         </Box>
