@@ -135,7 +135,6 @@ function Addcandidates() {
         justifyContent='center'
         alignItems='flex-start'
         spacing={3}
-        mt={10}
         ml={5}
       >
         <Typography variant='h4' gutterBottom component='div'>
@@ -315,7 +314,6 @@ function Addcandidates() {
         justifyContent='center'
         alignItems='flex-start'
         spacing={3}
-        mt={10}
         ml={5}
       >
         <Typography variant='h6' gutterBottom component='div'>

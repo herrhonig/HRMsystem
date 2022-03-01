@@ -181,12 +181,14 @@ function DropdownAdd() {
             Добавить кандидата
           </DropdownItem>
           </Link>
+          <Link to='/crm/addvacancies' >
           <DropdownItem
             leftIcon="🦧"
             rightIcon={<ChevronIcon />}
           >
             Добавить вакансию
           </DropdownItem>
+          </Link>
 
         </div>
       </CSSTransition>

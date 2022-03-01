@@ -10,7 +10,6 @@ import Vacancy from "./components/Vacancy/Vacancy";
 import Chat from "./components/Chat/Chat";
 import Candidates from "./components/Candidates/Candidates";
 import Clients from "./components/Clients/Clients";
-import Addvacancy from "./components/Addvacancy/Addvacancy";
 import Addcandidates from "./components/Addcandidates/Addcandidates";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -21,6 +20,8 @@ import TryMenu from "./components/NavBar/FooterMenu";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { checkAuth, signOut} from './redux/slices/userSlice';
+import AddVacancy from './components/Addvacancy/Addvacancy';
+
 
 
 function App() {
@@ -85,6 +86,7 @@ function App() {
             <Route path='/crm/clients/:id/vacancies/:id/candidates' element={<Candidates />} />
             <Route path='/crm/clients/:id/vacancies/:id/candidates/:id' element={<Candidates />} />
             <Route path='/crm/addcandidates' element={<Addcandidates />} />
+            <Route path='/crm/addvacancies' element={<AddVacancy />} />
           </Routes>
 
         </Box>

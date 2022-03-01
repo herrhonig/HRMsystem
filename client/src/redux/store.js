@@ -5,6 +5,7 @@ import tagsReducer from './slices/tagsSlice';
 import candidateInfoReducer from './slices/candidateInfoSlice';
 import newCandidateReducer from './slices/newCandidateSlice';
 import menuReducer from './slices/NavBarSlice';
+import newVacancyReducer from './slices/newVacancySlice';
 
 export default configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export default configureStore({
     tags: tagsReducer,
     newCandidate: newCandidateReducer,
     menu: menuReducer,
+    newVacancy: newVacancyReducer,
   },
 })
