@@ -21,20 +21,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { checkAuth, signOut} from './redux/slices/userSlice';
 import AddVacancy from './components/Addvacancy/Addvacancy';
+import StartPage from "./components/StartPage/StartPage";
+import MainPage from "./components/MainPage/MainPage";
 
 
 
 function App() {
-  const isAuth = useSelector(state => state.auth.isAuth);
-  console.log('=== is auth ===', isAuth)
-  const dispatch = useDispatch();
+
   // CHECK AUTH:
+  const isAuth = useSelector(state => state.auth.isAuth);
+  const dispatch = useDispatch();
   useEffect(() => {
     if (localStorage.getItem('token')) {
       console.log('TOKEN FROM LS =======>', localStorage.getItem('token'));
       dispatch(checkAuth());
     }
   }, []);
+  //////////////////// CHECK AUTH END ///////////////////////
 
   return (
     <>
@@ -42,51 +45,38 @@ function App() {
       {/* <TryMenu /> */}
 
       <Box sx={{ display: 'flex' }}>
-        <SideMenu />
+        
 
         {/* <TryMenu /> */}
 
         <Box component="main" sx={{ mt: 12, ml: 5 }} >
           {/* СЮДА ДОБАВЛЯЕМ ВСЕ ССЫЛКИ НА КОМПОНЕНТЫ */}
           {/* <Index /> */}
-    <div>
-        {isAuth ? 
-          <>
-            <span>Пользователь авторизован</span>
-            <Button onClick={() => dispatch(signOut())}>logout</Button>
-          </>
-         :
-          <><h4>Вам необходимо авторизоваться:</h4>
-          <Link to={`/crm/signin`}>
-            <div>
-              <Button>Sign in</Button>
-            </div>
-          </Link>
-          <Link to={`/crm/signup`}>
-            <div>
-            <Button>Sign up</Button>
-            </div>
-          </Link>
-              
-          </>}
-      </div>
+
           
           <Routes>
-            {/* <Route path='/' element={<TryMenu />} /> */}
-            <Route path='/crm/signup' element={<Signup />} />
-            <Route path='/crm/signin' element={<Signin />} />
-            <Route path='/crm/vacancies' element={<Vacancy />} />
-            <Route path='/crm/vacancies/:id' element={<Candidates />} />
-            <Route path='/crm/vacancies/:id/candidates/:id' element={<Candidates />} />
-            <Route path='/crm/chat' element={<Chat />} />
-            <Route path='/crm/candidates' element={<Candidates />} />
-            <Route path='/crm/candidates/:id' element={<Candidates />} />
-            <Route path='/crm/clients' element={<Clients />} />
-            <Route path='/crm/clients/:id/vacancies' element={<Candidates />} />
-            <Route path='/crm/clients/:id/vacancies/:id/candidates' element={<Candidates />} />
-            <Route path='/crm/clients/:id/vacancies/:id/candidates/:id' element={<Candidates />} />
-            <Route path='/crm/addcandidates' element={<Addcandidates />} />
-            <Route path='/crm/addvacancies' element={<AddVacancy />} />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/signin' element={<Signin />} />
+            {isAuth ?
+          <>
+          <Route path='/crm' element={<MainPage />} />
+          <Route path='/crm/vacancies' element={<Vacancy />} />
+          <Route path='/crm/vacancies/:id' element={<Candidates />} />
+          <Route path='/crm/vacancies/:id/candidates/:id' element={<Candidates />} />
+          <Route path='/crm/chat' element={<Chat />} />
+          <Route path='/crm/candidates' element={<Candidates />} />
+          <Route path='/crm/candidates/:id' element={<Candidates />} />
+          <Route path='/crm/clients' element={<Clients />} />
+          <Route path='/crm/clients/:id/vacancies' element={<Candidates />} />
+          <Route path='/crm/clients/:id/vacancies/:id/candidates' element={<Candidates />} />
+          <Route path='/crm/clients/:id/vacancies/:id/candidates/:id' element={<Candidates />} />
+          <Route path='/crm/addcandidates' element={<Addcandidates />} />
+          <Route path='/crm/addvacancies' element={<AddVacancy />} />
+          </>
+          :
+          <Route path='/' element={<StartPage />} />
+          
+          }
           </Routes>
 
         </Box>

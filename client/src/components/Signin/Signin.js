@@ -37,7 +37,6 @@ export default function SignIn() {
   const authError = useSelector(state => state.auth.isError);
 
   const [input, setInput] = useState({ email: '', password: ''});
-  console.log('LOGIN input=====>', input);
 
   const inputHandler = (e) => {
     setInput(prev => ({...prev, [e.target.name]: e.target.value}));
@@ -126,7 +125,7 @@ export default function SignIn() {
             <Grid container>
               
               <Grid item>
-                <Link href="/crm/signup" variant="body2">
+                <Link href="/signup" variant="body2">
                   <Button>
                   {"Don't have an account? Sign Up"}
                   </Button>

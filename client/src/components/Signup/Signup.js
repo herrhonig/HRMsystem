@@ -49,7 +49,6 @@ export default function SignUp() {
     company: '', 
     position: ''});
 
-    console.log('REG input=====>', input);
 
   const inputHandler = (e) => {
     setInput(prev => ({...prev, [e.target.name]: e.target.value}));
@@ -69,15 +68,25 @@ export default function SignUp() {
       company: '', 
       position: ''});
 
-      afterSubmitHandler();
+      navigate('/crm')
   }
-    const afterSubmitHandler = () => navigate('/crm');
  
   return (
     <ThemeProvider theme={theme}>
-      <Container  maxWidth="900">
+      <Container 
+      component="main"  
+      sx={{
+        width: 900,
+        // marginTop: 8,
+        // marginLeft: 50,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+      }}
+      >
         <CssBaseline />
-        <Stack
+        <Box
         direction="column"
         justifyContent="center"
         alignItems="center"
@@ -201,7 +210,7 @@ export default function SignUp() {
               </Grid>
             </Grid>
           </Box>
-        </Stack>
+        </Box>
         <Copyright sx={{ mt: 8, mb: 3 }} />
       </Container>
     </ThemeProvider>
