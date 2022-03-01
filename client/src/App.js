@@ -16,9 +16,13 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import SideMenu from "./components/NavBar/SideMenu";
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import TryMenu from "./components/NavBar/FooterMenu";
 
 function App() {
+
+
+
   return (
     <>
       {/* <Index /> */}
@@ -32,11 +36,11 @@ function App() {
         <Box component="main" sx={{ mt: 12, ml: 5 }} >
           {/* СЮДА ДОБАВЛЯЕМ ВСЕ ССЫЛКИ НА КОМПОНЕНТЫ */}
           {/* <Index /> */}
-
+          
           <Routes>
             {/* <Route path='/' element={<TryMenu />} /> */}
-            <Route path='/signup' element={<Signup />} />
-            <Route path='/signin' element={<Signin />} />
+            <Route path='/crm/signup' element={<Signup />} />
+            <Route path='/crm/signin' element={<Signin />} />
             <Route path='/crm/vacancies' element={<Vacancy />} />
             <Route path='/crm/vacancies/:id' element={<Candidates />} />
             <Route path='/crm/vacancies/:id/candidates/:id' element={<Candidates />} />
