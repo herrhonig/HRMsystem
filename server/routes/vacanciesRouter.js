@@ -30,4 +30,43 @@ router.get('/data', async (req, res) => {
   }
 });
 
+router.post('/vacancy', async (req, res) => {
+  const {
+    position,
+    company_id,
+    money,
+    priority_id,
+    quantity,
+    descr,
+    requirements,
+    conditions,
+    status_id,
+    deadline,
+  } = req.body.value;
+  console.log(req.body);
+  try {
+    const newVacancy = await Vacancy.create({
+      position,
+      company_id,
+      money,
+      priority_id,
+      quantity,
+      descr,
+      requirements,
+      conditions,
+      status_id,
+      deadline,
+      hidden: false,
+    });
+    if (newVacancy) {
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(500);
+    }
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
 module.exports = router;
