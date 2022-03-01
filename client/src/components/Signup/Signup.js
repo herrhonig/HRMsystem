@@ -37,9 +37,7 @@ export default function SignUp() {
   const navigate = useNavigate();
   
   const authError = useSelector(state => state.auth.isError);
-  // if (authError) {
-  //     alert(authError);
-  //   }
+  
 
   const [input, setInput] = useState({
     first_name: '', 
@@ -70,9 +68,10 @@ export default function SignUp() {
       phone: '',
       company: '', 
       position: ''});
-    
+
+      afterSubmitHandler();
   }
-    // const afterSubmitHandler = () => navigate('/crm');
+    const afterSubmitHandler = () => navigate('/crm');
  
   return (
     <ThemeProvider theme={theme}>
@@ -191,7 +190,9 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
-            {authError && <h3 style={{color: 'red'}}> Ошибка регистрации!</h3>}
+
+            {/* {authError && <h3 style={{color: 'red'}}> Ошибка регистрации!</h3>} */}
+
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/signin" variant="body6">

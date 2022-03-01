@@ -10,7 +10,6 @@ import Vacancy from "./components/Vacancy/Vacancy";
 import Chat from "./components/Chat/Chat";
 import Candidates from "./components/Candidates/Candidates";
 import Clients from "./components/Clients/Clients";
-import Addvacancy from "./components/Addvacancy/Addvacancy";
 import Addcandidates from "./components/Addcandidates/Addcandidates";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -18,11 +17,24 @@ import SideMenu from "./components/NavBar/SideMenu";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TryMenu from "./components/NavBar/FooterMenu";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { checkAuth, signOut} from './redux/slices/userSlice';
 import AddVacancy from './components/Addvacancy/Addvacancy';
 
+
+
 function App() {
-
-
+  const isAuth = useSelector(state => state.auth.isAuth);
+  console.log('=== is auth ===', isAuth)
+  const dispatch = useDispatch();
+  // CHECK AUTH:
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      console.log('TOKEN FROM LS =======>', localStorage.getItem('token'));
+      dispatch(checkAuth());
+    }
+  }, []);
 
   return (
     <>
@@ -37,6 +49,27 @@ function App() {
         <Box component="main" sx={{ mt: 12, ml: 5 }} >
           {/* СЮДА ДОБАВЛЯЕМ ВСЕ ССЫЛКИ НА КОМПОНЕНТЫ */}
           {/* <Index /> */}
+    <div>
+        {isAuth ? 
+          <>
+            <span>Пользователь авторизован</span>
+            <Button onClick={() => dispatch(signOut())}>logout</Button>
+          </>
+         :
+          <><h4>Вам необходимо авторизоваться:</h4>
+          <Link to={`/crm/signin`}>
+            <div>
+              <Button>Sign in</Button>
+            </div>
+          </Link>
+          <Link to={`/crm/signup`}>
+            <div>
+            <Button>Sign up</Button>
+            </div>
+          </Link>
+              
+          </>}
+      </div>
           
           <Routes>
             {/* <Route path='/' element={<TryMenu />} /> */}

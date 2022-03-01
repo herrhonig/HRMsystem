@@ -121,13 +121,15 @@ export default function SignIn() {
               </Button>
             </Link>
 
-              {authError && <h3 style={{color: 'red'}}> Ошибка авторизации!</h3>}
+              {/* {authError && <h3 style={{color: 'red'}}> Ошибка авторизации!</h3>} */}
 
             <Grid container>
               
               <Grid item>
-                <Link to={`/crm/signup`} variant="body2">
+                <Link href="/crm/signup" variant="body2">
+                  <Button>
                   {"Don't have an account? Sign Up"}
+                  </Button>
                 </Link>
               </Grid>
             </Grid>
