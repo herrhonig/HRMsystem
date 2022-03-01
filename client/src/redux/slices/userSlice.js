@@ -85,7 +85,6 @@ const userSlice = createSlice({
         state.email = payload.data.user.email;
         state.position = payload.data.user.position;
         state.company = payload.data.user.company;
-        state.isError = '';
       }
       console.log(payload);
     },
@@ -158,7 +157,7 @@ const userSlice = createSlice({
         state.status = 'failed';
         state.userName = '';
         state.userId = null;
-        state.isError = 'Ошибка что то пошло не так';
+        // state.isError = 'Ошибка что то пошло не так';
       },
   }
 })

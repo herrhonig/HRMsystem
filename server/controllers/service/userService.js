@@ -118,7 +118,7 @@ class UserService {
       throw ApiError.UnauthorizedError();
     }
     const user = await User.findOne({ where: { id: userData.id }, raw: true });
-    console.log('IN REFRESH email------------------------------', user);
+    console.log('IN REFRESH user------------------------------', user);
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
 
