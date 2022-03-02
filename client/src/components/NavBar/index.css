@@ -1,7 +1,7 @@
 body {
   margin: 0;
   /* background: #151616; */
-  font-family: roboto;
+  font-family: Mont-SemiBold;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -13,7 +13,7 @@ code {
 
 
 :root {
-  --bg:  #242526;
+  --bg:  #0E0E2C;
   --bg-accent: #484a4d;
   --text-color: #dadce1;
   --nav-size: 60px;
@@ -29,7 +29,8 @@ ul {
 }
 
 a {
-  color: var(--text-color);
+  color: #FFFFFF;
+  font-size: 16px;
   text-decoration: none;;
 }
 
@@ -39,7 +40,7 @@ a {
 .navbar {
   height: var(--nav-size);
   background-color: var(--bg);
-  padding: 0 1rem;
+  padding: 0 2rem;
   border-bottom: var(--border);
 }
 
@@ -59,12 +60,13 @@ a {
   justify-content: center;
 }
 
-/* Icon Button */
-.icon-button {
+
+/* avatar Button */
+.avatar-button {
   --button-size: calc(var(--nav-size) * 0.5);
   width: var(--button-size);
   height: var(--button-size);
-  background-color: #484a4d;
+  /* background-color: #484a4d; */
   border-radius: 50%;
   padding: 5px;
   margin: 2px;
@@ -74,11 +76,11 @@ a {
   transition: filter 300ms;
 }
 
-.icon-button:hover {
+.avatar-button:hover {
   filter: brightness(1.2);
 }
 
-.icon-button icon { 
+.avatar-button avatar { 
   fill: var(--text-color);
   width: 30px;
   border-radius: 30px;
@@ -92,18 +94,31 @@ a {
   position: absolute;
   top: 58px;
   height: 100%;
-  width: 300px;
-  transform: translateX(-45%);
+  width: 200px;
+  transform: translateX(-35%);
   background-color: var(--bg);
-  border: var(--border);
-  border-radius: var(--border-radius);
-  padding: 1rem;
+  /* border: var(--border); */
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  /* padding: 1rem; */
   overflow: hidden;
   transition: height var(--speed) ease;
 }
 
 .menu {
   width: 100%;
+}
+
+.menu-item-header {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius);
+  transition: background var(--speed);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 .menu-item {
@@ -115,12 +130,12 @@ a {
   padding: 0.5rem;
 }
 
-.menu-item .icon-button {
+.menu-item .avatar-button {
   margin-right: 0.5rem;
 }
 
 
-.menu-item .icon-button:hover {
+.menu-item .avatar-button:hover {
   filter: none;
 }
 
@@ -132,7 +147,7 @@ a {
   background-color: #525357;
 } */
 
-.icon-right {
+.avatar-right {
   margin-left: auto;
 }
 

@@ -53,7 +53,7 @@ export const changeMenu = createAsyncThunk('menu/changeMenu', async ({ locationP
                 console.log(res);
                 return data;
               } else
-                if (/crm\/clients/.test(locationPath)) {
+                if (/crm/.test(locationPath)) {
                   const res = await axios(`/clients/list`);
                   const data = { list: res.data, menu: 'candidates', page: 'Клиенты', link: `/crm/clients` }
                   console.log(res);
