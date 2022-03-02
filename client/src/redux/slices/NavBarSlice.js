@@ -1,45 +1,64 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const changeMenu = createAsyncThunk('menu/changeMenu', async ({ locationPath }) => {
-  if (/crm\/clients\/(0|[1-9]\d*)\/vacancies\/(0|[1-9]\d*)\/candidates/.test(locationPath)) {
-    const res = await axios(`/clients/vacancies/candidates/list`);
-    const data = { list: res.data, menu: 'candidates', page: 'Кандидаты' }
+
+export const changeMenu = createAsyncThunk('menu/changeMenu', async ({ locationPath, clientsid, chatid, vacancyid, id }) => {
+  ////поиск кандидатов по вакансии id
+  if (/crm\/clients\/(0|[1-9]\d*)\/vacancies\/(0|[1-9]\d*)/.test(locationPath)) {
+
+    const res = await axios(`/candidates/clients/vacancies/${vacancyid}`);
+    const data = { list: res.data, menu: 'candidates', page: 'Кандидаты', link: `/crm/clients/${clientsid}/vacancies/${vacancyid}/candidates` }
+    console.log(res);
     return data;
   } else
-    if (/crm\/clients\/(0|[1-9]\d*)\/vacancies\/(0|[1-9]\d*)/.test(locationPath)) {
-      const res = await axios(`/clients/vacancies/list`);
-      const data = { list: res.data, menu: 'vacancy', page: 'Вакансии' }
+    ///Поиск в вакансиях по айди клиента
+    if (/crm\/clients\/(0|[1-9]\d*)\/vacancies/.test(locationPath)) {
+      console.log(clientsid);
+      const res = await axios(`/vacancies/${clientsid}/list`);
+      const data = { list: res.data, menu: 'vacancy', page: 'Вакансии', link: `/crm/clients/${clientsid}/vacancies` }
+      console.log(res.data);
       return data;
     } else
-      if (/crm\/vacancies\/(0|[1-9]\d*)\/candidates\/(0|[1-9]\d*)/.test(locationPath)) {
-        const res = await axios(`/vacancies/candidates/list`);
-        const data = { list: res.data, menu: 'candidates', page: 'Кандидаты' }
+      ////Поиск в кандидатах по вакансии id
+      if (/crm\/vacancies\/(0|[1-9]\d*)\/candidates/.test(locationPath)) {
+        const res = await axios(`/candidates/clients/vacancies/${vacancyid}`);
+        console.log(res.data);
+        const data = { list: res.data, menu: 'candidates', page: 'Кандидаты', link: `/crm/vacancies/${vacancyid}/candidates` }
+        console.log(res);
         return data;
       } else
-        if (/crm\/vacancies/.test(locationPath)) {
-          const res = await axios(`/vacancies/list`);
-          const data = { list: res.data, menu: 'candidates', page: 'Вакансии' }
+
+        ////готово
+        if (/crm\/vacancies\/(0|[1-9]\d*)/.test(locationPath)) {
+
+          const res = await axios(`/candidates/clients/vacancies/${vacancyid}`);
+          const data = { list: res.data, menu: 'candidates', page: 'Кандидаты', link: `/crm/vacancies/${vacancyid}/candidates` }
           console.log(res);
           return data;
         } else
-          if (/crm\/chat/.test(locationPath)) {
-            const res = await axios(`/chat/list`);
-            const data = { list: res.data, menu: 'candidates', page: 'Чаты' }
+          if (/crm\/vacancies/.test(locationPath)) {
+            const res = await axios(`/vacancies/list`);
+            const data = { list: res.data, menu: 'vacancy', page: 'Вакансии', link: `/crm/vacancies` }
+            // console.log(res);
             return data;
           } else
-            if (/crm\/candidates/.test(locationPath)) {
-              const res = await axios(`/candidates/list`);
-              const data = { list: res.data, menu: 'candidates', page: 'Кандидаты' }
-              console.log(res);
+            if (/crm\/chat/.test(locationPath)) {
+              const res = await axios(`/chat/list`);
+              const data = { list: res.data, menu: 'candidates', page: 'Чаты', link: `/crm/chat` }
               return data;
             } else
-              if (/crm\/clients/.test(locationPath)) {
-                const res = await axios(`/clients/list`);
-                const data = { list: res.data, menu: 'candidates', page: 'Клиенты' }
+              if (/crm\/candidates/.test(locationPath)) {
+                const res = await axios(`/candidates/list`);
+                const data = { list: res.data, menu: 'candidates', page: 'Кандидаты', link: `/crm/candidates` }
                 console.log(res);
                 return data;
-              }
+              } else
+                if (/crm/.test(locationPath)) {
+                  const res = await axios(`/clients/list`);
+                  const data = { list: res.data, menu: 'candidates', page: 'Клиенты', link: `/crm/clients` }
+                  console.log(res);
+                  return data;
+                }
 
 });
 
@@ -49,7 +68,8 @@ const menuSlice = createSlice({
     list: '',
     status: '',
     activeMenu: '',
-    page: ''
+    page: '',
+    link: '',
   },
   extraReducers: {
     [changeMenu.pending]: (state, action) => {
@@ -60,6 +80,7 @@ const menuSlice = createSlice({
       state.activeMenu = payload.menu
       state.page = payload.page
       state.status = 'success';
+      state.link = payload.link;
     },
     [changeMenu.rejected]: (state, action) => {
       state.status = 'failed';

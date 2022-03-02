@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useDispatch, useSelector } from 'react-redux';
-import { addData } from '../../redux/slices/newVacancySlice';
+import { addData, addNewVacancy } from '../../redux/slices/newVacancySlice';
 import {
   setPositionVac,
   setCompanyVac,
@@ -30,9 +30,10 @@ function AddVacancy() {
   const companies = useSelector((state) => state.newVacancy.data.companies);
   const priorities = useSelector((state) => state.newVacancy.data.priorities);
   const statuses = useSelector((state) => state.newVacancy.data.statuses);
-  const company_id = useSelector(state => state.newVacancy.company_id);
-  const priority_id = useSelector(state => state.newVacancy.priority_id);
-  const status_id = useSelector(state => state.newVacancy.status_id);
+  const company_id = useSelector((state) => state.newVacancy.company_id);
+  const priority_id = useSelector((state) => state.newVacancy.priority_id);
+  const status_id = useSelector((state) => state.newVacancy.status_id);
+  const newVacancy = useSelector((state) => state.newVacancy);
 
   // Хендлеры
   const positionHandler = (e) => {
@@ -64,6 +65,9 @@ function AddVacancy() {
   };
   const deadlineHandler = (e) => {
     dispatch(setDeadlineVac(e.target.value));
+  };
+  const addVacancyHandler = () => {
+    dispatch(addNewVacancy(newVacancy));
   };
 
   // useEffect
@@ -119,7 +123,9 @@ function AddVacancy() {
               value={company_id}
               onChange={companyHandler}
             >
-              {companies.map((el) => <MenuItem value={el.id}>{el.name}</MenuItem>)}
+              {companies.map((el) => (
+                <MenuItem value={el.id}>{el.name}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Stack>
@@ -159,7 +165,9 @@ function AddVacancy() {
               value={priority_id}
               onChange={priorityHandler}
             >
-              {priorities.map((el) => <MenuItem value={el.id}>{el.name}</MenuItem>)}
+              {priorities.map((el) => (
+                <MenuItem value={el.id}>{el.name}</MenuItem>
+              ))}
             </Select>
           </FormControl>
           <TextField
@@ -249,17 +257,15 @@ function AddVacancy() {
               value={status_id}
               onChange={statusHandler}
             >
-              {statuses.map((el) => <MenuItem value={el.id}>{el.statusvac_name}</MenuItem>)}
+              {statuses.map((el) => (
+                <MenuItem value={el.id}>{el.statusvac_name}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Stack>
       </Stack>
       {/* Тех информация */}
-      <Button
-        // onClick={addNewEdHandler}
-        variant='contained'
-        color='secondary'
-      >
+      <Button onClick={addVacancyHandler} variant='contained' color='secondary'>
         Создать
       </Button>
     </Stack>

@@ -81,7 +81,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h4">
-            Sign in
+           Вход
           </Typography>
           <Box component="form" onSubmit={submitHandler} noValidate sx={{ mt: 3 }}>
             <TextField
@@ -104,7 +104,7 @@ export default function SignIn() {
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              label="Запомнить меня"
             />
             <Link >
               <Button
@@ -113,7 +113,7 @@ export default function SignIn() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                Войти
               </Button>
             </Link>
 
@@ -124,14 +124,13 @@ export default function SignIn() {
               <Grid item>
                 <Link href="/signup" variant="body2">
                   <Button>
-                  {"Don't have an account? Sign Up"}
+                  {"Зарегистрироваться"}
                   </Button>
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 15, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );

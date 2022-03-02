@@ -95,7 +95,7 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h4">
-            Sign up
+            Зарегистрироваться
           </Typography>
           <Box component="form" noValidate onSubmit={submitHandler} sx={{ mt: 3 }}>
             <Grid  spacing={2}>
@@ -205,13 +205,13 @@ export default function SignUp() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/signin" variant="body6">
-                  Already have an account? Sign in
+                  У меня уже есть аккаунт
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 3 }} />
+
       </Container>
     </ThemeProvider>
   );

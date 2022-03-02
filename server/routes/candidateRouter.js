@@ -6,6 +6,7 @@ const {
   Education,
   Experience,
   AboutCandidate,
+  Vacancy
 } = require('../db/models');
 
 // /candidate
@@ -184,6 +185,28 @@ router.post('/ed', async (req, res) => {
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
+  }
+});
+
+
+// Кандидат по id вакансии
+router.get('/clients/vacancies/:vacancyid', async (req, res) => {
+  const { vacancyid } = req.params;
+  try {
+    // const list = await Candidate.findAll();
+
+    const candidateVacancy = await Candidate.findAll({
+      include: [{
+        model: Vacancy,
+        required: true,
+        where: { id: vacancyid },
+      }],
+      // raw: true
+    });
+    res.json(candidateVacancy);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(503);
   }
 });
 
