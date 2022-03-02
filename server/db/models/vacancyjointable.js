@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   VacancyJoinTable.init({
     candidate_id: DataTypes.INTEGER,
     status_id: DataTypes.INTEGER,
-    vacancy_id: DataTypes.INTEGER
+    vacancy_id: DataTypes.INTEGER,
+    user_id: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'VacancyJoinTable',
