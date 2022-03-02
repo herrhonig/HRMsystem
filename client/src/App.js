@@ -54,41 +54,40 @@ function App() {
 
 
       <Box sx={{ display: 'flex' }}>
-        
 
         <SideMenu />
 
         {/* <TryMenu /> */}
 
-        <Box component="main" sx={{ mt: 12, ml: 5 }} >
+        <Box component="main" sx={{ mt: 10, ml: 15 }} >
           {/* СЮДА ДОБАВЛЯЕМ ВСЕ ССЫЛКИ НА КОМПОНЕНТЫ */}
           {/* <Index /> */}
 
           <Routes>
             {isAuth ?
-            <>
-            <Route path='/crm' element={ <MainAnalytics /> } />
-            <Route path='/crm/vacancies' element={<VacancyAnalytics />} />
-            <Route path='/crm/vacancies/:vacancyid' element={<VacancyAnalytics />} />
-            <Route path='/crm/vacancies/:vacancyid/candidates' element={<CandidatesAnalytics />} />
-            <Route path='/crm/vacancies/:vacancyid/candidates/:id' element={<Candidates />} />
-            <Route path='/crm/chat' element={<Chat />} />
-            <Route path='/crm/chat/:chatid' element={<Chat />} />
-            <Route path='/crm/candidates' element={<CandidatesAnalytics />} />
-            <Route path='/crm/candidates/:id' element={<Candidates />} />
-            <Route path='/crm/clients' element={<ClientsAnalytics />} />
-            <Route path='/crm/clients/:clientsid/vacancies' element={<VacancyAnalytics />} />
-            <Route path='/crm/clients/:clientsid/vacancies/:vacancyid' element={<Vacancy />} />
-            <Route path='/crm/clients/:clientsid/vacancies/:vacancyid/candidates/:id' element={<Candidates />} />
-            <Route path='/crm/addcandidates' element={<Addcandidates />} />
-            </>
-          :
-          <>
-          <Route path='/' element={<StartPage />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/signin' element={<Signin />} />
-          </>
-          }
+              <>
+                <Route path='/crm' element={<MainAnalytics />} />
+                <Route path='/crm/vacancies' element={<VacancyAnalytics />} />
+                <Route path='/crm/vacancies/:vacancyid' element={<VacancyAnalytics />} />
+                <Route path='/crm/vacancies/:vacancyid/candidates' element={<CandidatesAnalytics />} />
+                <Route path='/crm/vacancies/:vacancyid/candidates/:id' element={<Candidates />} />
+                <Route path='/crm/chat' element={<Chat />} />
+                <Route path='/crm/chat/:chatid' element={<Chat />} />
+                <Route path='/crm/candidates' element={<CandidatesAnalytics />} />
+                <Route path='/crm/candidates/:id' element={<Candidates />} />
+                <Route path='/crm/clients' element={<ClientsAnalytics />} />
+                <Route path='/crm/clients/:clientsid/vacancies' element={<VacancyAnalytics />} />
+                <Route path='/crm/clients/:clientsid/vacancies/:vacancyid' element={<Vacancy />} />
+                <Route path='/crm/clients/:clientsid/vacancies/:vacancyid/candidates/:id' element={<Candidates />} />
+                <Route path='/crm/addcandidates' element={<Addcandidates />} />
+              </>
+              :
+              <>
+                <Route path='/' element={<StartPage />} />
+                <Route path='/signup' element={<Signup />} />
+                <Route path='/signin' element={<Signin />} />
+              </>
+            }
           </Routes>
 
         </Box>
