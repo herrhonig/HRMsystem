@@ -43,7 +43,7 @@ function App() {
             <Route path='/crm/signup' element={<Signup />} />
             <Route path='/crm/signin' element={<Signin />} />
             <Route path='/crm/vacancies' element={<Vacancy />} />
-            <Route path='/crm/vacancies/:id' element={<Candidates />} />
+            <Route path='/crm/vacancies/:id' element={<Vacancy />} />
             <Route path='/crm/vacancies/:id/candidates/:id' element={<Candidates />} />
             <Route path='/crm/chat' element={<Chat />} />
             <Route path='/crm/candidates' element={<Candidates />} />
