@@ -42,16 +42,13 @@ export default function SignIn() {
     setInput(prev => ({...prev, [e.target.name]: e.target.value}));
   }
 
-  //REDIRECT:
-  const afterSubmitHandler = () => navigate('/crm');
-  
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(loginUser(input));
     
     console.log('===== after login ===');
     setInput({email: '', password: ''});
-    afterSubmitHandler();
+    navigate('/crm')
   }
 
 

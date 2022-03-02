@@ -23,10 +23,13 @@ import { checkAuth, signOut} from './redux/slices/userSlice';
 import AddVacancy from './components/Addvacancy/Addvacancy';
 import StartPage from "./components/StartPage/StartPage";
 import MainPage from "./components/MainPage/MainPage";
+import { Navigate, useNavigate } from "react-router";
+import SignUp from "./components/Signup/Signup";
 
 
 
 function App() {
+  const navigate = useNavigate();
 
   // CHECK AUTH:
   const isAuth = useSelector(state => state.auth.isAuth);
@@ -49,34 +52,37 @@ function App() {
 
         {/* <TryMenu /> */}
 
-        <Box component="main" sx={{ mt: 12, ml: 5 }} >
+        <Box component="main" sx={{ mt: 2, ml: 5 }} >
           {/* СЮДА ДОБАВЛЯЕМ ВСЕ ССЫЛКИ НА КОМПОНЕНТЫ */}
           {/* <Index /> */}
 
           
           <Routes>
-            <Route path='/signup' element={<Signup />} />
-            <Route path='/signin' element={<Signin />} />
             {isAuth ?
-          <>
-          <Route path='/crm' element={<MainPage />} />
-          <Route path='/crm/vacancies' element={<Vacancy />} />
-          <Route path='/crm/vacancies/:id' element={<Candidates />} />
-          <Route path='/crm/vacancies/:id/candidates/:id' element={<Candidates />} />
-          <Route path='/crm/chat' element={<Chat />} />
-          <Route path='/crm/candidates' element={<Candidates />} />
-          <Route path='/crm/candidates/:id' element={<Candidates />} />
-          <Route path='/crm/clients' element={<Clients />} />
-          <Route path='/crm/clients/:id/vacancies' element={<Candidates />} />
-          <Route path='/crm/clients/:id/vacancies/:id/candidates' element={<Candidates />} />
-          <Route path='/crm/clients/:id/vacancies/:id/candidates/:id' element={<Candidates />} />
-          <Route path='/crm/addcandidates' element={<Addcandidates />} />
-          <Route path='/crm/addvacancies' element={<AddVacancy />} />
-          </>
+                 <>
+                  <Route path='/crm' element={<MainPage />  }/>
+                  <Route path='/crm/vacancies' element={<Vacancy />  } />
+                  <Route path='/crm/vacancies/:id' element={<Candidates />  } />
+                  <Route path='/crm/vacancies/:id/candidates/id' element={<Candidates />  } />
+                  <Route path='/crm/chat' element={<Chat /> } />
+                  <Route path='/crm/candidates' element={<Candidates /> } />
+                  <Route path='/crm/candidates/id' element={<Candidates /> } />
+                  <Route path='/crm/clients' element={<Clients /> } />
+                  <Route path='/crm/clients/id/vacancies' element={<Candidates /> } />
+                  <Route path='/crm/clients/id/vacancies/id/candidates' element={<Candidates /> } />
+                  <Route path='/crm/clients/id/vacancies/id/candidates/id' element={<Candidates /> } />
+                  <Route path='/crm/addcandidates' element={<Addcandidates /> } />
+                  <Route path='/crm/addvacancies' element={<AddVacancy /> } />
+                </>
           :
-          <Route path='/' element={<StartPage />} />
-          
+          <>
+          <Route path='/' element={ <StartPage /> } />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/signin' element={<Signin />} />
+          </>
+
           }
+
           </Routes>
 
         </Box>
@@ -85,6 +91,7 @@ function App() {
 
 
     </>
+
   );
 }
 
