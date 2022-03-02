@@ -47,12 +47,11 @@ function App() {
 
 
       <Box sx={{ display: 'flex' }}>
-
         <SideMenu />
 
         {/* <TryMenu /> */}
 
-        <Box component="main" sx={{ mt: 12, ml: 5 }} >
+        <Box component="main" sx={{ mt: 10, ml: 15 }} >
           {/* СЮДА ДОБАВЛЯЕМ ВСЕ ССЫЛКИ НА КОМПОНЕНТЫ */}
           {/* <Index /> */}
           {/* <div>
