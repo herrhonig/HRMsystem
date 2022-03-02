@@ -16,15 +16,22 @@ import { changeMenu } from '../../redux/slices/NavBarSlice';
 import SideMenu from '../NavBar/SideMenu';
 
 function Candidates() {
-
   const { clientsid, chatid, vacancyid, id } = useParams();
-  const location = useLocation()
+  const location = useLocation();
   // useEffect
   useEffect(() => {
     dispatch(getCandidate(id));
     dispatch(getTags(id));
     dispatch(getCandidateInfo(id));
-    dispatch(changeMenu({ locationPath: location.pathname, clientsid, chatid, vacancyid, id }));
+    dispatch(
+      changeMenu({
+        locationPath: location.pathname,
+        clientsid,
+        chatid,
+        vacancyid,
+        id,
+      })
+    );
   }, [location]);
 
   // console.log(useParams());
@@ -51,137 +58,123 @@ function Candidates() {
 
   return (
     <>
-      {/* <SideMenu /> */}
       <Box>
         {/* <Див с аватаркой> */}
         <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'start',
-            margin: '5px',
-          }}
+      sx={{
+        boxShadow: 3,
+        bgcolor: (theme) =>
+          theme.palette.mode === 'dark' ? '#101010' : '#fff',
+        color: (theme) =>
+          theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
+        p: 1,
+        m: 1,
+        borderRadius: 2,
+        textAlign: 'center',
+        fontSize: '0.875rem',
+        fontWeight: '700',
+      }}
+    >
+        <Stack
+          direction='column'
+          justifyContent='flex-start'
+          alignItems='flex-start'
+          spacing={2}
+          sx={{width: '800px'}}
         >
-          <Typography
-            sx={{ marginTop: '5px', marginBottom: '5px', marginLeft: '5px' }}
-            variant='h3'
-            gutterBottom
-            component='div'
-          >
-            {candidate.position}
-          </Typography>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-            }}
+          <Stack
+            direction='row'
+            justifyContent='flex-start'
+            alignItems='center'
+            spacing={2}
           >
             <Avatar
               alt='Remy Sharp'
               src={candidate.photo}
-              sx={{ width: 150, height: 150 }}
+              sx={{ width: 120, height: 120 }}
             />
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'start',
-                marginLeft: '10px',
-              }}
+            <Stack
+              direction='column'
+              justifyContent='center'
+              alignItems='flex-start'
+              spacing={1}
             >
-              <Typography variant='h4' gutterBottom component='div'>
-                {candidate.last_name}
-              </Typography>
-              <Typography variant='h4' gutterBottom component='div'>
-                {candidate.first_name}
-              </Typography>
               <Typography variant='h6' gutterBottom component='div'>
+                {`${candidate.last_name} ${candidate.first_name}`}
+              </Typography>
+              <Typography variant='subtitle2' gutterBottom component='div'>
                 {`${candidate.birthday_day}.${candidate.birthday_month}.${candidate.birthday_year}, ${years} лет`}
               </Typography>
-            </Box>
-          </Box>
-        </Box>
+              <Typography
+                variant='subtitle2'
+                gutterBottom
+                color='#1769aa'
+                component='div'
+              >
+                {candidate.position}
+              </Typography>
+            </Stack>
+          </Stack>
+        </Stack>
         {/* </Див с аватаркой > */}
         {/* <Див с доп данными и тегами> */}
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'start',
-            marginLeft: '10px',
-          }}
+        <Stack
+          direction='column'
+          justifyContent='center'
+          alignItems='flex-start'
+          spacing={1}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'start',
-              alignItems: 'end',
-              marginLeft: '5px',
-              marginRight: '5px',
-            }}
+          <Stack
+            direction='row'
+            justifyContent='flex-end'
+            alignItems='center'
+            spacing={5}
+            mt={2}
           >
-            <Typography
-              sx={{ marginLeft: '5px', marginRight: '10px' }}
-              variant='subtitle1'
-              gutterBottom
-              component='div'
-            >
+            <Typography variant='body2' gutterBottom component='div'>
               {`   ${candidate.phone}   `}
             </Typography>
-            <Typography
-              sx={{ marginLeft: '10px' }}
-              variant='subtitle1'
-              gutterBottom
-              component='div'
-            >
+            <Typography variant='body2' gutterBottom component='div'>
               {`${candidate.email}`}
             </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'start',
-              alignItems: 'end',
-              marginLeft: '5px',
-              marginRight: '5px',
-            }}
+          </Stack>
+          <Stack
+            direction='row'
+            justifyContent='flex-start'
+            alignItems='center'
+            spacing={1}
           >
             {tags.map((el) => (
-              <Tag
-                sx={{ marginLeft: '5px', marginRight: '5px' }}
-                key={el.id}
-                tag={el.tag_name}
-                color={el.color}
-              />
+              <Tag key={el.id} tag={el.tag_name} color={el.color} />
             ))}
-          </Box>
-        </Box>
+          </Stack>
+        </Stack>
         {/* </Див с доп данными и тегами> */}
         {/* <Див с чем-то> */}
         {/* </Див с чем-то> */}
         {/* <Див с инфой> */}
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'start',
-            marginTop: '50px',
-            marginLeft: '10px',
-          }}
+        <Stack
+          direction='column'
+          justifyContent='center'
+          alignItems='flex-start'
+          spacing={3}
+          mt={4}
         >
           {/* Бох с опытом работы */}
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          {/* <Box sx={{ display: 'flex', flexDirection: 'column' }}> */}
+          <Stack
+            direction='column'
+            justifyContent='center'
+            alignItems='flex-start'
+            spacing={3}
+          >
             <Typography
-              sx={{ marginBottom: '20px' }}
-              variant='h6'
+              variant='h5'
               gutterBottom
               component='div'
+              color='#616161'
             >
-              ОПЫТ РАБОТЫ
+              Опыт работы
             </Typography>
             {canStatus === 'success' &&
               candidateInfo?.candidateExperience?.map((el) => (
@@ -194,7 +187,8 @@ function Candidates() {
                   position={el.position}
                 />
               ))}
-          </Box>
+          </Stack>
+          {/* </Box> */}
           {/* Бох с опытом работы */}
           {/* Бокс о себе */}
           <Stack
@@ -205,15 +199,16 @@ function Candidates() {
             sx={{ marginBottom: '20px' }}
           >
             <Typography
-              variant='h6'
+              variant='h5'
               gutterBottom
               component='div'
-              sx={{ marginTop: '20px' }}
+              color='#616161'
             >
-              О СЕБЕ
+              О себе
             </Typography>
             <Typography variant='body2' gutterBottom>
-              {canInfoStatus === 'success' && candidateInfo?.candidateAbout[0].descr}
+              {canInfoStatus === 'success' &&
+                candidateInfo?.candidateAbout[0].descr}
             </Typography>
           </Stack>
           {/* Бокс о себе */}
@@ -225,27 +220,29 @@ function Candidates() {
             spacing={2}
           >
             <Typography
-              variant='h6'
+              variant='h5'
               gutterBottom
               component='div'
-              sx={{ marginTop: '20px' }}
+              color='#616161'
             >
-              ОБРАЗОВАНИЕ
+              Образование
             </Typography>
-            {canInfoStatus === 'success' && candidateInfo?.candidateEducation?.map((el) => (
-              <Education
-                key={el.id}
-                place={el.place}
-                startDate={el.start_date}
-                endDate={el.end_date}
-                direction={el.direction}
-                level={el.level}
-              />
-            ))}
+            {canInfoStatus === 'success' &&
+              candidateInfo?.candidateEducation?.map((el) => (
+                <Education
+                  key={el.id}
+                  place={el.place}
+                  startDate={el.start_date}
+                  endDate={el.end_date}
+                  direction={el.direction}
+                  level={el.level}
+                />
+              ))}
           </Stack>
           {/* Бокс образование */}
-        </Box>
+        </Stack>
         {/* </Див c инфой> */}
+        </Box>
       </Box>
     </>
   );
