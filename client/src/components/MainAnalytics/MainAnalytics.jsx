@@ -6,6 +6,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { changeMenu } from '../../redux/slices/NavBarSlice';
 import FaceIcon from '@mui/icons-material/Face';
 import Charts from '../Charts/Charts';
+import ButtonNav from './Buttons/ButtonNav';
 
 
 const MainAnalytics = () => {
@@ -29,6 +30,7 @@ const MainAnalytics = () => {
     </Typography>
     {/* ============= CARDS WITH STATISTICS ================*/}
     <Stack
+      
       flexWrap='wrap'
       direction='row'
       justifyContent='space-between'
@@ -99,6 +101,7 @@ const MainAnalytics = () => {
       </Box>
         
           <Stack
+          
           width='470px'
           flexWrap='wrap'
           direction='column'
@@ -156,6 +159,7 @@ const MainAnalytics = () => {
     </Stack>
         {/* ============= CARDS WITH STATISTICS END================*/}
         <Stack
+        
       flexWrap='wrap'
       direction='column'
       justifyContent='center'
@@ -183,6 +187,8 @@ const MainAnalytics = () => {
        <Charts/> 
        <span> Показатель успешного успеха:</span>
       </Box>
+      
+      <ButtonNav />
     </>
   )
 }
