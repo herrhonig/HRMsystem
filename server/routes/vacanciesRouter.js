@@ -9,8 +9,29 @@ router.get('/list', async (req, res) => {
     const list = await Vacancy.findAll();
     res.json(list);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.sendStatus(500);
+  }
+});
+
+
+router.get('/:clientsid/list', async (req, res) => {
+  const { clientsid } = req.params;
+  try {
+    // const list = await Candidate.findAll();
+
+    const candidateVacancy = await Vacancy.findAll({
+      include: [{
+        model: Company,
+        // required: true,
+      }],
+      where: { company_id: clientsid },
+      // raw: true
+    });
+    res.json(candidateVacancy);
+  } catch (err) {
+    // console.log(err);
+    res.sendStatus(503);
   }
 });
 
@@ -25,7 +46,7 @@ router.get('/data', async (req, res) => {
       res.sendStatus(500);
     }
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.sendStatus(500);
   }
 });
@@ -43,7 +64,7 @@ router.post('/vacancy', async (req, res) => {
     status_id,
     deadline,
   } = req.body.value;
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const newVacancy = await Vacancy.create({
       position,
@@ -64,7 +85,7 @@ router.post('/vacancy', async (req, res) => {
       res.sendStatus(500);
     }
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.sendStatus(500);
   }
 });

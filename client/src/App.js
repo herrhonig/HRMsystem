@@ -19,29 +19,35 @@ import Button from '@mui/material/Button';
 import TryMenu from "./components/NavBar/FooterMenu";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { checkAuth, signOut} from './redux/slices/userSlice';
+import { checkAuth, signOut } from './redux/slices/userSlice';
 import AddVacancy from './components/Addvacancy/Addvacancy';
+import CandidatesAnalytics from "./components/Candidates/CandidatesAnalytics";
+import VacancyAnalytics from "./components/Vacancy/VacancyAnalytics";
+import ClientsAnalytics from "./components/Clients/ClientsAnalytics";
+import CatMenu from "./components/NavBar/CatMenu";
 
 
 
 function App() {
-  const isAuth = useSelector(state => state.auth.isAuth);
-  console.log('=== is auth ===', isAuth)
-  const dispatch = useDispatch();
-  // CHECK AUTH:
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      console.log('TOKEN FROM LS =======>', localStorage.getItem('token'));
-      dispatch(checkAuth());
-    }
-  }, []);
+  // const isAuth = useSelector(state => state.auth.isAuth);
+  // console.log('=== is auth ===', isAuth)
+  // const dispatch = useDispatch();
+  // // CHECK AUTH:
+  // useEffect(() => {
+  //   if (localStorage.getItem('token')) {
+  //     console.log('TOKEN FROM LS =======>', localStorage.getItem('token'));
+  //     dispatch(checkAuth());
+  //   }
+  // }, []);
 
   return (
     <>
       {/* <Index /> */}
       {/* <TryMenu /> */}
 
+
       <Box sx={{ display: 'flex' }}>
+
         <SideMenu />
 
         {/* <TryMenu /> */}
@@ -49,7 +55,7 @@ function App() {
         <Box component="main" sx={{ mt: 12, ml: 5 }} >
           {/* СЮДА ДОБАВЛЯЕМ ВСЕ ССЫЛКИ НА КОМПОНЕНТЫ */}
           {/* <Index /> */}
-    <div>
+          {/* <div>
         {isAuth ? 
           <>
             <span>Пользователь авторизован</span>
@@ -69,24 +75,25 @@ function App() {
           </Link>
               
           </>}
-      </div>
-          
+      </div> */}
+
           <Routes>
             {/* <Route path='/' element={<TryMenu />} /> */}
-            <Route path='/crm/signup' element={<Signup />} />
-            <Route path='/crm/signin' element={<Signin />} />
-            <Route path='/crm/vacancies' element={<Vacancy />} />
-            <Route path='/crm/vacancies/:id' element={<Candidates />} />
-            <Route path='/crm/vacancies/:id/candidates/:id' element={<Candidates />} />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/signin' element={<Signin />} />
+            <Route path='/crm/vacancies' element={<VacancyAnalytics />} />
+            <Route path='/crm/vacancies/:vacancyid' element={<VacancyAnalytics />} />
+            <Route path='/crm/vacancies/:vacancyid/candidates' element={<CandidatesAnalytics />} />
+            <Route path='/crm/vacancies/:vacancyid/candidates/:id' element={<Candidates />} />
             <Route path='/crm/chat' element={<Chat />} />
-            <Route path='/crm/candidates' element={<Candidates />} />
+            <Route path='/crm/chat/:chatid' element={<Chat />} />
+            <Route path='/crm/candidates' element={<CandidatesAnalytics />} />
             <Route path='/crm/candidates/:id' element={<Candidates />} />
-            <Route path='/crm/clients' element={<Clients />} />
-            <Route path='/crm/clients/:id/vacancies' element={<Candidates />} />
-            <Route path='/crm/clients/:id/vacancies/:id/candidates' element={<Candidates />} />
-            <Route path='/crm/clients/:id/vacancies/:id/candidates/:id' element={<Candidates />} />
+            <Route path='/crm/clients' element={<ClientsAnalytics />} />
+            <Route path='/crm/clients/:clientsid/vacancies' element={<VacancyAnalytics />} />
+            <Route path='/crm/clients/:clientsid/vacancies/:vacancyid' element={<Vacancy />} />
+            <Route path='/crm/clients/:clientsid/vacancies/:vacancyid/candidates/:id' element={<Candidates />} />
             <Route path='/crm/addcandidates' element={<Addcandidates />} />
-            <Route path='/crm/addvacancies' element={<AddVacancy />} />
           </Routes>
 
         </Box>
