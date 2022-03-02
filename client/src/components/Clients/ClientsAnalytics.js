@@ -4,7 +4,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { changeMenu } from '../../redux/slices/NavBarSlice';
 import SideMenu from '../NavBar/SideMenu';
 
-function Vacancy() {
+function ClientsAnalytics() {
   const { clientsid, chatid, vacancyid, id } = useParams();
   const location = useLocation()
   // useEffect
@@ -24,4 +24,4 @@ function Vacancy() {
   )
 }
 
-export default Vacancy
+export default ClientsAnalytics

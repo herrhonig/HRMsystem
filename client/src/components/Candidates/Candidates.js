@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { getCandidate } from '../../redux/slices/candidateSlice';
 import { getTags } from '../../redux/slices/tagsSlice';
 import { getCandidateInfo } from '../../redux/slices/candidateInfoSlice';
@@ -12,17 +12,25 @@ import Exp from '../Exp/Exp';
 import Stack from '@mui/material/Stack';
 import Education from '../Education/Education';
 import CircularProgress from '@mui/material/CircularProgress';
+import { changeMenu } from '../../redux/slices/NavBarSlice';
+import SideMenu from '../NavBar/SideMenu';
 
 function Candidates() {
+
+  const { clientsid, chatid, vacancyid, id } = useParams();
+  const location = useLocation()
   // useEffect
   useEffect(() => {
     dispatch(getCandidate(id));
     dispatch(getTags(id));
     dispatch(getCandidateInfo(id));
-  }, []);
+    dispatch(changeMenu({ locationPath: location.pathname, clientsid, chatid, vacancyid, id }));
+  }, [location]);
+
+  // console.log(useParams());
 
   // Объявления
-  const { id } = useParams();
+
   const dispatch = useDispatch();
 
   // Кандидат state
@@ -43,6 +51,7 @@ function Candidates() {
 
   return (
     <>
+      {/* <SideMenu /> */}
       <Box>
         {/* <Див с аватаркой> */}
         <Box
