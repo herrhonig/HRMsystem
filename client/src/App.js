@@ -21,24 +21,31 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { checkAuth, signOut } from './redux/slices/userSlice';
 import AddVacancy from './components/Addvacancy/Addvacancy';
+import StartPage from "./components/StartPage/StartPage";
+import MainPage from "./components/MainPage/MainPage";
+import { Navigate, useNavigate } from "react-router-dom";
+import SignUp from "./components/Signup/Signup";
 import CandidatesAnalytics from "./components/Candidates/CandidatesAnalytics";
 import VacancyAnalytics from "./components/Vacancy/VacancyAnalytics";
 import ClientsAnalytics from "./components/Clients/ClientsAnalytics";
 import CatMenu from "./components/NavBar/CatMenu";
+import MainAnalytics from "./components/MainAnalytics/MainAnalytics";
 
 
 
 function App() {
-  // const isAuth = useSelector(state => state.auth.isAuth);
-  // console.log('=== is auth ===', isAuth)
-  // const dispatch = useDispatch();
-  // // CHECK AUTH:
-  // useEffect(() => {
-  //   if (localStorage.getItem('token')) {
-  //     console.log('TOKEN FROM LS =======>', localStorage.getItem('token'));
-  //     dispatch(checkAuth());
-  //   }
-  // }, []);
+  const navigate = useNavigate();
+
+  // CHECK AUTH:
+  const isAuth = useSelector(state => state.auth.isAuth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      console.log('TOKEN FROM LS =======>', localStorage.getItem('token'));
+      dispatch(checkAuth());
+    }
+  }, []);
+  //////////////////// CHECK AUTH END ///////////////////////
 
   return (
     <>
@@ -47,6 +54,7 @@ function App() {
 
 
       <Box sx={{ display: 'flex' }}>
+        
 
         <SideMenu />
 
@@ -55,32 +63,11 @@ function App() {
         <Box component="main" sx={{ mt: 12, ml: 5 }} >
           {/* СЮДА ДОБАВЛЯЕМ ВСЕ ССЫЛКИ НА КОМПОНЕНТЫ */}
           {/* <Index /> */}
-          {/* <div>
-        {isAuth ? 
-          <>
-            <span>Пользователь авторизован</span>
-            <Button onClick={() => dispatch(signOut())}>logout</Button>
-          </>
-         :
-          <><h4>Вам необходимо авторизоваться:</h4>
-          <Link to={`/crm/signin`}>
-            <div>
-              <Button>Sign in</Button>
-            </div>
-          </Link>
-          <Link to={`/crm/signup`}>
-            <div>
-            <Button>Sign up</Button>
-            </div>
-          </Link>
-              
-          </>}
-      </div> */}
 
           <Routes>
-            <Route path='/crm' element={<ClientsAnalytics />} />
-            <Route path='/signup' element={<Signup />} />
-            <Route path='/signin' element={<Signin />} />
+            {isAuth ?
+            <>
+            <Route path='/crm' element={ <MainAnalytics /> } />
             <Route path='/crm/vacancies' element={<VacancyAnalytics />} />
             <Route path='/crm/vacancies/:vacancyid' element={<VacancyAnalytics />} />
             <Route path='/crm/vacancies/:vacancyid/candidates' element={<CandidatesAnalytics />} />
@@ -94,6 +81,14 @@ function App() {
             <Route path='/crm/clients/:clientsid/vacancies/:vacancyid' element={<Vacancy />} />
             <Route path='/crm/clients/:clientsid/vacancies/:vacancyid/candidates/:id' element={<Candidates />} />
             <Route path='/crm/addcandidates' element={<Addcandidates />} />
+            </>
+          :
+          <>
+          <Route path='/' element={<StartPage />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/signin' element={<Signin />} />
+          </>
+          }
           </Routes>
 
         </Box>
@@ -102,6 +97,7 @@ function App() {
 
 
     </>
+
   );
 }
 

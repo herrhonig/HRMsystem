@@ -12,6 +12,10 @@ import Avatar from '@mui/material/Avatar';
 import React, { useState, useEffect, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { signOut } from '../../redux/slices/userSlice';
+import { useNavigate } from 'react-router';
 
 function TryMenu() {
   return (
@@ -97,10 +101,19 @@ function DropdownAdd() {
   const [activeMenu, setActiveMenu] = useState('main');
   const [menuHeight, setMenuHeight] = useState(null);
   const dropdownRef = useRef(null);
+  const isAuth = useSelector(state => state.auth.isAuth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  
   useEffect(() => {
     setMenuHeight(dropdownRef.current?.firstChild.offsetHeight)
   }, [])
+
+  function logoutHandler() {
+    dispatch(signOut());
+    navigate('/');
+  }
 
   function calcHeight(el) {
     const height = el.offsetHeight;
@@ -118,6 +131,8 @@ function DropdownAdd() {
   }
 
   return (
+    <>
+    
     <div className="dropdown" style={{ height: menuHeight }} ref={dropdownRef}>
 
       <CSSTransition
@@ -130,9 +145,22 @@ function DropdownAdd() {
           <DropdownItem>Мой настройки</DropdownItem>
           <DropdownItem>Личные данные</DropdownItem>
           <DropdownItem>Интеграции</DropdownItem>
+          {isAuth &&
+          <Button
+                type="submit"
+                fullWidth
+                color="warning"
+                onClick={logoutHandler}
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Выйти
+              </Button>   
+          }
         </div>
       </CSSTransition>
     </div>
+    </>
   );
 }
 
