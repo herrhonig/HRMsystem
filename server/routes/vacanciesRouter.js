@@ -90,4 +90,30 @@ router.post('/vacancy', async (req, res) => {
   }
 });
 
+router.get('/vacancy/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const vacancy = await Vacancy.findOne({ where: { id } });
+    const company = await Company.findOne({
+      where: { id: vacancy.company_id },
+    });
+    const status = await StatusVacancy.findOne({
+      where: { id: vacancy.status_id },
+    });
+    const priority = await Priority.findOne({
+      where: { id: vacancy.priority_id },
+    });
+
+    res.json({
+      vacancy,
+      compName: company.name,
+      statusName: status.statusvac_name,
+      priorName: priority.name,
+    });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
 module.exports = router;
