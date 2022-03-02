@@ -16,33 +16,26 @@ import {
   Route,
   Routes,
   Link,
-  useLocation
+  useLocation,
+  useParams
 } from "react-router-dom";
-import { changeMenu } from '../../redux/slices/NavBarSlice';
 
 const drawerWidth = 240;
 
 function SideMenu() {
 
 
-  const dispatch = useDispatch();
-  const location = useLocation()
-
-  useEffect(() => {
-    dispatch(changeMenu({ locationPath: location.pathname }));
-  }, [location]);
-
   const list = useSelector((state) => state.menu.list);
   const page = useSelector((state) => state.menu.page);
-  const goTo = useSelector((state) => state.menu.goTo);
+  const link = useSelector((state) => state.menu.link);
 
-  console.log(page);
+  // console.log(page);
 
   function DropdownItem(el) {
     return (
-      <Link className="menu-item" to={'/crm/candidates/1'}>
-        <Chip sx={{ marginLeft: '5px', marginRight: '5px' }} label={el.children} variant="outlined" />
-      </Link>
+
+      <Chip sx={{ marginLeft: '5px', marginRight: '5px' }} label={el.children} variant="outlined" />
+
     );
   }
 
@@ -67,16 +60,18 @@ function SideMenu() {
 
           <CSSTransition
             in={page === 'Вакансии'}
-            timeout={500}
+            timeout={700}
             classNames="menu-primary"
             unmountOnExit
           >
             <div className="menu">
               <span>{page}</span>
               {list && list?.map((el) =>
-                <DropdownItem key={el.id}>
-                  {el.position}
-                </DropdownItem>
+                <Link className="menu-item" to={`${link}/${el.id}`}>
+                  <DropdownItem key={el.id}>
+                    {el.position}
+                  </DropdownItem>
+                </Link>
               )}
             </div>
           </CSSTransition>
@@ -84,32 +79,36 @@ function SideMenu() {
 
           <CSSTransition
             in={page === 'Клиенты'}
-            timeout={500}
+            timeout={700}
             classNames="menu-primary"
             unmountOnExit
           >
             <div className="menu">
               <span>{page}</span>
               {list && list?.map((el) =>
-                <DropdownItem key={el.id}>
-                  {el.name}
-                </DropdownItem>
+                <Link className="menu-item" to={`${link}/${el.id}/vacancies`}>
+                  <DropdownItem key={el.id}>
+                    {el.name}
+                  </DropdownItem>
+                </Link>
               )}
             </div>
           </CSSTransition>
 
           <CSSTransition
             in={page === 'Кандидаты'}
-            timeout={500}
+            timeout={700}
             classNames="menu-primary"
             unmountOnExit
           >
             <div className="menu">
               <span>{page}</span>
               {list && list?.map((el) =>
-                <DropdownItem key={el.id}>
-                  {el.last_name} {el.first_name} {el.middle_name}
-                </DropdownItem>
+                <Link className="menu-item" to={`${link}/${el.id}`}>
+                  <DropdownItem key={el.id}>
+                    {el.last_name} {el.first_name} {el.middle_name}
+                  </DropdownItem>
+                </Link>
               )}
             </div>
           </CSSTransition>

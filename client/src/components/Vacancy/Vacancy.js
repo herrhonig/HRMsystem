@@ -6,20 +6,25 @@ import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { getVacancy } from '../../redux/slices/vacancySlice';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
+import { changeMenu } from '../../redux/slices/NavBarSlice';
+import SideMenu from '../NavBar/SideMenu';
 
 function Vacancy() {
   // Объявления
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { clientsid, chatid, vacancyid, id } = useParams();
+  
+   const location = useLocation()
 
   // States
   const vacancy = useSelector(state => state.vacancy.vacancy);
 
   // useEffect
   useEffect(() => {
-    dispatch(getVacancy(id));
-  }, []);
+    dispatch(getVacancy(vacancyid));
+    dispatch(changeMenu({ locationPath: location.pathname, clientsid, chatid, vacancyid, id }));
+  }, [location]);
 
   return (
     <Stack

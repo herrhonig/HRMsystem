@@ -40,7 +40,7 @@ class UserController {
       );
       // передаем входные данные в user service:
       // кладем рефреш токен в куки:
-      // res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+      res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
       return res.json(userData);
     } catch (err) {
       next(err);
@@ -86,7 +86,8 @@ class UserController {
 
   async refresh(req, res, next) {
     try {
-      const { refreshToken } = res.cookies;
+      const { refreshToken } = req.cookies;
+      console.log('REFRESH LOG ===>', refreshToken);
       const userData = await userService.refresh(refreshToken);
 
       // кладем рефреш токен в куки:
