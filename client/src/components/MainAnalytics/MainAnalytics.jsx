@@ -1,9 +1,12 @@
 import { Chip, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 import { changeMenu } from '../../redux/slices/NavBarSlice';
+import FaceIcon from '@mui/icons-material/Face';
+import Charts from '../Charts/Charts';
+import ButtonNav from './Buttons/ButtonNav';
 
 
 const MainAnalytics = () => {
@@ -25,17 +28,20 @@ const MainAnalytics = () => {
     component='div'>
       Аналитика
     </Typography>
+    {/* ============= CARDS WITH STATISTICS ================*/}
     <Stack
+      
       flexWrap='wrap'
       direction='row'
       justifyContent='space-between'
       alignItems='center'
-      spacing={1}
+      spacing={2}
+      
     >
       <Box
         sx={{
-          width: 200,
-          boxShadow: 3,
+          width: 180,
+          boxShadow: 1,
           bgcolor: (theme) =>
             theme.palette.mode === 'dark' ? '#101010' : '#fff',
           color: (theme) =>
@@ -56,8 +62,8 @@ const MainAnalytics = () => {
 
       <Box
         sx={{
-          width: 200,
-          boxShadow: 3,
+          width: 180,
+          boxShadow: 1,
           bgcolor: (theme) =>
             theme.palette.mode === 'dark' ? '#101010' : '#fff',
           color: (theme) =>
@@ -76,8 +82,8 @@ const MainAnalytics = () => {
 
       <Box
         sx={{
-          width: 200,
-          boxShadow: 3,
+          width: 180,
+          boxShadow: 1,
           bgcolor: (theme) =>
             theme.palette.mode === 'dark' ? '#101010' : '#fff',
           color: (theme) =>
@@ -95,6 +101,7 @@ const MainAnalytics = () => {
       </Box>
         
           <Stack
+          
           width='470px'
           flexWrap='wrap'
           direction='column'
@@ -105,8 +112,8 @@ const MainAnalytics = () => {
         >
           <Box
             sx={{
-              width: 200,
-              boxShadow: 3,
+              width: 180,
+              boxShadow: 1,
               bgcolor: (theme) =>
                 theme.palette.mode === 'dark' ? '#101010' : '#fff',
               color: (theme) =>
@@ -125,8 +132,8 @@ const MainAnalytics = () => {
 
           <Box
             sx={{
-              width: 200,
-              boxShadow: 3,
+              width: 180,
+              boxShadow: 1,
               bgcolor: (theme) =>
                 theme.palette.mode === 'dark' ? '#101010' : '#fff',
               color: (theme) =>
@@ -137,14 +144,55 @@ const MainAnalytics = () => {
               textAlign: 'center',
               fontSize: '15px',
               fontWeight: '700',
+              fontSize:'14px'
             }}
           >
-            <h3>Top-10 консультантов: </h3>
+            <h3>TOP консультантов: </h3>
             
-            <Chip label='10. Цветков К.' color='warning'/>
+            <Chip 
+            icon={<FaceIcon />}
+            label='10. Цветков К.' 
+            color='warning'
+            />
           </Box>
           </Stack>
     </Stack>
+        {/* ============= CARDS WITH STATISTICS END================*/}
+        <Stack
+      flexWrap='wrap'
+      direction='column'
+      justifyContent='center'
+      alignItems='flex-start'
+      spacing={2}
+      
+    >
+
+      <Box
+        sx={{
+          
+          width: 700,
+          boxShadow: 2,
+          bgcolor: (theme) =>
+            theme.palette.mode === 'dark' ? '#101010' : '#fff',
+          color: (theme) =>
+            theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
+          p: 4,
+          m: 2,
+          borderRadius: 2,
+          textAlign: 'center',
+          fontSize: '0.875rem',
+          fontWeight: '200',
+        }}
+      >
+       <Charts
+       sx={{
+        height: 100,
+       }}/> 
+       <span> Показатель успешного успеха:</span>
+      </Box>
+      </Stack>
+      
+      <ButtonNav />
     </>
   )
 }

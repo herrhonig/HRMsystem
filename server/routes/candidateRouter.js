@@ -7,6 +7,9 @@ const {
   Experience,
   AboutCandidate,
   Vacancy,
+  User,
+  StatusVacancy,
+  Company,
 } = require('../db/models');
 
 // /candidate
@@ -216,11 +219,53 @@ router.get('/vacancies/:candidateid', async (req, res) => {
   const { candidateid } = req.params;
 
   try {
-    const allVac = await Vacancy.findAll({
-
+    const resp = await Candidate.findAll({
+      include: [
+        {
+          model: Vacancy,
+          required: true,
+          where: { id: candidateid },
+        },
+        {
+          model: User,
+          required: true,
+          where: { id: candidateid },
+        },
+      ],
     });
-  } catch (err) {
+    const allVac = resp[0].Vacancies;
 
+    const arr = allVac.map(async (el) => {
+      // id
+      const statNum = el.status_id;
+      const compNum = el.company_id;
+      const userNum = el.VacancyJoinTables.user_id;
+
+      // Поиск значений
+      const stat = await StatusVacancy.findOne({ where: { id: statNum } });
+      const statName = stat.statusvac_name;
+      const comp = await Company.findOne({ where: { id: compNum } });
+      const compName = comp.name;
+      const user = await User.findOne({ where: { id: userNum } });
+      const userName = `${user.first_name} ${user.last_name}`;
+      // console.log('-------------------', statName, compName, userName);
+
+      // Присвоение
+      el.dataValues.statName = statName;
+      el.dataValues.compName = compName;
+      el.dataValues.userName = userName;
+
+      return el;
+    });
+
+    const respon = await Promise.all(arr);
+
+    console.log({ respon });
+
+    res.json(respon);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
   }
 });
 
