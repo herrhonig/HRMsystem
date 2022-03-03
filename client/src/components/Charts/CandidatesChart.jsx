@@ -2,7 +2,7 @@
 import React from 'react';
 import { Chart } from 'primereact/chart';
 
-const Charts = () => {
+const CandidatesChart = () => {
     const lineStylesData = {
         labels: ['10:40PM', '10:55PM', '11:10PM', '11:15PM', '12:45PM', '14:40PM', '16:30PM'],
         datasets: [
@@ -111,4 +111,4 @@ const Charts = () => {
     )
 }
 
-export default Charts
+export default CandidatesChart

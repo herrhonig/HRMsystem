@@ -159,17 +159,17 @@ const MainAnalytics = () => {
     </Stack>
         {/* ============= CARDS WITH STATISTICS END================*/}
         <Stack
-        
       flexWrap='wrap'
       direction='column'
       justifyContent='center'
-      alignItems='center'
-      spacing={3}
+      alignItems='flex-start'
+      spacing={2}
       
     >
-      </Stack>
+
       <Box
         sx={{
+          
           width: 700,
           boxShadow: 2,
           bgcolor: (theme) =>
@@ -181,12 +181,16 @@ const MainAnalytics = () => {
           borderRadius: 2,
           textAlign: 'center',
           fontSize: '0.875rem',
-          fontWeight: '700',
+          fontWeight: '200',
         }}
       >
-       <Charts/> 
+       <Charts
+       sx={{
+        height: 100,
+       }}/> 
        <span> Показатель успешного успеха:</span>
       </Box>
+      </Stack>
       
       <ButtonNav />
     </>
