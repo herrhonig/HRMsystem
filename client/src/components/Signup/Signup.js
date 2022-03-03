@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Stack } from '@mui/material';
 import { registerUser } from '../../redux/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 
 function Copyright(props) {
   return (
@@ -35,61 +36,63 @@ const theme = createTheme();
 export default function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+  const isLoading = useSelector(state => state.auth.status)
   const authError = useSelector(state => state.auth.isError);
-  
+
 
   const [input, setInput] = useState({
-    first_name: '', 
-    last_name: '', 
-    middle_name: '', 
+    first_name: '',
+    last_name: '',
+    middle_name: '',
     email: '',
     password: '',
     phone: '',
-    company: '', 
-    position: ''});
+    company: '',
+    position: ''
+  });
 
 
   const inputHandler = (e) => {
-    setInput(prev => ({...prev, [e.target.name]: e.target.value}));
+    setInput(prev => ({ ...prev, [e.target.name]: e.target.value }));
   }
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(registerUser(input));
-    
+
     console.log('===== after reg ===');
     setInput({
-      first_name: '', 
-      last_name: '', 
-      middle_name: '', 
+      first_name: '',
+      last_name: '',
+      middle_name: '',
       email: '',
       password: '',
       phone: '',
-      company: '', 
-      position: ''});
+      company: '',
+      position: ''
+    });
 
-      navigate('/crm')
+    navigate('/crm')
   }
- 
+
   return (
     <ThemeProvider theme={theme}>
-      <Container 
-      component="main"  
-      sx={{
-        width: 900,
-        // marginTop: 8,
-        // marginLeft: 50,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-      }}
+      <Container
+        component="main"
+        sx={{
+          width: 900,
+          // marginTop: 8,
+          // marginLeft: 50,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+        }}
       >
         <CssBaseline />
         <Box
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
         >
           <Avatar sx={{ m: 2, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
@@ -98,7 +101,7 @@ export default function SignUp() {
             Зарегистрироваться
           </Typography>
           <Box component="form" noValidate onSubmit={submitHandler} sx={{ mt: 3 }}>
-            <Grid  spacing={2}>
+            <Grid spacing={2}>
               <Grid item xs={12} sm={16} mt={3}>
                 <TextField
                   autoComplete="given-name"
@@ -125,7 +128,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12} sm={16} mt={2}>
                 <TextField
-                  
+
                   fullWidth
                   id="lastName"
                   label="Middle Name"
@@ -199,6 +202,8 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
+         
+          
 
             {/* {authError && <h3 style={{color: 'red'}}> Ошибка регистрации!</h3>} */}
 

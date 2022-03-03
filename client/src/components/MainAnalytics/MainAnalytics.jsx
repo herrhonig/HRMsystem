@@ -7,18 +7,21 @@ import { changeMenu } from '../../redux/slices/NavBarSlice';
 import FaceIcon from '@mui/icons-material/Face';
 import Charts from '../Charts/Charts';
 import ButtonNav from './Buttons/ButtonNav';
+import Loading from '../Loading/Loading';
 
 
 const MainAnalytics = () => {
   const dispatch = useDispatch();
-
+  const isLoading = useSelector(state => state.menu.status)
   const { clientsid, chatid, vacancyid, id } = useParams();
   const location = useLocation()
   // useEffect
   useEffect(() => {
     dispatch(changeMenu({ locationPath: location.pathname, clientsid, chatid, vacancyid, id }));
-  }, [location]);
 
+  }, [location]);
+  console.log('LOADDDDDING---------------',isLoading);
+  if(isLoading === 'loading') return <div style={{height:'calc(100vh - 80px)', width:'calc(100vw - 120px)', display:'flex',alignItems:'center',justifyContent:'center'}}><Loading/></div>
   return (
     <>    
     <Typography 
