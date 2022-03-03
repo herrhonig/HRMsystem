@@ -6,19 +6,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import TryMenu from './FooterMenu';
 import { CSSTransition } from 'react-transition-group';
-import { ReactComponent as CogIcon } from './icons/cog.svg';
-import { ReactComponent as ChevronIcon } from './icons/chevron.svg';
-import { ReactComponent as ArrowIcon } from './icons/arrow.svg';
-import { ReactComponent as BoltIcon } from './icons/bolt.svg';
 import Chip from '@mui/material/Chip';
-
-
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import List from '@mui/material/List';
 
 import {
@@ -30,7 +18,7 @@ import {
 } from "react-router-dom";
 
 const drawerWidth = 88;
-const drawer1Width = drawerWidth + 186;
+const drawer1Width = drawerWidth + 236;
 
 
 function SideMenu() {
@@ -45,7 +33,7 @@ function SideMenu() {
   function DropdownItem(el) {
     return (
 
-      <Chip sx={{ marginLeft: '5px', marginRight: '5px' }} label={el.children} variant="outlined" />
+      <Chip sx={{ marginLeft: '5px', marginRight: '5px', width: 180, height: 50 }} label={el.children} variant="outlined" />
 
     );
   }
@@ -57,6 +45,7 @@ function SideMenu() {
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <TryMenu />
       </AppBar>
+
 
       <Drawer
         variant="permanent"
@@ -80,7 +69,7 @@ function SideMenu() {
               <h2>{page}</h2>
               {list && list?.map((el) =>
                 <Link className="menu-item" to={`${link}/${el.id}`}>
-                  <DropdownItem key={el.id}>
+                  <DropdownItem key={el.id} style={{ width: '20px' }}>
                     {el.position}
                   </DropdownItem>
                 </Link>
@@ -117,8 +106,8 @@ function SideMenu() {
               <h2>{page}</h2>
               {list && list?.map((el) =>
                 <Link className="menu-item" to={`${link}/${el.id}`}>
-                  <DropdownItem key={el.id}>
-                    {el.last_name} {el.first_name} {el.middle_name}
+                  <DropdownItem key={el.id} >
+                    {el.last_name} {el.first_name} {el.middle_name} {el.middle_name} {el.middle_name}
                   </DropdownItem>
                 </Link>
               )}
@@ -146,20 +135,24 @@ function SideMenu() {
         <Box sx={{ mt: 9, ml: 1 }}>
           {/* <Link className="side" to={`/crm`}> */}
           {/* <ListItem className="angle"> */}
-          <h2>Меню</h2>
-          <div>
-            <List>
-              <Link to={`/crm/clients`}>
-                <Chip className="side" sx={{ marginTop: '30px', backgroundColor: '#FFFFFF' }} label='Клиенты' variant="outlined" />
-              </Link>
-              <Link to={`/crm/candidates`}>
-                <Chip className="side" sx={{ marginTop: '60px', backgroundColor: '#FFFFFF' }} label='Клиенты' variant="outlined" />
-              </Link>
-              <Link to={`/crm/vacancies`}>
-                <Chip className="side" sx={{ marginTop: '60px', backgroundColor: '#FFFFFF' }} label='Клиенты' variant="outlined" />
-              </Link>
-            </List>
-          </div>
+          <Box>
+            <h2>Меню</h2>
+          </Box>
+          <Box sx={{ mt: 7, ml: -3 }}>
+            <div>
+              <List>
+                <Link to={`/crm/clients`}>
+                  <Chip className="side" sx={{ backgroundColor: '#FFFFFF', width: 120, height: 50 }} label='Клиенты' variant="outlined" />
+                </Link>
+                <Link to={`/crm/candidates`}>
+                  <Chip className="side" sx={{ marginTop: 9, backgroundColor: '#FFFFFF', width: 120, height: 50 }} label='Кандидаты' variant="outlined" />
+                </Link>
+                <Link to={`/crm/vacancies`}>
+                  <Chip className="side" sx={{ marginTop: 9, backgroundColor: '#FFFFFF', width: 120, height: 50 }} label='Вакансии' variant="outlined" />
+                </Link>
+              </List>
+            </div>
+          </Box>
           {/* </ListItem> */}
           {/* </Link> */}
 
