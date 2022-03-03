@@ -19,6 +19,15 @@ import { changeMenu } from '../../redux/slices/NavBarSlice';
 import SideMenu from '../NavBar/SideMenu';
 import Divider from '@mui/material/Divider';
 import VacanciesList from './VacanciesList';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Button from '@mui/material/Button';
+import MenuItem from '@mui/material/MenuItem';
+import MenuList from '@mui/material/MenuList';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import { addAllVacanciesByCandidate, setCandidateId, setUserId, setVacancyId } from '../../redux/slices/addToVacancySlice';
 
 function Candidates() {
   const { clientsid, chatid, vacancyid, id } = useParams();
@@ -30,6 +39,7 @@ function Candidates() {
     dispatch(getTags(id));
     dispatch(getCandidateInfo(id));
     dispatch(getCandidateVacancies(id));
+    dispatch(addAllVacanciesByCandidate());
     dispatch(
       changeMenu({
         locationPath: location.pathname,
@@ -45,7 +55,7 @@ function Candidates() {
 
   const dispatch = useDispatch();
 
-  // Кандидат state
+  // Кандидат states
   const candidate = useSelector((state) => state.candidate.candidate);
   const canStatus = useSelector((state) => state.candidate.status);
 
@@ -61,6 +71,26 @@ function Candidates() {
   // Vacanies state
   const vacancies = useSelector((state) => state.candidateInfo.vacanciesInfo);
 
+  
+  // Handlers
+  const vacancyIdHandler = (e) => {
+    console.log('---------------');
+    dispatch(setVacancyId(e.target.value));
+  }
+  const candidateIdHandler = (value) => {
+    console.log('---------------');
+    dispatch(setCandidateId(value));
+  }
+  const userIdHandler = (value) => {
+    dispatch(setUserId(value));
+  }
+  
+  // toVacancies states
+  const toVacancies = useSelector((state) => state.toVacancy.allVacancies);
+  const vacancy_id = useSelector((state) => state.toVacancy.vacancy_id);
+  const candidate_id = useSelector((state) => state.candidate.candidate.id);
+  const user_id = useSelector((state) => state.auth.userId);
+  console.log(vacancy_id);
   // Дополнительные переменные
   const years = new Date().getFullYear() - candidate.birthday_year;
 
@@ -116,14 +146,51 @@ function Candidates() {
                 <Typography
                   variant='subtitle2'
                   gutterBottom
-                  color='#1769aa'
+                  color='#2196f3'
                   component='div'
                 >
                   {candidate.position}
                 </Typography>
               </Stack>
+              {/* Кнопки */}
+              <Stack
+                direction='row'
+                justifyContent='flex-end'
+                alignItems='flex-start'
+                width={500}
+                spacing={1}
+              >
+                
+                  <Button
+                    // onClick={handleClick}
+                    variant='outlined'
+                  >
+                    <Typography variant='body2' display='block' gutterBottom>
+                      Add to vacancy
+                    </Typography>
+                  </Button>
+                  <FormControl sx={{ height: '5px' }}>
+                    <InputLabel
+                      id='simple-select-filled-label'
+                    >1</InputLabel>
+                    <Select
+                      labelId='simple-select-filled-label'
+                      id='simple-select-filled'
+                      value={vacancy_id}
+                      onChange={vacancyIdHandler}
+                    >
+                      {toVacancies.map((el) => (
+                        <MenuItem
+                          value={el.id}
+                        >{`${el.position} (${el.company_id})`}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                
+              </Stack>
             </Stack>
           </Stack>
+          {/* Кнопки */}
           {/* </Див с аватаркой > */}
           {/* <Див с доп данными и тегами> */}
           <Stack
@@ -174,24 +241,56 @@ function Candidates() {
               alignItems='center'
               spacing={6}
             >
-              <Typography variant="body2" color='#757575' gutterBottom component="div">
+              <Typography
+                variant='body2'
+                color='#757575'
+                gutterBottom
+                component='div'
+              >
                 Компания:
               </Typography>
-              <Typography variant="body2" color='#757575' gutterBottom component="div">
+              <Typography
+                variant='body2'
+                color='#757575'
+                gutterBottom
+                component='div'
+              >
                 Вакансия:
               </Typography>
-              <Typography variant="body2" color='#757575' gutterBottom component="div">
+              <Typography
+                variant='body2'
+                color='#757575'
+                gutterBottom
+                component='div'
+              >
                 Статус:
               </Typography>
-              <Typography variant="body2" color='#757575' gutterBottom component="div">
+              <Typography
+                variant='body2'
+                color='#757575'
+                gutterBottom
+                component='div'
+              >
                 Консультант:
               </Typography>
-              <Typography variant="body2" color='#757575' gutterBottom component="div">
-
-              </Typography>
+              <Typography
+                variant='body2'
+                color='#757575'
+                gutterBottom
+                component='div'
+              ></Typography>
             </Stack>
-            <Divider orientation="horizontal" flexItem />
-            {vacancies.map(el => <VacanciesList key={el.id} vacansyid={el.id} compName={el.compName} position={el.position} statName={el.statName} user={el.userName} />)}
+            <Divider orientation='horizontal' flexItem />
+            {vacancies.map((el) => (
+              <VacanciesList
+                key={el.id}
+                vacansyid={el.id}
+                compName={el.compName}
+                position={el.position}
+                statName={el.statName}
+                user={el.userName}
+              />
+            ))}
           </Stack>
           {/* </Див с вакансиями> */}
           {/* <Див с инфой> */}
