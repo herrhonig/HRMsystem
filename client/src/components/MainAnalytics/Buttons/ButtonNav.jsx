@@ -23,29 +23,24 @@ const ButtonNav = () => {
   return (
     <>
     <Stack
-          marginTop='230px'
+          marginTop='130px'
           flexWrap='wrap'
-          direction='row'
           justifyContent='flex-end'
           alignItems='center'
           // marginLeft='150px'
           spacing={2}
         >
-          <Box
+      <Box
         sx={{
-          width: 380,
-          // direction:'column',
+          width: 270,
           boxShadow: 1,
-          // bgcolor: (theme) =>
-          //   theme.palette.mode === 'dark' ? '#101010' : '#fff',
-          // color: (theme) =>
-          //   theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
           p: 1,
           m: 1,
           borderRadius: 2,
-          // textAlign: 'center',
+          textAlign: 'center',
           alignItems:"center",
-          justifyContent:"space-around",
+          margin:'10px',
+          // justifyContent:"space-around",
           fontSize: '0.875rem',
           fontWeight: '700',
         }}
@@ -53,28 +48,37 @@ const ButtonNav = () => {
         <Box>
           <IconButton aria-label="delete" size="large" color="secondary">
             {isAuth &&
-          <Button
+              <Button
                 type="submit"
                 size="small"
                 color="warning"
                 onClick={logoutHandler}
                 variant="contained"
-                sx={{ mt: 0, mb: 0 }}
+                sx={{ mt: 1, mb: 1, ml:1 }}
               >
                 Выйти
-              </Button>   
+              </Button>
           }
+          <Button
+          type="submit"
+          size="small"
+          color="warning"
+          variant="contained"
+          sx={{ mt: 1, mb: 1, ml:1 }}
+          > AAA
+          </Button>
+          <Button
+          type="submit"
+          size="small"
+          color="warning"
+          variant="contained"
+          sx={{ mt: 1, mb: 1, ml:1 }}
+          > FFFFFFFF
+          </Button>  
           </IconButton>
         </Box>
-        {/* <Box>
-          <IconButton aria-label="delete" size="large" color="secondary">
-            <DeleteIcon fontSize="inherit" />
-            <AlarmIcon />
-          </IconButton>
-        </Box> */}
-
       </Box>
-        </Stack>
+    </Stack>
     </>
   )
 }
