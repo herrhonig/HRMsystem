@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { Vacancy, Company, Priority, StatusVacancy } = require('../db/models');
+const {
+  Vacancy,
+  Company,
+  Priority,
+  StatusVacancy,
+  VacancyJoinTable,
+} = require('../db/models');
 
 // /vacancies
 router.get('/list', async (req, res) => {
@@ -14,17 +20,18 @@ router.get('/list', async (req, res) => {
   }
 });
 
-
 router.get('/:clientsid/list', async (req, res) => {
   const { clientsid } = req.params;
   try {
     // const list = await Candidate.findAll();
 
     const candidateVacancy = await Vacancy.findAll({
-      include: [{
-        model: Company,
-        // required: true,
-      }],
+      include: [
+        {
+          model: Company,
+          // required: true,
+        },
+      ],
       where: { company_id: clientsid },
       // raw: true
     });
@@ -93,7 +100,7 @@ router.post('/vacancy', async (req, res) => {
 router.get('/vacancy/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const vacancy = await Vacancy.findOne({ where: { id } });
+    const vacancy = await Vacancy.findAll({ where: { id } });
     const company = await Company.findOne({
       where: { id: vacancy.company_id },
     });
@@ -110,6 +117,22 @@ router.get('/vacancy/:id', async (req, res) => {
       statusName: status.statusvac_name,
       priorName: priority.name,
     });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
+router.post('/candidate/company', async (req, res) => {
+  const { vacancy_id, candidate_id, user_id } = req.body.value;
+  try {
+    VacancyJoinTable.create({
+      vacancy_id,
+      candidate_id,
+      user_id,
+      status_id: 1,
+    });
+    res.sendStatus(200);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);

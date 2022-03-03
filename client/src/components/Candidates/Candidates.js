@@ -27,34 +27,17 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import { addAllVacanciesByCandidate, setCandidateId, setUserId, setVacancyId } from '../../redux/slices/addToVacancySlice';
+import { addAllVacanciesByCandidate, sendAddtoVac, setCandidateId, setUserId, setVacancyId } from '../../redux/slices/addToVacancySlice';
 
 function Candidates() {
   const { clientsid, chatid, vacancyid, id } = useParams();
   const location = useLocation();
 
-  // useEffect
-  useEffect(() => {
-    dispatch(getCandidate(id));
-    dispatch(getTags(id));
-    dispatch(getCandidateInfo(id));
-    dispatch(getCandidateVacancies(id));
-    dispatch(addAllVacanciesByCandidate());
-    dispatch(
-      changeMenu({
-        locationPath: location.pathname,
-        clientsid,
-        chatid,
-        vacancyid,
-        id,
-      })
-    );
-  }, [location]);
-
+  
   // Объявления
-
+  
   const dispatch = useDispatch();
-
+  
   // Кандидат states
   const candidate = useSelector((state) => state.candidate.candidate);
   const canStatus = useSelector((state) => state.candidate.status);
@@ -71,29 +54,46 @@ function Candidates() {
   // Vacanies state
   const vacancies = useSelector((state) => state.candidateInfo.vacanciesInfo);
 
-  
-  // Handlers
-  const vacancyIdHandler = (e) => {
-    console.log('---------------');
-    dispatch(setVacancyId(e.target.value));
-  }
-  const candidateIdHandler = (value) => {
-    console.log('---------------');
-    dispatch(setCandidateId(value));
-  }
-  const userIdHandler = (value) => {
-    dispatch(setUserId(value));
-  }
-  
   // toVacancies states
   const toVacancies = useSelector((state) => state.toVacancy.allVacancies);
   const vacancy_id = useSelector((state) => state.toVacancy.vacancy_id);
   const candidate_id = useSelector((state) => state.candidate.candidate.id);
   const user_id = useSelector((state) => state.auth.userId);
   console.log(vacancy_id);
+  
+  // Handlers
+  const vacancyIdHandler = (e) => {
+    dispatch(setVacancyId(e.target.value));
+    dispatch(setCandidateId(candidate_id));
+    dispatch(setUserId(user_id));
+  }
+  const addToVacHandler = () => {
+    dispatch(sendAddtoVac({ vacancy_id, candidate_id, user_id }));
+  }
+  
+  
   // Дополнительные переменные
+  const stateEr = useSelector((state) => state.toVacancies)
+  // useEffect
+  useEffect(() => {
+    dispatch(getCandidate(id));
+    dispatch(getTags(id));
+    dispatch(getCandidateInfo(id));
+    dispatch(getCandidateVacancies(id));
+    dispatch(addAllVacanciesByCandidate());
+    dispatch(
+      changeMenu({
+        locationPath: location.pathname,
+        clientsid,
+        chatid,
+        vacancyid,
+        id,
+      })
+    );
+  }, [location, stateEr]);
+  
   const years = new Date().getFullYear() - candidate.birthday_year;
-
+  
   return (
     <>
       <Box>
@@ -162,7 +162,7 @@ function Candidates() {
               >
                 
                   <Button
-                    // onClick={handleClick}
+                    onClick={addToVacHandler}
                     variant='outlined'
                   >
                     <Typography variant='body2' display='block' gutterBottom>
@@ -172,12 +172,14 @@ function Candidates() {
                   <FormControl sx={{ height: '5px' }}>
                     <InputLabel
                       id='simple-select-filled-label'
-                    >1</InputLabel>
+                      
+                    ></InputLabel>
                     <Select
                       labelId='simple-select-filled-label'
                       id='simple-select-filled'
                       value={vacancy_id}
                       onChange={vacancyIdHandler}
+                      sx={{ height: '35px' }}
                     >
                       {toVacancies.map((el) => (
                         <MenuItem
