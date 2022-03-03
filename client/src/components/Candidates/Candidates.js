@@ -27,17 +27,22 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import { addAllVacanciesByCandidate, sendAddtoVac, setCandidateId, setUserId, setVacancyId } from '../../redux/slices/addToVacancySlice';
+import {
+  addAllVacanciesByCandidate,
+  sendAddtoVac,
+  setCandidateId,
+  setUserId,
+  setVacancyId,
+} from '../../redux/slices/addToVacancySlice';
 
 function Candidates() {
   const { clientsid, chatid, vacancyid, id } = useParams();
   const location = useLocation();
 
-  
   // Объявления
-  
+
   const dispatch = useDispatch();
-  
+
   // Кандидат states
   const candidate = useSelector((state) => state.candidate.candidate);
   const canStatus = useSelector((state) => state.candidate.status);
@@ -60,27 +65,25 @@ function Candidates() {
   const candidate_id = useSelector((state) => state.candidate.candidate.id);
   const user_id = useSelector((state) => state.auth.userId);
   console.log(vacancy_id);
-  
+
   // Handlers
   const vacancyIdHandler = (e) => {
     dispatch(setVacancyId(e.target.value));
     dispatch(setCandidateId(candidate_id));
     dispatch(setUserId(user_id));
-  }
+  };
   const addToVacHandler = () => {
     dispatch(sendAddtoVac({ vacancy_id, candidate_id, user_id }));
-  }
-  
-  
+  };
+
   // Дополнительные переменные
-  const stateEr = useSelector((state) => state.toVacancies)
+  const stateEr = useSelector((state) => state.toVacancies);
   // useEffect
   useEffect(() => {
     dispatch(getCandidate(id));
     dispatch(getTags(id));
     dispatch(getCandidateInfo(id));
     dispatch(getCandidateVacancies(id));
-    dispatch(addAllVacanciesByCandidate());
     dispatch(
       changeMenu({
         locationPath: location.pathname,
@@ -90,10 +93,14 @@ function Candidates() {
         id,
       })
     );
-  }, [location, stateEr]);
-  
+  }, [location]);
+
+  useEffect(() => {
+    dispatch(addAllVacanciesByCandidate());
+  }, [vacancies]);
+
   const years = new Date().getFullYear() - candidate.birthday_year;
-  
+
   return (
     <>
       <Box>
@@ -160,35 +167,27 @@ function Candidates() {
                 width={500}
                 spacing={1}
               >
-                
-                  <Button
-                    onClick={addToVacHandler}
-                    variant='outlined'
+                <Button onClick={addToVacHandler} variant='outlined'>
+                  <Typography variant='body2' display='block' gutterBottom>
+                    Add to vacancy
+                  </Typography>
+                </Button>
+                <FormControl sx={{ height: '5px' }}>
+                  <InputLabel id='simple-select-filled-label'></InputLabel>
+                  <Select
+                    labelId='simple-select-filled-label'
+                    id='simple-select-filled'
+                    value={vacancy_id}
+                    onChange={vacancyIdHandler}
+                    sx={{ height: '35px' }}
                   >
-                    <Typography variant='body2' display='block' gutterBottom>
-                      Add to vacancy
-                    </Typography>
-                  </Button>
-                  <FormControl sx={{ height: '5px' }}>
-                    <InputLabel
-                      id='simple-select-filled-label'
-                      
-                    ></InputLabel>
-                    <Select
-                      labelId='simple-select-filled-label'
-                      id='simple-select-filled'
-                      value={vacancy_id}
-                      onChange={vacancyIdHandler}
-                      sx={{ height: '35px' }}
-                    >
-                      {toVacancies.map((el) => (
-                        <MenuItem
-                          value={el.id}
-                        >{`${el.position} (${el.company_id})`}</MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                
+                    {toVacancies.map((el) => (
+                      <MenuItem
+                        value={el.id}
+                      >{`${el.position} (${el.company_id})`}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </Stack>
             </Stack>
           </Stack>
@@ -291,6 +290,9 @@ function Candidates() {
                 position={el.position}
                 statName={el.statName}
                 user={el.userName}
+                statId={el.status_id}
+                userId={el.VacancyJoinTables.user_id}
+
               />
             ))}
           </Stack>

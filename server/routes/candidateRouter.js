@@ -10,6 +10,7 @@ const {
   User,
   StatusVacancy,
   Company,
+  VacancyJoinTable,
 } = require('../db/models');
 
 // /candidate
@@ -230,6 +231,10 @@ router.get('/vacancies/:candidateid', async (req, res) => {
           model: User,
           required: true,
         },
+        // {
+        //   model: VacancyJoinTable,
+        //   required: true,
+        // },
       ],
     });
     console.log('-----------------------------------------', resp[0].Vacancies);

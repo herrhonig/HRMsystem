@@ -139,4 +139,39 @@ router.post('/candidate/company', async (req, res) => {
   }
 });
 
+router.get('/statuses', async (req, res) => {
+  const statuses = await StatusVacancy.findAll();
+  try {
+    res.json(statuses);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
+router.post('/statuses', async (req, res) => {
+  console.log('11111111111111111111111111111111111111111111111',req.body.value);
+  const { status_id, candidate_id, vacancy_id, user_id, statusId } =
+    req.body.value;
+  try {
+    const vacJT = await VacancyJoinTable.findOne({
+      where: { 
+        // status_id,
+         candidate_id,
+         vacancy_id,
+          user_id 
+        },
+    });
+    console.log('222222222222222222222222222222222222222222222',vacJT);
+    VacancyJoinTable.update(
+      { status_id: statusId },
+      { where: { id: vacJT.id } }
+    );
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
 module.exports = router;

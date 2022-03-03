@@ -7,7 +7,8 @@ import newCandidateReducer from './slices/newCandidateSlice';
 import menuReducer from './slices/NavBarSlice';
 import newVacancyReducer from './slices/newVacancySlice';
 import vacancyReducer from './slices/vacancySlice';
-import toVacancyReducer from './slices/addToVacancySlice'
+import toVacancyReducer from './slices/addToVacancySlice';
+import statusesReducer from './slices/statusesSlice'
 
 export default configureStore({
   reducer: {
@@ -20,5 +21,6 @@ export default configureStore({
     newVacancy: newVacancyReducer,
     vacancy: vacancyReducer,
     toVacancy: toVacancyReducer,
+    statuses: statusesReducer,
   },
 })
