@@ -49,6 +49,7 @@ router.get('/search', async (req, res) => {
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit
   if (query == undefined) {
+    // console.log('=========>>>>>>if1');
     const list = await Company.findAll();
     const results = {}
     if (endIndex < await list.length) {
@@ -68,22 +69,29 @@ router.get('/search', async (req, res) => {
     res.json(results);
   } else {
     try {
-      const list = await Company.findAll({ where: { name: { [Op.iLike]: '%' + query + '%' } } });
+      console.log('=========>>>>>>if2');
+      const list = await Company.findAll({ where: { name: { [Op.iLike]: `%${query}%` } } });
+      console.log(list.length);
       const results = {}
       if (endIndex < await list.length) {
         results.next = {
           page: page + 1,
+          limit: limit
         }
       }
 
       if (startIndex > 0) {
         results.previous = {
           page: page - 1,
+          limit: limit
 
         }
       }
       results.results = list.slice(startIndex, endIndex)
 
+      // console.log(results.length);
+
+      // console.log(results);
       res.json(results);
     } catch (err) {
       console.log(err);

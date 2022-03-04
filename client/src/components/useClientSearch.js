@@ -4,12 +4,14 @@ import axios from 'axios'
 export default function useClientsearch(query, pageNumber) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-  const [clients, setClients] = useState([])
+  const [books, setBooks] = useState([])
   const [hasMore, setHasMore] = useState(false)
 
   useEffect(() => {
-    setClients([])
+    setBooks([])
   }, [query])
+
+
 
   useEffect(() => {
     setLoading(true)
@@ -17,12 +19,13 @@ export default function useClientsearch(query, pageNumber) {
     let cancel
     axios({
       method: 'GET',
-      url: 'http://localhost:4000/clients/search?query=&page=${currentOffset}&limit=30',
+      url: 'http://localhost:4000/clients/search',
       params: { query: query, page: pageNumber, limit: 10 },
       cancelToken: new axios.CancelToken(c => cancel = c)
     }).then(res => {
-      setClients(prevClients => {
-        return [...new Set([...prevClients, ...res.data.results.map(b => b.name)])]
+
+      setBooks(prevBooks => {
+        return [...new Set([...prevBooks, ...res.data.results.map(b => b.name)])]
       })
       setHasMore(res.data.results.length > 0)
       setLoading(false)
@@ -33,7 +36,7 @@ export default function useClientsearch(query, pageNumber) {
     return () => cancel()
   }, [query, pageNumber])
 
-  return { loading, error, clients, hasMore }
+  return { loading, error, books, hasMore }
 }
 
 
