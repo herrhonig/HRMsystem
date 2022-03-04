@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Stack } from '@mui/material';
 import { registerUser } from '../../redux/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
-import Loading from '../Loading/Loading';
 
 function Copyright(props) {
   return (
@@ -37,6 +36,7 @@ const theme = createTheme();
 export default function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const authError = useSelector(state => state.auth.isError);
 
 
@@ -220,6 +220,7 @@ export default function SignUp() {
                 </Grid>
               </Box>
             </Grid>
+
           </Grid>
         </CardContent>
       </Card>
