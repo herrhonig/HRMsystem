@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up (queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -11,7 +11,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    await queryInterface.bulkInsert(
+     await queryInterface.bulkInsert(
       'StatusVacancies',
       [
         {
@@ -34,13 +34,13 @@ module.exports = {
     );
   },
 
-  async down(queryInterface, Sequelize) {
+  async down (queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('StatusVacancies', null, {});
+     await queryInterface.bulkDelete('StatusVacancies', null, {});
   }
 };
