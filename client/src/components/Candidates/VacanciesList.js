@@ -9,17 +9,22 @@ import Menu from '@mui/material/Menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { addAllVacanciesByCandidate } from '../../redux/slices/addToVacancySlice';
 import { getStatuses, setStatus } from '../../redux/slices/statusesSlice';
+import { getCandidateVacancies } from '../../redux/slices/candidateInfoSlice';
+import { useParams } from 'react-router-dom';
 
 const VacanciesList = ({ vacansyid, compName, position, statName, user, statId, userId }) => {
 const dispatch = useDispatch();
+const { clientsid, chatid, vacancyid, id } = useParams();
 const vacancies = useSelector((state) => state.candidateInfo.vacanciesInfo);
 const statuses = useSelector(state => state.statuses.allStatuses);
 const candidate_id = useSelector((state) => state.candidate.candidate.id);
+const stat = useSelector((state) => state.statuses.status)
 
 const changeStatusHandler = (e) => {
   console.log(e.target.value);
   handleClose();
   dispatch(setStatus({ status_id: statId ,statusId: e.target.value, candidate_id, vacancy_id:vacansyid, user_id:userId}));
+  dispatch(getCandidateVacancies(id));
 };
 
 //////////////////////////////////
@@ -34,9 +39,8 @@ const changeStatusHandler = (e) => {
 //////////////////////////////////
 
   useEffect(() => {
-    dispatch(addAllVacanciesByCandidate());
     dispatch(getStatuses());
-  }, [vacancies]);
+  }, []);
   return (
     <>
       <Stack
@@ -45,10 +49,10 @@ const changeStatusHandler = (e) => {
         alignItems='center'
         spacing={9}
       >
-        <Typography variant='caption' display='block' gutterBottom>
+        <Typography variant='caption' sx={{width:'40px'}} display='block' gutterBottom>
           {compName}
         </Typography>
-        <Typography variant='caption' display='block' gutterBottom>
+        <Typography variant='caption' sx={{width:'40px'}} display='block' gutterBottom>
           {position}
         </Typography>
         <Button
@@ -59,6 +63,7 @@ const changeStatusHandler = (e) => {
           aria-haspopup='true'
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
+          sx={{width:'40px'}}
         >
           {statName}
         </Button>
@@ -73,7 +78,7 @@ const changeStatusHandler = (e) => {
         >
           {statuses.map((el) => <MenuItem onClick={changeStatusHandler} value={el.id}>{el.statusvac_name}</MenuItem>)}
         </Menu>
-        <Typography variant='caption' display='block' gutterBottom>
+        <Typography variant='caption' sx={{width:'40px'}} display='block' gutterBottom>
           {user}
         </Typography>
         <Typography
@@ -81,6 +86,7 @@ const changeStatusHandler = (e) => {
           color='#bdbdbd'
           display='block'
           gutterBottom
+          sx={{width:'40px'}}
         >
           Развернуть
         </Typography>

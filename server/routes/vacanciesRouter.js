@@ -100,7 +100,7 @@ router.post('/vacancy', async (req, res) => {
 router.get('/vacancy/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const vacancy = await Vacancy.findAll({ where: { id } });
+    const vacancy = await Vacancy.findOne({ where: { id } });
     const company = await Company.findOne({
       where: { id: vacancy.company_id },
     });
@@ -149,25 +149,30 @@ router.get('/statuses', async (req, res) => {
   }
 });
 
-router.post('/statuses', async (req, res) => {
-  console.log('11111111111111111111111111111111111111111111111',req.body.value);
+router.put('/statuses', async (req, res) => {
+  console.log(
+    '11111111111111111111111111111111111111111111111',
+    req.body.value
+  );
   const { status_id, candidate_id, vacancy_id, user_id, statusId } =
     req.body.value;
+    console.log(vacancy_id);
   try {
-    const vacJT = await VacancyJoinTable.findOne({
-      where: { 
-        // status_id,
-         candidate_id,
-         vacancy_id,
-          user_id 
-        },
-    });
-    console.log('222222222222222222222222222222222222222222222',vacJT);
-    VacancyJoinTable.update(
+    // const vacJT = await VacancyJoinTable.findOne({
+    //   where: {
+    //     status_id: 2,
+    //     candidate_id,
+    //     vacancy_id,
+    //     user_id,
+    //   },
+    // });
+    // console.log('222222222222222222222222222222222222222222222', vacJT);
+    Vacancy.update(
       { status_id: statusId },
-      { where: { id: vacJT.id } }
+      { where: { id: vacancy_id } },
     );
-    res.sendStatus(200);
+    const statuses = await StatusVacancy.findAll();
+    res.json(statuses);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);

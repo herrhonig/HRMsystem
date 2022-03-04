@@ -32,6 +32,18 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          candidate_id: 1,
+          tag_id: 3,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          candidate_id: 2,
+          tag_id: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );

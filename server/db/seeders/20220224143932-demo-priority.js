@@ -15,17 +15,22 @@ module.exports = {
       'Priorities',
       [
         {
-          name: 'Fast',
+          name: 'Срочно',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          name: 'Slow',
+          name: 'до 16.07',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          name: 'Super Fast',
+          name: 'ASAP',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: 'Не горит',
           createdAt: new Date(),
           updatedAt: new Date(),
         },

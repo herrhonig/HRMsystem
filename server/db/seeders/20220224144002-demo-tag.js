@@ -15,19 +15,19 @@ module.exports = {
       'Tags',
       [
         {
-          tag_name: 'Тег один',
+          tag_name: 'Классный',
           color: 'error',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          tag_name: 'Тег ldf',
+          tag_name: 'Веселый',
           color: 'primary',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          tag_name: 'Тег 3',
+          tag_name: 'Норм пообщались',
           color: 'success',
           createdAt: new Date(),
           updatedAt: new Date(),

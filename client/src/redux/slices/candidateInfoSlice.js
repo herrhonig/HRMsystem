@@ -15,9 +15,19 @@ export const getCandidateVacancies = createAsyncThunk(
     const res = await axios(`/candidate/vacancies/${id}`);
     console.log(res.data);
     if (res.status === 200) {
+      console.log('------------------------------',res.data);
       return res.data;
     } else {
-      return ['error'];
+      console.log('1111111111111111111');
+      return [{
+        compName: 'none',
+        company_id: 'none',
+        conditions: 'none',
+        descr: 'none',
+        position: 'none',
+        userName: 'none',
+        statName: 'none',
+      }];
     }
   }
 );
@@ -50,6 +60,7 @@ const candidateInfoSlice = createSlice({
     },
     [getCandidateVacancies.rejected]: (state, { payload }) => {
       state.statusVac = 'failed';
+      state.vacanciesInfo = payload;
     },
   },
 });
