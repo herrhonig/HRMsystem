@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 import { getCandidate } from '../../redux/slices/candidateSlice';
 import { getTags } from '../../redux/slices/tagsSlice';
-import { getCandidateInfo } from '../../redux/slices/candidateInfoSlice';
+import {
+  getCandidateInfo,
+  getCandidateVacancies,
+} from '../../redux/slices/candidateInfoSlice';
 import { Box, Container } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
@@ -14,20 +17,29 @@ import Education from '../Education/Education';
 import CircularProgress from '@mui/material/CircularProgress';
 import { changeMenu } from '../../redux/slices/NavBarSlice';
 import SideMenu from '../NavBar/SideMenu';
+import Divider from '@mui/material/Divider';
+import VacanciesList from './VacanciesList';
 
 function Candidates() {
-
   const { clientsid, chatid, vacancyid, id } = useParams();
-  const location = useLocation()
+  const location = useLocation();
+
   // useEffect
   useEffect(() => {
     dispatch(getCandidate(id));
     dispatch(getTags(id));
     dispatch(getCandidateInfo(id));
-    dispatch(changeMenu({ locationPath: location.pathname, clientsid, chatid, vacancyid, id }));
+    dispatch(getCandidateVacancies(id));
+    dispatch(
+      changeMenu({
+        locationPath: location.pathname,
+        clientsid,
+        chatid,
+        vacancyid,
+        id,
+      })
+    );
   }, [location]);
-
-  // console.log(useParams());
 
   // Объявления
 
@@ -46,206 +58,234 @@ function Candidates() {
   // Тэги
   const tags = useSelector((state) => state.tags.tags);
 
+  // Vacanies state
+  const vacancies = useSelector((state) => state.candidateInfo.vacanciesInfo);
+
   // Дополнительные переменные
   const years = new Date().getFullYear() - candidate.birthday_year;
 
   return (
     <>
-      {/* <SideMenu /> */}
       <Box>
         {/* <Див с аватаркой> */}
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'start',
-            margin: '5px',
+            boxShadow: 3,
+            bgcolor: (theme) =>
+              theme.palette.mode === 'dark' ? '#101010' : '#fff',
+            color: (theme) =>
+              theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
+            p: 1,
+            m: 1,
+            borderRadius: 2,
+            textAlign: 'center',
+            fontSize: '0.875rem',
+            fontWeight: '700',
           }}
         >
-          <Typography
-            sx={{ marginTop: '5px', marginBottom: '5px', marginLeft: '5px' }}
-            variant='h3'
-            gutterBottom
-            component='div'
+          <Stack
+            direction='column'
+            justifyContent='flex-start'
+            alignItems='flex-start'
+            spacing={2}
+            sx={{ width: '800px' }}
           >
-            {candidate.position}
-          </Typography>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-            }}
-          >
-            <Avatar
-              alt='Remy Sharp'
-              src={candidate.photo}
-              sx={{ width: 150, height: 150 }}
-            />
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'start',
-                marginLeft: '10px',
-              }}
+            <Stack
+              direction='row'
+              justifyContent='flex-start'
+              alignItems='center'
+              spacing={2}
             >
-              <Typography variant='h4' gutterBottom component='div'>
-                {candidate.last_name}
-              </Typography>
-              <Typography variant='h4' gutterBottom component='div'>
-                {candidate.first_name}
-              </Typography>
-              <Typography variant='h6' gutterBottom component='div'>
-                {`${candidate.birthday_day}.${candidate.birthday_month}.${candidate.birthday_year}, ${years} лет`}
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
-        {/* </Див с аватаркой > */}
-        {/* <Див с доп данными и тегами> */}
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'start',
-            marginLeft: '10px',
-          }}
-        >
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'start',
-              alignItems: 'end',
-              marginLeft: '5px',
-              marginRight: '5px',
-            }}
-          >
-            <Typography
-              sx={{ marginLeft: '5px', marginRight: '10px' }}
-              variant='subtitle1'
-              gutterBottom
-              component='div'
-            >
-              {`   ${candidate.phone}   `}
-            </Typography>
-            <Typography
-              sx={{ marginLeft: '10px' }}
-              variant='subtitle1'
-              gutterBottom
-              component='div'
-            >
-              {`${candidate.email}`}
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'start',
-              alignItems: 'end',
-              marginLeft: '5px',
-              marginRight: '5px',
-            }}
-          >
-            {tags.map((el) => (
-              <Tag
-                sx={{ marginLeft: '5px', marginRight: '5px' }}
-                key={el.id}
-                tag={el.tag_name}
-                color={el.color}
+              <Avatar
+                alt='Remy Sharp'
+                src={candidate.photo}
+                sx={{ width: 120, height: 120 }}
               />
-            ))}
-          </Box>
-        </Box>
-        {/* </Див с доп данными и тегами> */}
-        {/* <Див с чем-то> */}
-        {/* </Див с чем-то> */}
-        {/* <Див с инфой> */}
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'start',
-            marginTop: '50px',
-            marginLeft: '10px',
-          }}
-        >
-          {/* Бох с опытом работы */}
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography
-              sx={{ marginBottom: '20px' }}
-              variant='h6'
-              gutterBottom
-              component='div'
+              <Stack
+                direction='column'
+                justifyContent='center'
+                alignItems='flex-start'
+                spacing={1}
+              >
+                <Typography variant='h6' gutterBottom component='div'>
+                  {`${candidate.last_name} ${candidate.first_name}`}
+                </Typography>
+                <Typography variant='subtitle2' gutterBottom component='div'>
+                  {`${candidate.birthday_day}.${candidate.birthday_month}.${candidate.birthday_year}, ${years} лет`}
+                </Typography>
+                <Typography
+                  variant='subtitle2'
+                  gutterBottom
+                  color='#1769aa'
+                  component='div'
+                >
+                  {candidate.position}
+                </Typography>
+              </Stack>
+            </Stack>
+          </Stack>
+          {/* </Див с аватаркой > */}
+          {/* <Див с доп данными и тегами> */}
+          <Stack
+            direction='column'
+            justifyContent='center'
+            alignItems='flex-start'
+            spacing={1}
+          >
+            <Stack
+              direction='row'
+              justifyContent='flex-end'
+              alignItems='center'
+              spacing={5}
+              mt={2}
             >
-              ОПЫТ РАБОТЫ
-            </Typography>
-            {canStatus === 'success' &&
-              candidateInfo?.candidateExperience?.map((el) => (
-                <Exp
-                  key={el.id}
-                  compName={el.company_name}
-                  startDate={el.start_date}
-                  endDate={el.end_date}
-                  descr={el.descr}
-                  position={el.position}
-                />
+              <Typography variant='body2' gutterBottom component='div'>
+                {`   ${candidate.phone}   `}
+              </Typography>
+              <Typography variant='body2' gutterBottom component='div'>
+                {`${candidate.email}`}
+              </Typography>
+            </Stack>
+            <Stack
+              direction='row'
+              justifyContent='flex-start'
+              alignItems='center'
+              spacing={1}
+            >
+              {tags.map((el) => (
+                <Tag key={el.id} tag={el.tag_name} color={el.color} />
               ))}
-          </Box>
-          {/* Бох с опытом работы */}
-          {/* Бокс о себе */}
+            </Stack>
+          </Stack>
+          {/* </Див с доп данными и тегами> */}
+          {/* <Див с вакансиями> */}
           <Stack
             direction='column'
-            justifyContent='flex-start'
+            justifyContent='space-around'
             alignItems='flex-start'
-            spacing={2}
-            sx={{ marginBottom: '20px' }}
+            spacing={0.5}
+            mt={5}
+            width={550}
+            // divider={<Divider orientation="horizontal" flexItem />}
           >
-            <Typography
-              variant='h6'
-              gutterBottom
-              component='div'
-              sx={{ marginTop: '20px' }}
+            <Stack
+              direction='row'
+              justifyContent='flex-start'
+              alignItems='center'
+              spacing={6}
             >
-              О СЕБЕ
-            </Typography>
-            <Typography variant='body2' gutterBottom>
-              {canInfoStatus === 'success' && candidateInfo?.candidateAbout[0].descr}
-            </Typography>
+              <Typography variant="body2" color='#757575' gutterBottom component="div">
+                Компания:
+              </Typography>
+              <Typography variant="body2" color='#757575' gutterBottom component="div">
+                Вакансия:
+              </Typography>
+              <Typography variant="body2" color='#757575' gutterBottom component="div">
+                Статус:
+              </Typography>
+              <Typography variant="body2" color='#757575' gutterBottom component="div">
+                Консультант:
+              </Typography>
+              <Typography variant="body2" color='#757575' gutterBottom component="div">
+
+              </Typography>
+            </Stack>
+            <Divider orientation="horizontal" flexItem />
+            {vacancies.map(el => <VacanciesList key={el.id} vacansyid={el.id} compName={el.compName} position={el.position} statName={el.statName} user={el.userName} />)}
           </Stack>
-          {/* Бокс о себе */}
-          {/* Бокс образование */}
+          {/* </Див с вакансиями> */}
+          {/* <Див с инфой> */}
           <Stack
             direction='column'
-            justifyContent='flex-start'
+            justifyContent='center'
             alignItems='flex-start'
-            spacing={2}
+            spacing={3}
+            mt={4}
+            sx={{ maxWidth: '800px' }}
           >
-            <Typography
-              variant='h6'
-              gutterBottom
-              component='div'
-              sx={{ marginTop: '20px' }}
+            {/* Бох с опытом работы */}
+            {/* <Box sx={{ display: 'flex', flexDirection: 'column' }}> */}
+            <Stack
+              direction='column'
+              justifyContent='center'
+              alignItems='flex-start'
+              spacing={3}
             >
-              ОБРАЗОВАНИЕ
-            </Typography>
-            {canInfoStatus === 'success' && candidateInfo?.candidateEducation?.map((el) => (
-              <Education
-                key={el.id}
-                place={el.place}
-                startDate={el.start_date}
-                endDate={el.end_date}
-                direction={el.direction}
-                level={el.level}
-              />
-            ))}
+              <Typography
+                variant='h5'
+                gutterBottom
+                component='div'
+                color='#616161'
+              >
+                Опыт работы
+              </Typography>
+              {canStatus === 'success' &&
+                candidateInfo?.candidateExperience?.map((el) => (
+                  <Exp
+                    key={el.id}
+                    compName={el.company_name}
+                    startDate={el.start_date}
+                    endDate={el.end_date}
+                    descr={el.descr}
+                    position={el.position}
+                  />
+                ))}
+            </Stack>
+            {/* </Box> */}
+            {/* Бох с опытом работы */}
+            {/* Бокс о себе */}
+            <Stack
+              direction='column'
+              justifyContent='flex-start'
+              alignItems='flex-start'
+              spacing={2}
+              sx={{ marginBottom: '20px' }}
+            >
+              <Typography
+                variant='h5'
+                gutterBottom
+                component='div'
+                color='#616161'
+              >
+                О себе
+              </Typography>
+              <Typography variant='body2' gutterBottom>
+                {canInfoStatus === 'success' &&
+                  candidateInfo?.candidateAbout[0].descr}
+              </Typography>
+            </Stack>
+            {/* Бокс о себе */}
+            {/* Бокс образование */}
+            <Stack
+              direction='column'
+              justifyContent='flex-start'
+              alignItems='flex-start'
+              spacing={2}
+            >
+              <Typography
+                variant='h5'
+                gutterBottom
+                component='div'
+                color='#616161'
+              >
+                Образование
+              </Typography>
+              {canInfoStatus === 'success' &&
+                candidateInfo?.candidateEducation?.map((el) => (
+                  <Education
+                    key={el.id}
+                    place={el.place}
+                    startDate={el.start_date}
+                    endDate={el.end_date}
+                    direction={el.direction}
+                    level={el.level}
+                  />
+                ))}
+            </Stack>
+            {/* Бокс образование */}
           </Stack>
-          {/* Бокс образование */}
+          {/* </Див c инфой> */}
         </Box>
-        {/* </Див c инфой> */}
       </Box>
     </>
   );

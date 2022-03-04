@@ -15,8 +15,12 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.belongsToMany(models.Status, {
         through: 'VacancyJoinTables',
-        foreignKey: 'status_id',
+        foreignKey: 'vacancy_id',
       });
+      this.belongsToMany(models.User, {
+        through: 'VacancyJoinTables',
+        foreignKey: 'vacancy_id',
+      })
       this.belongsTo(models.StatusVacancy, { foreignKey: 'status_id' });
       this.belongsTo(models.Company, { foreignKey: 'company_id' });
       this.belongsTo(models.Priority, { foreignKey: 'priority_id' });

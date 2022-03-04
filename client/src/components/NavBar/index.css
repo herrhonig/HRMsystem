@@ -28,6 +28,19 @@ ul {
   padding: 0;
 }
 
+.side {
+  color: #0E0E2C;
+  /* font-size: 16px; */
+  text-decoration: none; 
+  transform: rotate(-90deg);
+  /* padding: 100px;  */
+  margin-bottom: 10px;
+  margin-top: 20px;
+  padding-bottom: 40px;
+  padding-top: 40px;
+  background-color: #FFFFFF;
+}
+
 a {
   color: #FFFFFF;
   font-size: 16px;

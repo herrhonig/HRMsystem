@@ -12,6 +12,15 @@ import { ReactComponent as ArrowIcon } from './icons/arrow.svg';
 import { ReactComponent as BoltIcon } from './icons/bolt.svg';
 import Chip from '@mui/material/Chip';
 
+
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+import List from '@mui/material/List';
+
 import {
   Route,
   Routes,
@@ -20,7 +29,9 @@ import {
   useParams
 } from "react-router-dom";
 
-const drawerWidth = 240;
+const drawerWidth = 88;
+const drawer1Width = drawerWidth + 186;
+
 
 function SideMenu() {
 
@@ -46,17 +57,18 @@ function SideMenu() {
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <TryMenu />
       </AppBar>
+
       <Drawer
         variant="permanent"
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+          [`& .MuiDrawer-paper`]: { width: drawer1Width, boxSizing: 'border-box', boxShadow: 3 },
         }}
       >
-        <Toolbar />
+        {/* <Toolbar /> */}
 
-        <Box sx={{ overflow: 'auto' }}>
+        <Box sx={{ mt: 9, ml: 13 }}>
 
           <CSSTransition
             in={page === 'Вакансии'}
@@ -65,7 +77,7 @@ function SideMenu() {
             unmountOnExit
           >
             <div className="menu">
-              <span>{page}</span>
+              <h2>{page}</h2>
               {list && list?.map((el) =>
                 <Link className="menu-item" to={`${link}/${el.id}`}>
                   <DropdownItem key={el.id}>
@@ -84,7 +96,7 @@ function SideMenu() {
             unmountOnExit
           >
             <div className="menu">
-              <span>{page}</span>
+              <h2>{page}</h2>
               {list && list?.map((el) =>
                 <Link className="menu-item" to={`${link}/${el.id}/vacancies`}>
                   <DropdownItem key={el.id}>
@@ -102,7 +114,7 @@ function SideMenu() {
             unmountOnExit
           >
             <div className="menu">
-              <span>{page}</span>
+              <h2>{page}</h2>
               {list && list?.map((el) =>
                 <Link className="menu-item" to={`${link}/${el.id}`}>
                   <DropdownItem key={el.id}>
@@ -113,7 +125,49 @@ function SideMenu() {
             </div>
           </CSSTransition>
         </Box>
+
       </Drawer>
+
+
+      <Drawer
+        variant="permanent"
+        backgroundColor="#EBEBFA"
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box', order: 1, backgroundColor: "#EBEBFA", boxShadow: 1 },
+        }}
+      >
+        {/* <Toolbar /> */}
+
+        {/* / */}
+
+
+        <Box sx={{ mt: 9, ml: 1 }}>
+          {/* <Link className="side" to={`/crm`}> */}
+          {/* <ListItem className="angle"> */}
+          <h2>Меню</h2>
+          <div>
+            <List>
+              <Link to={`/crm/clients`}>
+                <Chip className="side" sx={{ marginTop: '30px', backgroundColor: '#FFFFFF' }} label='Клиенты' variant="outlined" />
+              </Link>
+              <Link to={`/crm/candidates`}>
+                <Chip className="side" sx={{ marginTop: '60px', backgroundColor: '#FFFFFF' }} label='Клиенты' variant="outlined" />
+              </Link>
+              <Link to={`/crm/vacancies`}>
+                <Chip className="side" sx={{ marginTop: '60px', backgroundColor: '#FFFFFF' }} label='Клиенты' variant="outlined" />
+              </Link>
+            </List>
+          </div>
+          {/* </ListItem> */}
+          {/* </Link> */}
+
+        </Box>
+      </Drawer>
+
+
+
 
     </>
   )
