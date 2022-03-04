@@ -20,7 +20,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          statusvac_name: 'Не готов',
+          statusvac_name: 'Отказали',
           createdAt: new Date(),
           updatedAt: new Date(),
         },

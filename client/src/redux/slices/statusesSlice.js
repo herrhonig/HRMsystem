@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+
 
 export const getStatuses = createAsyncThunk(
   'statuses/getStatuses',
@@ -11,7 +13,7 @@ export const getStatuses = createAsyncThunk(
 );
 
 export const setStatus = createAsyncThunk('statuses/setStatus', async (value) => {
-  const res = await axios.post('/vacancies/statuses', {value})
+  const res = await axios.put('/vacancies/statuses', {value})
   return res.data;
 });
 
@@ -20,6 +22,11 @@ const statusesSlice = createSlice({
   initialState: {
     status: '',
     allStatuses: [],
+  },
+  reducers: {
+    redSetStat (state, { payload}) {
+      state.status = 'success';
+    },
   },
   extraReducers: {
     [getStatuses.pending]: (state, action) => {
@@ -36,6 +43,7 @@ const statusesSlice = createSlice({
       state.status = 'loading';
     },
     [setStatus.fulfilled]: (state, { payload }) => {
+      state.allStatuses = payload;
       state.status = 'success';
     },
     [setStatus.rejected]: (state, action) => {

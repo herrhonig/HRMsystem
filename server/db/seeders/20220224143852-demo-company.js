@@ -38,6 +38,30 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          name: 'Avito',
+          genToken: '56784',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: 'Пульсар',
+          genToken: '56784',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: 'Microsoft',
+          genToken: '56784',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: 'Google',
+          genToken: '56784',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );

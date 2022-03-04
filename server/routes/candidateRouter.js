@@ -237,7 +237,11 @@ router.get('/vacancies/:candidateid', async (req, res) => {
         // },
       ],
     });
-    console.log('-----------------------------------------', resp[0].Vacancies);
+
+    // if (resp === []) {
+    //   res.json([{ error }]);
+    // }
+
     const allVac = resp[0].Vacancies;
 
     const arr = allVac.map(async (el) => {
@@ -265,13 +269,27 @@ router.get('/vacancies/:candidateid', async (req, res) => {
 
     const respon = await Promise.all(arr);
 
-    console.log({ respon });
+    console.log('44444444444444444444444444444', respon);
 
     res.json(respon);
     // res.json(resp);
   } catch (err) {
     console.log(err);
-    res.sendStatus(500);
+    res.json([
+      {
+        compName: 'none',
+        company_id: 'none',
+        conditions: 'none',
+        descr: 'none',
+        position: 'none',
+        userName: 'none',
+        statName: 'none',
+        user_id: 'none',
+        VacancyJoinTables: {
+          user_id: 'none',
+        }
+      },
+    ]);
   }
 });
 
