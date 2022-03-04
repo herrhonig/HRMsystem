@@ -10,6 +10,7 @@ const {
   User,
   StatusVacancy,
   Company,
+  VacancyJoinTable,
 } = require('../db/models');
 
 // /candidate
@@ -220,19 +221,23 @@ router.get('/vacancies/:candidateid', async (req, res) => {
 
   try {
     const resp = await Candidate.findAll({
+      where: { id: candidateid },
       include: [
         {
           model: Vacancy,
           required: true,
-          where: { id: candidateid },
         },
         {
           model: User,
           required: true,
-          where: { id: candidateid },
         },
+        // {
+        //   model: VacancyJoinTable,
+        //   required: true,
+        // },
       ],
     });
+    console.log('-----------------------------------------', resp[0].Vacancies);
     const allVac = resp[0].Vacancies;
 
     const arr = allVac.map(async (el) => {
@@ -263,6 +268,7 @@ router.get('/vacancies/:candidateid', async (req, res) => {
     console.log({ respon });
 
     res.json(respon);
+    // res.json(resp);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);

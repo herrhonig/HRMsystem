@@ -13,10 +13,15 @@ export const addAllVacanciesByCandidate = createAsyncThunk(
   }
 );
 
+export const sendAddtoVac = createAsyncThunk('addToVac/sendAddtoVac', async (value) => {
+  const res = await axios.post('/vacancies/candidate/company', { value });
+});
+
 const addToVacancySlice = createSlice({
   name: 'addToVac',
   initialState: {
     status: '',
+    statusAdd: '',
     allVacancies: [],
     vacancy_id: '',
     candidate_id: '',
@@ -43,6 +48,15 @@ const addToVacancySlice = createSlice({
     },
     [addAllVacanciesByCandidate.rejected]: (state, { payload }) => {
       state.status = 'failed';
+    },
+    [sendAddtoVac.pending]: (state, { payload }) => {
+      state.statusAdd = 'loading';
+    },
+    [sendAddtoVac.fulfilled]: (state, { payload }) => {
+      state.statusAdd = 'success';
+    },
+    [sendAddtoVac.rejected]: (state, { payload }) => {
+      state.statusAdd = 'failed';
     }
   },
 });
