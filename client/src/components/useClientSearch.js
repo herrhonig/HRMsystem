@@ -17,7 +17,7 @@ export default function useClientsearch(query, pageNumber) {
     let cancel
     axios({
       method: 'GET',
-      url: 'http://localhost:4000/clients/search',
+      url: 'http://localhost:4000/clients/search?query=&page=${currentOffset}&limit=30',
       params: { query: query, page: pageNumber, limit: 10 },
       cancelToken: new axios.CancelToken(c => cancel = c)
     }).then(res => {
@@ -35,3 +35,5 @@ export default function useClientsearch(query, pageNumber) {
 
   return { loading, error, clients, hasMore }
 }
+
+

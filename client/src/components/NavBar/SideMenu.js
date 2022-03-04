@@ -138,7 +138,7 @@ function SideMenu() {
           <Box>
             <h2>Меню</h2>
           </Box>
-          <Box sx={{ mt: 7, ml: -3 }}>
+          <Box sx={{ mt: 4.4, ml: -3 }}>
             <div>
               <List>
                 <Link to={`/crm/clients`}>

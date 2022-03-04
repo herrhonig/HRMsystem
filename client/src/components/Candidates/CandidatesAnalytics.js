@@ -1,196 +1,137 @@
-import { Chip, Stack, Typography } from '@mui/material';
-import { Box } from '@mui/system';
-import React, { useEffect } from 'react';
+import Head from 'next/head';
+import { Box, Container, Grid } from '@mui/material';
+import { Vacancy } from '../dashboard/vacancy';
+import { StatBy } from '../dashboard/statby';
+import { Noti } from '../dashboard/noti';
+import { CandidateStat } from '../dashboard/candstat';
+import { Alarm } from '../dashboard/alarm';
+import { Rate } from '../dashboard/rate';
+import { DashboardLayout } from '../dashboard-layout';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
 import { changeMenu } from '../../redux/slices/NavBarSlice';
-import SideMenu from '../NavBar/SideMenu';
-import FaceIcon from '@mui/icons-material/Face';
-import CandidatesChart from '../Charts/CandidatesChart';
+import React, { useEffect } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
+
+
 
 function CandidatesAnalytics() {
+
   const { clientsid, chatid, vacancyid, id } = useParams();
   const location = useLocation()
+  const dispatch = useDispatch();
+
   // useEffect
   useEffect(() => {
     dispatch(changeMenu({ locationPath: location.pathname, clientsid, chatid, vacancyid, id }));
   }, [location]);
 
-  const dispatch = useDispatch();
-
   return (
     <>
-     <Typography
-    variant='h4' 
-    gutterBottom 
-    fontWeight='700'
-    component='div'>
-      Аналитика
-    </Typography>
-    {/* ============= CARDS WITH STATISTICS ================*/}
-
-    <Stack
-      
-      flexWrap='wrap'
-      direction='row'
-      justifyContent='space-between'
-      alignItems='center'
-      spacing={2}
-      
-    >
+      <Head>
+        <title>
+          Аналитика по кандидатам
+        </title>
+      </Head>
       <Box
+        component="main"
         sx={{
-          width: 180,
-          boxShadow: 1,
-          bgcolor: (theme) =>
-            theme.palette.mode === 'dark' ? '#101010' : '#fff',
-          color: (theme) =>
-            theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-          p: 1,
-          m: 1,
-          borderRadius: 2,
-          textAlign: 'center',
-          fontSize: '0.875rem',
-          fontWeight: '700',
+          flexGrow: 1,
+          mt: -1.4,
+          width: '90%',
+          mx: 'auto',
         }}
       >
-        <h3>Вакансии в работе : </h3>
-        
-        <Chip variant="outlined" label='10' color='success' />
-        
-      </Box>
-
-      <Box
-        sx={{
-          width: 180,
-          boxShadow: 1,
-          bgcolor: (theme) =>
-            theme.palette.mode === 'dark' ? '#101010' : '#fff',
-          color: (theme) =>
-            theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-          p: 1,
-          m: 1,
-          borderRadius: 2,
-          textAlign: 'center',
-          fontSize: '0.875rem',
-          fontWeight: '700',
-        }}
-      >
-        <h3>Кандидаты: </h3>
-        <Chip variant="outlined" label='340' color='success'/>
-      </Box>
-
-      <Box
-        sx={{
-          width: 180,
-          boxShadow: 1,
-          bgcolor: (theme) =>
-            theme.palette.mode === 'dark' ? '#101010' : '#fff',
-          color: (theme) =>
-            theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-          p: 1,
-          m: 1,
-          borderRadius: 2,
-          textAlign: 'center',
-          fontSize: '0.875rem',
-          fontWeight: '700',
-        }}
-      >
-         <h3>Напоминания: </h3>
-         <Chip variant="outlined" label='3400' color='success'/>
-      </Box>
-        
-          <Stack
-          
-          width='470px'
-          flexWrap='wrap'
-          direction='column'
-          justifyContent='space-between'
-          alignItems='center'
-          marginLeft='150px'
-          spacing={2}
-        >
+        <Container maxWidth={false}>
           <Box
+            component="main"
             sx={{
-              width: 180,
-              boxShadow: 1,
-              bgcolor: (theme) =>
-                theme.palette.mode === 'dark' ? '#101010' : '#fff',
-              color: (theme) =>
-                theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-              p: 1,
-              m: 1,
-              borderRadius: 2,
-              textAlign: 'center',
-              fontSize: '0.875rem',
-              fontWeight: '700',
-            }}
-          >
-            <h3>Уведомления: </h3>
-            <Chip variant="outlined" label='7' />
+              flexGrow: 1,
+              py: 0.6
+            }}>
+            <h2>Аналитика по кандидатам</h2>
           </Box>
-
-          <Box
-            sx={{
-              width: 180,
-              boxShadow: 1,
-              bgcolor: (theme) =>
-                theme.palette.mode === 'dark' ? '#101010' : '#fff',
-              color: (theme) =>
-                theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-              p: 1,
-              m: 1,
-              borderRadius: 2,
-              textAlign: 'center',
-              fontSize: '15px',
-              fontWeight: '700',
-              fontSize:'14px'
-            }}
+          <Grid
+            container
+            spacing={3}
           >
-            <h3>TOP консультантов: </h3>
-            
-            <Chip 
-            icon={<FaceIcon />}
-            label='10. Цветков К.' 
-            color='warning'
-            />
-          </Box>
-          </Stack>
-    </Stack>
-        {/* ============= CARDS WITH STATISTICS END================*/}
-        <Stack
-        
-      flexWrap='wrap'
-      direction='column'
-      justifyContent='center'
-      alignItems='flex-start'
-      spacing={2}
-      
-    >
+            <Grid
+              item
+              lg={3}
+              sm={3}
+              xl={3}
+              xs={5}
+            >
+              <Vacancy />
+            </Grid>
+            <Grid
+              item
+              xl={3}
+              lg={3}
+              sm={6}
+              xs={12}
+            >
+              <CandidateStat />
+            </Grid>
+            <Grid
+              item
+              xl={3}
+              lg={3}
+              sm={6}
+              xs={12}
+            >
+              <Noti />
+            </Grid>
+            <Grid
+              item
+              xl={3}
+              lg={3}
+              sm={6}
+              xs={12}
+            >
+              <Alarm />
+            </Grid>
+            <Grid
+              item
+              lg={8}
+              md={12}
+              xl={9}
+              xs={12}
+            >
+              <StatBy />
 
-      <Box
-        sx={{
-          width: 700,
-          boxShadow: 2,
-          bgcolor: (theme) =>
-            theme.palette.mode === 'dark' ? '#101010' : '#fff',
-          color: (theme) =>
-            theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-          p: 4,
-          m: 2,
-          borderRadius: 2,
-          textAlign: 'center',
-          fontSize: '0.875rem',
-          fontWeight: '200',
-        }}
-      >
+            </Grid>
+            <Grid
+              item
+              lg={4}
+              md={6}
+              xl={3}
+              xs={12}
+            >
+              <Rate sx={{ height: '80%' }} />
+            </Grid>
+            <Grid
+              item
+              lg={4}
+              md={6}
+              xl={3}
+              xs={12}
+            >
 
-       <span> Показатель успешного успеха:</span>
-       <CandidatesChart />
+            </Grid>
+          </Grid>
+        </Container>
       </Box>
-      </Stack>
     </>
-  )
+  );
 }
 
-export default CandidatesAnalytics
+
+CandidatesAnalytics.getLayout = (page) => (
+  <DashboardLayout>
+    {page}
+  </DashboardLayout>
+);
+
+
+export default CandidatesAnalytics;
+

@@ -11,10 +11,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeMenu } from '../../redux/slices/NavBarSlice';
 import React, { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
+import JobDescr from '../dashboard/jobdescr';
 
 
 
-function MainAnalytics() {
+function VacancyPage() {
 
   const { clientsid, chatid, vacancyid, id } = useParams();
   const location = useLocation()
@@ -29,7 +30,7 @@ function MainAnalytics() {
     <>
       <Head>
         <title>
-          Аналитика по клиентам
+          Аналитика по вакансиям
         </title>
       </Head>
       <Box
@@ -48,7 +49,7 @@ function MainAnalytics() {
               flexGrow: 1,
               py: 0.6
             }}>
-            <h2>Аналитика по клиентам</h2>
+            <h2>Аналитика по вакансии</h2>
           </Box>
           <Grid
             container
@@ -97,7 +98,7 @@ function MainAnalytics() {
               xl={9}
               xs={12}
             >
-              <StatBy />
+              <JobDescr />
 
             </Grid>
             <Grid
@@ -107,8 +108,20 @@ function MainAnalytics() {
               xl={3}
               xs={12}
             >
-              <Rate sx={{ height: '80%' }} />
+              <Rate />
             </Grid>
+            <Grid
+              item
+              lg={8}
+              md={12}
+              xl={9}
+              xs={12}
+
+            >
+              <StatBy />
+
+            </Grid>
+
             <Grid
               item
               lg={4}
@@ -126,11 +139,12 @@ function MainAnalytics() {
 }
 
 
-MainAnalytics.getLayout = (page) => (
+VacancyPage.getLayout = (page) => (
   <DashboardLayout>
     {page}
   </DashboardLayout>
 );
 
 
-export default MainAnalytics;
+export default VacancyPage;
+

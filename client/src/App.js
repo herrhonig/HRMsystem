@@ -6,7 +6,7 @@ import {
 import Index from "./components/Index";
 import Signup from "./components/Signup/Signup";
 import Signin from "./components/Signin/Signin";
-import Vacancy from "./components/Vacancy/Vacancy";
+import Vacancy from "./components/Vacancy/VacancyPage";
 import Chat from "./components/Chat/Chat";
 import Candidates from "./components/Candidates/Candidates";
 import Clients from "./components/Clients/Clients";
@@ -30,6 +30,9 @@ import VacancyAnalytics from "./components/Vacancy/VacancyAnalytics";
 import ClientsAnalytics from "./components/Clients/ClientsAnalytics";
 import MainAnalytics from "./components/MainAnalytics/MainAnalytics";
 import Test from "./components/Test";
+import Dashboard from "./components/pages/index";
+import VacancyPage from "./components/Vacancy/VacancyPage";
+
 
 
 
@@ -69,17 +72,16 @@ function App() {
           <Routes>
             {isAuth ?
               <>
-                <Route path='/test' element={<Test />} />
                 <Route path='/crm' element={<MainAnalytics />} />
                 <Route path='/crm/vacancies' element={<VacancyAnalytics />} />
-                <Route path='/crm/vacancies/:vacancyid' element={<VacancyAnalytics />} />
+                <Route path='/crm/vacancies/:vacancyid' element={<VacancyPage />} />
                 <Route path='/crm/vacancies/:vacancyid/candidates' element={<CandidatesAnalytics />} />
                 <Route path='/crm/vacancies/:vacancyid/candidates/:id' element={<Candidates />} />
                 <Route path='/crm/chat' element={<Chat />} />
                 <Route path='/crm/chat/:chatid' element={<Chat />} />
                 <Route path='/crm/candidates' element={<CandidatesAnalytics />} />
                 <Route path='/crm/candidates/:id' element={<Candidates />} />
-                <Route path='/crm/clients' element={<ClientsAnalytics />} />
+                <Route path='/crm/clients' element={<MainAnalytics />} />
                 <Route path='/crm/clients/:clientsid/vacancies' element={<VacancyAnalytics />} />
                 <Route path='/crm/clients/:clientsid/vacancies/:vacancyid' element={<Vacancy />} />
                 <Route path='/crm/clients/:clientsid/vacancies/:vacancyid/candidates/:id' element={<Candidates />} />
