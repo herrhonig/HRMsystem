@@ -21,8 +21,8 @@ const drawerWidth = 88;
 const drawer1Width = drawerWidth + 236;
 
 
-function SideMenu() {
 
+function SideMenu() {
 
   const list = useSelector((state) => state.menu.list);
   const page = useSelector((state) => state.menu.page);

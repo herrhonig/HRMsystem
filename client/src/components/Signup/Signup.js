@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { Card, CardContent, LinearProgress } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -35,184 +36,194 @@ const theme = createTheme();
 export default function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const authError = useSelector(state => state.auth.isError);
-  
+
 
   const [input, setInput] = useState({
-    first_name: '', 
-    last_name: '', 
-    middle_name: '', 
+    first_name: '',
+    last_name: '',
+    middle_name: '',
     email: '',
     password: '',
     phone: '',
-    company: '', 
-    position: ''});
+    company: '',
+    position: ''
+  });
 
 
   const inputHandler = (e) => {
-    setInput(prev => ({...prev, [e.target.name]: e.target.value}));
+    setInput(prev => ({ ...prev, [e.target.name]: e.target.value }));
   }
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(registerUser(input));
-    
+
     console.log('===== after reg ===');
     setInput({
-      first_name: '', 
-      last_name: '', 
-      middle_name: '', 
+      first_name: '',
+      last_name: '',
+      middle_name: '',
       email: '',
       password: '',
       phone: '',
-      company: '', 
-      position: ''});
+      company: '',
+      position: ''
+    });
 
-      navigate('/crm')
+    navigate('/crm')
   }
- 
+
+
   return (
-    <ThemeProvider theme={theme}>
-      <Container 
-      component="main"  
-      sx={{
-        width: 900,
-        // marginTop: 8,
-        // marginLeft: 50,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-      }}
+
+
+    <div >
+      <Card
+        sx={{
+          borderRadius: 8,
+          mb: '10rem',
+          ml: '10rem',
+          width: '60%',
+          display: 'flex',
+          justifyContent: 'center'
+
+        }}
       >
-        <CssBaseline />
-        <Box
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        >
-          <Avatar sx={{ m: 2, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h4">
-            Зарегистрироваться
-          </Typography>
-          <Box component="form" noValidate onSubmit={submitHandler} sx={{ mt: 3 }}>
-            <Grid  spacing={2}>
-              <Grid item xs={12} sm={16} mt={3}>
+        <CardContent>
+
+          <Grid
+
+
+          >
+
+            <Grid item>
+              <Box component="form" onSubmit={submitHandler} noValidate >
+                <Grid item>
+                  <Typography
+
+                    gutterBottom
+                    fontSize="1rem"
+                    variant="h1"
+                    sx={{ pb: 2, pt: 3 }}
+
+                  >
+                    Регистрация
+                  </Typography>
+
+                </Grid>
                 <TextField
                   autoComplete="given-name"
                   name="first_name"
                   required
                   fullWidth
                   id="firstName"
-                  label="First Name"
+                  label="Имя"
                   autoFocus
                   onChange={inputHandler}
-
+                  sx={{ mt: 1, mb: 2, borderRadius: 23 }}
                 />
-              </Grid>
-              <Grid item xs={12} sm={16} mt={2}>
                 <TextField
+
+                  sx={{ mt: 1, mb: 2, borderRadius: 23 }}
                   required
                   fullWidth
                   id="last_name"
-                  label="Last Name"
+                  label="Фамилия"
                   name="last_name"
                   onChange={inputHandler}
-
                 />
-              </Grid>
-              <Grid item xs={12} sm={16} mt={2}>
                 <TextField
-                  
+
+                  sx={{ mt: 1, mb: 2, borderRadius: 23 }}
                   fullWidth
                   id="lastName"
-                  label="Middle Name"
+                  label="Отчество"
                   name="middle_name"
                   onChange={inputHandler}
-
                 />
-              </Grid>
-              <Grid item xs={12} sm={16} mt={2}>
+
                 <TextField
+
+                  sx={{ mt: 1, mb: 2, borderRadius: 23 }}
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label="Email"
                   name="email"
                   onChange={inputHandler}
                 />
-              </Grid>
-              <Grid item xs={12} sm={16} mt={2}>
                 <TextField
+
+                  sx={{ mt: 1, mb: 2, borderRadius: 23 }}
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="Пароль"
                   type="password"
                   id="password"
                   autoComplete="new-password"
                   onChange={inputHandler}
-
                 />
-              </Grid>
-              <Grid item xs={12} sm={16} mt={2}>
                 <TextField
+
+                  sx={{ mt: 1, mb: 2, borderRadius: 23 }}
                   required
                   fullWidth
                   id="phone"
-                  label="Phone number"
+                  label="Номер телефона"
                   name="phone"
                   onChange={inputHandler}
-
                 />
-              </Grid>
-              <Grid item xs={12} sm={16} mt={2}>
+
                 <TextField
+
+                  sx={{ mt: 1, mb: 2, borderRadius: 23 }}
                   required
                   fullWidth
                   id="company"
-                  label="Company"
+                  label="Компания"
                   name="company"
                   onChange={inputHandler}
-
                 />
-              </Grid>
-              <Grid item xs={12} sm={16} mt={2}>
                 <TextField
+
+                  sx={{ mt: 1, mb: 2, borderRadius: 23 }}
                   required
                   fullWidth
                   id="position"
-                  label="Position"
+                  label="Позиция"
                   name="position"
                   onChange={inputHandler}
-
                 />
-              </Grid>
+                <Grid>
+                  <Link >
+                    <Button
+                      type="submit"
+
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2, borderRadius: 11, width: '30%', height: 41 }}
+                    >
+                      Зарегистрироваться
+                    </Button>
+
+                    {authError && <h3 style={{ color: 'red' }}> Ошибка регистрации!</h3>}
+                  </Link>
+                  <Grid sx={{ p: 5 }} display="inline">
+                    <Grid item>
+                      <Link href="/signin" variant="body6">
+                        У меня уже есть аккаунт
+                      </Link>
+                    </Grid>
+
+                  </Grid>
+                </Grid>
+              </Box>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
 
-            {/* {authError && <h3 style={{color: 'red'}}> Ошибка регистрации!</h3>} */}
-
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/signin" variant="body6">
-                  У меня уже есть аккаунт
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-
-      </Container>
-    </ThemeProvider>
+          </Grid>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

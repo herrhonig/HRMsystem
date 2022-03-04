@@ -57,10 +57,10 @@ function App() {
       {/* <TryMenu /> */}
 
 
-
       <Box sx={{ display: 'flex' }}>
 
-        <SideMenu />
+
+        {isAuth ? <SideMenu /> : null}
 
         {/* <TryMenu /> */}
 
@@ -72,6 +72,7 @@ function App() {
           <Routes>
             {isAuth ?
               <>
+                <Route path='/test' element={<Test />} />
                 <Route path='/crm' element={<MainAnalytics />} />
                 <Route path='/crm/vacancies' element={<VacancyAnalytics />} />
                 <Route path='/crm/vacancies/:vacancyid' element={<VacancyPage />} />

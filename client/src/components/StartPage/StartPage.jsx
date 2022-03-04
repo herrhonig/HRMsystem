@@ -1,58 +1,110 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { checkAuth, signOut } from '../../redux/slices/userSlice';
-import SignIn from '../Signin/Signin';
-import Container from '@mui/material/Container';
-import Stack from '@mui/material/Stack';
+import React, { useState } from 'react';
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import { Box } from '@mui/system';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import LinkButton from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../redux/slices/userSlice';
+import { useNavigate } from 'react-router';
+import { Card, CardContent, LinearProgress } from '@mui/material';
+import '../../index.css'
+import InsertChartIcon from '@mui/icons-material/InsertChartOutlined';
+import Alarm from '../icons/Alarm.png'
+import Paper from '@mui/material/Paper'
+import {
+  Route,
+  Routes,
+  Link,
+} from "react-router-dom";
+// import Image from './background.png'
 
-const StartPage = () => {
-  const isAuth = useSelector(state => state.auth.isAuth);
-  console.log('======= start page is auth =====>', isAuth);
+const theme = createTheme();
+
+export default function SignIn() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const authError = useSelector(state => state.auth.isError);
+
+  const [input, setInput] = useState({ email: '', password: '' });
+
+  const inputHandler = (e) => {
+    setInput(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  }
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(loginUser(input));
+
+    console.log('===== after login ===');
+    setInput({ email: '', password: '' });
+    navigate('/crm')
+  }
+
+
+
   return (
-    <>
-    <div>StartPage</div>
-      <Box
+    <Card
       sx={{
-        
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        
+        borderRadius: 8,
+        mt: '10rem',
+        ml: '25rem',
+        // width: '100%',
+        // justifyContent: 'center'
+
       }}
-      >
-        <h3>{String(isAuth)}</h3>
-        <h1>Page of CRM description:</h1>
-        <Box
-        sx={{
-          width: 200,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          margin: 5,
-          
-        }}
+    >
+      <CardContent >
+
+        <Grid
         >
-          <Link to={`/signin`}>
-            <Button variant="outlined" color="error">
-              Sign In
-            </Button>
-          </Link>
 
-          <Link to={`/signup`}>
-            <Button variant="outlined" color="success">
-              Sign Up
-            </Button>
-          </Link>
-        </Box>
-      </Box>
+          <Grid item>
+            <Box>
+              <Grid>
+                <Link to="/signin">
+                  <LinkButton>
+                    <Button
+                      type="click"
 
-    
-    </>
-  )
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2, borderRadius: 11, width: "15rem", height: 41 }}
+                    >
+                      Войти
+                    </Button>
+                  </LinkButton>
+                </Link>
+                <Grid>
+                  <Link to="/signup">
+                    <LinkButton>
+                      <Button
+                        variant="contained"
+                        sx={{ mt: 1, mb: 2, borderRadius: 11, width: "15rem", height: 41 }}
+                      >
+                        Зарегистрироваться
+                      </Button>
+                    </LinkButton>
+                  </Link>
+                </Grid>
+
+              </Grid>
+            </Box>
+          </Grid>
+
+        </Grid>
+      </CardContent >
+    </Card >
+
+
+
+  );
 }
-
-export default StartPage
