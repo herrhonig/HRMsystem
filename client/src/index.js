@@ -44,6 +44,10 @@ const theme = createTheme({
       fontFamily: 'Mont-Regular',
       fontSize: '10',
     },
+    h0: {
+      fontFamily: 'Mont-SemiBold',
+      fontSize: '10',
+    },
     h1: {
       fontFamily: 'Mont-Bold',
       fontSize: '36',
@@ -65,7 +69,7 @@ const theme = createTheme({
 });
 
 
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = 'http://localhost:4000';
 
 ReactDOM.render(
   <React.StrictMode>

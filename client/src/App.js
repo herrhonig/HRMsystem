@@ -6,7 +6,7 @@ import {
 import Index from "./components/Index";
 import Signup from "./components/Signup/Signup";
 import Signin from "./components/Signin/Signin";
-import Vacancy from "./components/Vacancy/Vacancy";
+import Vacancy from "./components/Vacancy/VacancyPage";
 import Chat from "./components/Chat/Chat";
 import Candidates from "./components/Candidates/Candidates";
 import Clients from "./components/Clients/Clients";
@@ -28,8 +28,12 @@ import SignUp from "./components/Signup/Signup";
 import CandidatesAnalytics from "./components/Candidates/CandidatesAnalytics";
 import VacancyAnalytics from "./components/Vacancy/VacancyAnalytics";
 import ClientsAnalytics from "./components/Clients/ClientsAnalytics";
-import CatMenu from "./components/NavBar/CatMenu";
 import MainAnalytics from "./components/MainAnalytics/MainAnalytics";
+import Test from "./components/Test";
+import Dashboard from "./components/pages/index";
+import VacancyPage from "./components/Vacancy/VacancyPage";
+
+
 
 
 
@@ -53,33 +57,36 @@ function App() {
       {/* <TryMenu /> */}
 
 
+
       <Box sx={{ display: 'flex' }}>
 
         <SideMenu />
 
         {/* <TryMenu /> */}
 
-        <Box component="main" sx={{ mt: 10, ml: 15 }} >
+        <Box component="main" sx={{ mt: 10, ml: 25 }} >
           {/* СЮДА ДОБАВЛЯЕМ ВСЕ ССЫЛКИ НА КОМПОНЕНТЫ */}
           {/* <Index /> */}
+
 
           <Routes>
             {isAuth ?
               <>
                 <Route path='/crm' element={<MainAnalytics />} />
                 <Route path='/crm/vacancies' element={<VacancyAnalytics />} />
-                <Route path='/crm/vacancies/:vacancyid' element={<VacancyAnalytics />} />
+                <Route path='/crm/vacancies/:vacancyid' element={<VacancyPage />} />
                 <Route path='/crm/vacancies/:vacancyid/candidates' element={<CandidatesAnalytics />} />
                 <Route path='/crm/vacancies/:vacancyid/candidates/:id' element={<Candidates />} />
                 <Route path='/crm/chat' element={<Chat />} />
                 <Route path='/crm/chat/:chatid' element={<Chat />} />
                 <Route path='/crm/candidates' element={<CandidatesAnalytics />} />
                 <Route path='/crm/candidates/:id' element={<Candidates />} />
-                <Route path='/crm/clients' element={<ClientsAnalytics />} />
+                <Route path='/crm/clients' element={<MainAnalytics />} />
                 <Route path='/crm/clients/:clientsid/vacancies' element={<VacancyAnalytics />} />
                 <Route path='/crm/clients/:clientsid/vacancies/:vacancyid' element={<Vacancy />} />
                 <Route path='/crm/clients/:clientsid/vacancies/:vacancyid/candidates/:id' element={<Candidates />} />
                 <Route path='/crm/addcandidates' element={<Addcandidates />} />
+                <Route path='/crm/addvacancy' element={<AddVacancy />} />
               </>
               :
               <>
