@@ -44,6 +44,10 @@ const theme = createTheme({
       fontFamily: 'Mont-Regular',
       fontSize: '10',
     },
+    h0: {
+      fontFamily: 'Mont-SemiBold',
+      fontSize: '10',
+    },
     h1: {
       fontFamily: 'Mont-Bold',
       fontSize: '36',

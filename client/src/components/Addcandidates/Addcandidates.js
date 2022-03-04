@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useLocation } from 'react-router-dom';
 import {
   setFirstName,
   setLastName,
@@ -33,10 +34,17 @@ import {
   addNewExp,
   addNewEd
 } from '../../redux/slices/newCandidateSlice.js';
+import { changeMenu } from '../../redux/slices/NavBarSlice';
 
 function Addcandidates() {
   // Объявления
+  const { clientsid, chatid, vacancyid, id } = useParams();
+  const location = useLocation()
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(changeMenu({ locationPath: location.pathname, clientsid, chatid, vacancyid, id }));
+  }, [location]);
 
   // Селекторы
   const hasId = useSelector((state) => state.newCandidate.id);
@@ -117,15 +125,15 @@ function Addcandidates() {
   const levelHandler = (e) => {
     dispatch(setLevel(e.target.value));
   };
-  
+
   const addNewCandidateHandler = () => {
     dispatch(addNewCandidate(newCandidate))
   };
   const addNewExpHandler = () => {
-    dispatch(addNewExp({hasId, experiences}))
+    dispatch(addNewExp({ hasId, experiences }))
   };
   const addNewEdHandler = () => {
-    dispatch(addNewEd({hasId, education}))
+    dispatch(addNewEd({ hasId, education }))
   }
 
   if (hasId === '') {
@@ -284,23 +292,23 @@ function Addcandidates() {
         {/* Ссылка на фото */}
         {/* О себе */}
         <Typography variant='h6' gutterBottom component='div'>
-            О себе
-          </Typography>
-          <Stack
-            direction='row'
-            justifyContent='flex-start'
-            alignItems='center'
-            spacing={1}
-          >
-            <TextField
-              onChange={descHandler}
-              multiline='true'
-              sx={{ width: '945px' }}
-              label='О себе'
-              color='secondary'
-              focused
-            />
-          </Stack>
+          О себе
+        </Typography>
+        <Stack
+          direction='row'
+          justifyContent='flex-start'
+          alignItems='center'
+          spacing={1}
+        >
+          <TextField
+            onChange={descHandler}
+            multiline='true'
+            sx={{ width: '945px' }}
+            label='О себе'
+            color='secondary'
+            focused
+          />
+        </Stack>
         {/* О себе */}
         <Button onClick={addNewCandidateHandler} variant='contained' color='secondary'>
           Создать

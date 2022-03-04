@@ -1,12 +1,4 @@
 import './index.css';
-import { ReactComponent as BellIcon } from './icons/bell.svg';
-import { ReactComponent as MessengerIcon } from './icons/messenger.svg';
-import { ReactComponent as CaretIcon } from './icons/caret.svg';
-import { ReactComponent as PlusIcon } from './icons/plus.svg';
-import { ReactComponent as CogIcon } from './icons/cog.svg';
-import { ReactComponent as ChevronIcon } from './icons/chevron.svg';
-import { ReactComponent as ArrowIcon } from './icons/arrow.svg';
-import { ReactComponent as BoltIcon } from './icons/bolt.svg';
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import Avatar from '@mui/material/Avatar';
 import React, { useState, useEffect, useRef } from 'react';
@@ -16,6 +8,7 @@ import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from '../../redux/slices/userSlice';
 import { useNavigate } from 'react-router';
+
 
 function TryMenu() {
   return (
@@ -105,7 +98,7 @@ function DropdownAdd() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  
+
   useEffect(() => {
     setMenuHeight(dropdownRef.current?.firstChild.offsetHeight)
   }, [])
@@ -132,21 +125,25 @@ function DropdownAdd() {
 
   return (
     <>
-    
-    <div className="dropdown" style={{ height: menuHeight }} ref={dropdownRef}>
 
-      <CSSTransition
-        in={activeMenu === 'main'}
-        timeout={500}
-        classNames="menu-primary"
-        unmountOnExit
-        onEnter={calcHeight}>
-        <div className="menu">
-          <DropdownItem>Мой настройки</DropdownItem>
-          <DropdownItem>Личные данные</DropdownItem>
-          <DropdownItem>Интеграции</DropdownItem>
-          {isAuth &&
-          <Button
+      <div className="dropdown" style={{ height: menuHeight }} ref={dropdownRef}>
+
+        <CSSTransition
+          in={activeMenu === 'main'}
+          timeout={500}
+          classNames="menu-primary"
+          unmountOnExit
+          onEnter={calcHeight}>
+          <div className="menu">
+            <DropdownItem>Мой настройки</DropdownItem>
+            <Link to="/crm/addvacancy">
+              <DropdownItem>Добавить вакансию</DropdownItem>
+            </Link>
+            <Link to="/crm/addcandidates">
+              <DropdownItem>Добавить кандидата</DropdownItem>
+            </Link>
+            {isAuth &&
+              <Button
                 type="submit"
                 fullWidth
                 color="warning"
@@ -155,11 +152,11 @@ function DropdownAdd() {
                 sx={{ mt: 3, mb: 2 }}
               >
                 Выйти
-              </Button>   
-          }
-        </div>
-      </CSSTransition>
-    </div>
+              </Button>
+            }
+          </div>
+        </CSSTransition>
+      </div>
     </>
   );
 }

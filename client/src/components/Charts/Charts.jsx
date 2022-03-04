@@ -1,81 +1,114 @@
-import "./styles.css";
-import React from "react";
-import {
-  ComposedChart,
-  Line,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  Area
-} from "recharts";
 
-const data = [
-  {
-    name: "10:23PM",
-    uv: 590,
-    amt: 1400,
-    cnt: 490
-  },
-  {
-    name: "10:40PM",
-    uv: 868,
-    amt: 1506,
-    cnt: 590
-  },
-  {
-    name: "11:15PM",
-    uv: 1397,
-    amt: 989,
-    cnt: 350
-  },
-  {
-    name: "11:40PM",
-    uv: 1480,
-    amt: 1228,
-    cnt: 480
-  },
-  {
-    name: "13:00PM",
-    uv: 1520,
-    amt: 1100,
-    cnt: 460
-  },
-  {
-    name: "14:20PM",
-    uv: 1400,
-    amt: 1700,
-    cnt: 380
-  }
-];
+import React from 'react';
+import { Chart } from 'primereact/chart';
 
-export default function Charts() {
-  return (
-    <ComposedChart
-      width={730}
-      height={250}
-      data={data}
-      margin={{
-        top: 20,
-        right: 80,
-        bottom: 20,
-        left: 20
-      }}
-    >
-      <CartesianGrid stroke="#f5f5f5" />
-      <XAxis
-        dataKey="name"
-        label={{  position: "insideBottomRight", offset: 0 }}
-        scale="band"
-      />
-      <YAxis label={{  angle: -90, position: "insideLeft" }} />
-      <Tooltip />
-      <Legend />
-      <Area type="monotone" dataKey="amt" stroke="#8884d8" />
-      <Bar dataKey="pv" barSize={20} fill="#413ea0" />
-      <Line type="monotone" dataKey="uv" stroke="#ff7300" />
-    </ComposedChart>
-  );
+const Charts = () => {
+    const lineStylesData = {
+        labels: ['10:40PM', '10:55PM', '11:10PM', '11:15PM', '12:45PM', '14:40PM', '16:30PM'],
+        datasets: [
+            {
+                label: 'Quantity',
+                data: [12, 51, 62, 33, 21, 62, 45],
+                fill: true,
+                borderColor: '#FFA726',
+                tension: .4,
+                backgroundColor: 'rgba(155,137,38,0.2)'
+            }
+        ]
+    };
+
+    const getLightTheme = () => {
+        let basicOptions = {
+            maintainAspectRatio: false,
+            aspectRatio: .6,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#495057'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#495057'
+                    },
+                    grid: {
+                        color: '#ebedef'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#495057'
+                    },
+                    grid: {
+                        color: '#ebedef'
+                    }
+                }
+            }
+        };
+
+        let multiAxisOptions = {
+            stacked: false,
+            maintainAspectRatio: false,
+            aspectRatio: .6,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#495057'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#495057'
+                    },
+                    grid: {
+                        color: '#ebedef'
+                    }
+                },
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    ticks: {
+                        color: '#495057'
+                    },
+                    grid: {
+                        color: '#ebedef'
+                    }
+                },
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    ticks: {
+                        color: '#495057'
+                    },
+                    grid: {
+                        drawOnChartArea: false,
+                        color: '#ebedef'
+                    }
+                }
+            }
+        };
+
+        return {
+            basicOptions,
+            multiAxisOptions
+        }
+    }
+
+    const { basicOptions} = getLightTheme();
+
+    return (
+        <div>
+            <div className="card">
+                <Chart type="line" data={lineStylesData} options={basicOptions} />
+            </div>
+        </div>
+    )
 }
+
+export default Charts

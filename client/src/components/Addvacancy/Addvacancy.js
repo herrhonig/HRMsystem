@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -8,6 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useDispatch, useSelector } from 'react-redux';
+import { changeMenu } from '../../redux/slices/NavBarSlice';
 import { addData, addNewVacancy } from '../../redux/slices/newVacancySlice';
 import {
   setPositionVac,
@@ -24,6 +26,8 @@ import {
 
 function AddVacancy() {
   // объявления
+  const { clientsid, chatid, vacancyid, id } = useParams();
+  const location = useLocation()
   const dispatch = useDispatch();
 
   // Стейты
@@ -73,7 +77,8 @@ function AddVacancy() {
   // useEffect
   useEffect(() => {
     dispatch(addData());
-  }, []);
+    dispatch(changeMenu({ locationPath: location.pathname, clientsid, chatid, vacancyid, id }));
+  }, [location]);
 
   return (
     <Stack
